@@ -103,54 +103,39 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
 .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; transition: 0.3s; font-size: 0.9rem; }
 .nav-links a:hover { color: var(--text); }
 
-/* --- Hero Section с Видео --- */
+/* --- Hero Section --- */
 .hero {
     min-height: 95vh; display: flex; align-items: center;
     padding: 120px 5% 0; position: relative; overflow: hidden;
 }
-
-/* НОВЫЕ СТИЛИ ДЛЯ ФОНОВОГО ВИДЕО */
 .hero-bg-video {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover; /* Видео заполняет весь экран, сохраняя пропорции */
-    z-index: -2;
-    opacity: 0.4; /* Полупрозрачность */
+    object-fit: cover; z-index: -2; opacity: 0.4;
 }
-
 .hero-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    /* Градиент поверх видео, чтобы текст лучше читался */
     background: radial-gradient(circle at center, transparent 0%, var(--bg) 80%),
                 linear-gradient(to bottom, transparent 50%, var(--bg) 100%);
     z-index: -1;
 }
 .hero-content { max-width: 800px; z-index: 2; }
 
-/* --- Showcase Sections --- */
+/* --- Showcase Sections (Основа зигзага) --- */
 .showcase-section {
     padding: var(--section-spacing) 5%;
     display: flex; align-items: center; gap: 60px;
     min-height: 80vh;
+    flex-direction: row; /* По умолчанию: текст слева, картинка справа */
 }
-.showcase-section.right-layout { justify-content: space-between; }
-.showcase-section.left-layout { flex-direction: row-reverse; justify-content: space-between; }
+.showcase-section.left-layout { 
+    flex-direction: row-reverse; /* Меняем местами: картинка слева, текст справа */
+}
 
 .showcase-text { flex: 1; max-width: 500px; }
 .showcase-text h2 { font-size: 2.8rem; line-height: 1.2; }
 .showcase-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 30px; }
 
-.feature-list { list-style: none; }
-.feature-list li {
-    margin-bottom: 20px; padding-left: 30px; position: relative; color: var(--text-muted);
-}
-.feature-list li::before {
-    content: ''; position: absolute; left: 0; top: 8px;
-    width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
-    box-shadow: 0 0 10px var(--accent);
-}
-.feature-list li strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 1.1rem; }
-
-/* --- Phone Mockups (Мокапы телефонов) --- */
+/* --- Phone Mockups --- */
 .showcase-visual { flex: 1; display: flex; justify-content: center; position: relative; perspective: 1500px; }
 
 .phone-mockup {
@@ -160,27 +145,19 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     overflow: hidden;
     box-shadow: 0 20px 50px -20px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,255,255,0.05);
     background: #000;
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* transition управляется из JS для плавности, но оставляем базовый для возврата */
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
+    cursor: pointer;
 }
 
-/* НОВЫЕ СТИЛИ: Поддержка изображений И видео внутри телефона */
 .phone-mockup img, 
 .phone-mockup video { 
     width: 100%; 
-    height: 100%; /* Важно для видео, чтобы оно заполнило контейнер */
+    height: 100%; 
     object-fit: cover;
     display: block; 
 }
-
-/* Эффекты наклона */
-.tilt-left:hover { transform: rotateY(-15deg) rotateX(5deg) scale(1.02); z-index: 10; }
-.tilt-right:hover { transform: rotateY(15deg) rotateX(5deg) scale(1.02); z-index: 10; }
-.tilt-center:hover { transform: rotateY(0deg) rotateX(5deg) scale(1.05); }
-
-.dual-phones { align-items: center; }
-.phone-mockup.p-left { transform: rotateY(-10deg) translateX(20px) scale(0.9); opacity: 0.8; z-index: 1; }
-.phone-mockup.p-right { transform: rotateY(10deg) translateX(-20px); z-index: 5; box-shadow: 0 30px 60px -30px rgba(139, 92, 246, 0.5); }
 
 .floating-settings {
     position: absolute; bottom: -40px; right: -40px;
@@ -188,10 +165,8 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     overflow: hidden; border: 4px solid #1a1a1a;
     box-shadow: 0 15px 30px -10px rgba(0,0,0,0.8);
     transform: rotate(-5deg); z-index: 10;
-    animation: floatSettings 6s ease-in-out infinite alternate;
+    pointer-events: none;
 }
-.floating-settings img { width: 100%; }
-@keyframes floatSettings { 0% { transform: rotate(-5deg) translateY(0); } 100% { transform: rotate(-8deg) translateY(15px); } }
 
 /* --- Features Grid --- */
 .features-grid-section { padding: var(--section-spacing) 5%; }
@@ -234,10 +209,17 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
 /* --- Адаптивность --- */
 @media (max-width: 1024px) {
     h1 { font-size: 3rem; }
-    .showcase-section { flex-direction: column; text-align: center; gap: 60px; padding-top: 80px; }
-    .showcase-section.left-layout { flex-direction: column; }
+    
+    /* ГЛАВНОЕ ПРАВИЛО ДЛЯ ТЕЛЕФОНОВ: Отменяем зигзаг, ставим текст над картинкой */
+    .showcase-section, 
+    .showcase-section.left-layout { 
+        flex-direction: column; 
+        text-align: center; 
+        gap: 60px; 
+        padding-top: 80px; 
+    }
+    
     .showcase-text { max-width: 100%; margin: 0 auto; }
-    .feature-list { display: inline-block; text-align: left; }
     .phone-mockup { width: 260px; }
     .nav-links.desktop-only { display: none; }
 }
@@ -250,11 +232,9 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     .showcase-section { padding: 60px 5%; }
     .showcase-text h2 { font-size: 2rem; }
     
-    .dual-phones { flex-direction: column; gap: 30px; }
-    .phone-mockup.p-left, .phone-mockup.p-right { transform: none !important; opacity: 1; box-shadow: none; }
     .phone-mockup { width: 240px; border-width: 5px; }
     .floating-settings { display: none; }
     
     .feature-grid { grid-template-columns: 1fr; }
     .footer-content h2 { font-size: 2rem; }
-}
+                          }
