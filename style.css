@@ -11,13 +11,19 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Блокируем горизонтальный скролл на всех устройствах */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 html { scroll-behavior: smooth; }
 
 body {
     background-color: var(--bg);
     color: var(--text);
     font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
     line-height: 1.6;
 }
 
@@ -120,15 +126,15 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
 }
 .hero-content { max-width: 800px; z-index: 2; }
 
-/* --- Showcase Sections (Основа зигзага) --- */
+/* --- Showcase Sections --- */
 .showcase-section {
     padding: var(--section-spacing) 5%;
     display: flex; align-items: center; gap: 60px;
     min-height: 80vh;
-    flex-direction: row; /* По умолчанию: текст слева, картинка справа */
+    flex-direction: row; 
 }
 .showcase-section.left-layout { 
-    flex-direction: row-reverse; /* Меняем местами: картинка слева, текст справа */
+    flex-direction: row-reverse; 
 }
 
 .showcase-text { flex: 1; max-width: 500px; }
@@ -136,7 +142,18 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
 .showcase-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 30px; }
 
 /* --- Phone Mockups --- */
-.showcase-visual { flex: 1; display: flex; justify-content: center; position: relative; perspective: 1500px; }
+.showcase-visual { 
+    flex: 1; 
+    display: flex; 
+    justify-content: center; 
+    perspective: 1500px; 
+}
+
+/* Обертка для фиксации плавающего меню */
+.mockup-wrapper {
+    position: relative;
+    display: inline-block;
+}
 
 .phone-mockup {
     width: 300px; height: auto;
@@ -145,7 +162,6 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     overflow: hidden;
     box-shadow: 0 20px 50px -20px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,255,255,0.05);
     background: #000;
-    /* transition управляется из JS для плавности, но оставляем базовый для возврата */
     transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     cursor: pointer;
@@ -159,6 +175,7 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     display: block; 
 }
 
+/* Плавающее меню */
 .floating-settings {
     position: absolute; bottom: -40px; right: -40px;
     width: 200px; border-radius: 25px;
@@ -166,6 +183,13 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     box-shadow: 0 15px 30px -10px rgba(0,0,0,0.8);
     transform: rotate(-5deg); z-index: 10;
     pointer-events: none;
+}
+
+/* ВАЖНО: Фикс огромной картинки в плавающем меню */
+.floating-settings img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* --- Features Grid --- */
@@ -210,7 +234,6 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
 @media (max-width: 1024px) {
     h1 { font-size: 3rem; }
     
-    /* ГЛАВНОЕ ПРАВИЛО ДЛЯ ТЕЛЕФОНОВ: Отменяем зигзаг, ставим текст над картинкой */
     .showcase-section, 
     .showcase-section.left-layout { 
         flex-direction: column; 
@@ -227,6 +250,14 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
 @media (max-width: 768px) {
     .navbar { padding: 15px 5%; }
     .hero { padding-top: 140px; align-items: flex-start; min-height: auto; padding-bottom: 80px; }
+    
+    /* Фикс обрезанного логотипа hero-video на мобилках */
+    .hero-bg-video { 
+        object-fit: contain; 
+        object-position: top center;
+        opacity: 0.6; 
+    }
+
     h1 { font-size: 2.5rem; }
     .lead-text { font-size: 1.1rem; }
     .showcase-section { padding: 60px 5%; }
@@ -237,4 +268,4 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     
     .feature-grid { grid-template-columns: 1fr; }
     .footer-content h2 { font-size: 2rem; }
-                          }
+    }
