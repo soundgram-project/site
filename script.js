@@ -39,47 +39,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 3. Динамический 3D-наклон телефонов (Parallax Effect)
-    const phones = document.querySelectorAll('.phone-mockup');
+    const visuals = document.querySelectorAll('.showcase-visual');
 
-    phones.forEach(phone => {
-        // Функция для обработки наклона
+    visuals.forEach(visual => {
+        const phone = visual.querySelector('.phone-mockup');
+        if (!phone) return;
+
+        // Обработчик движения мыши (считываем с РОДИТЕЛЯ, чтобы не было дёрганий)
         const handleMove = (e) => {
-            const rect = phone.getBoundingClientRect();
+            // Отключаем на мобилках для сохранения плавной прокрутки
+            if (window.innerWidth <= 768) return;
+
+            const rect = visual.getBoundingClientRect();
             
-            // Определяем координаты мыши/касания относительно самого элемента
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            const clientX = e.clientX;
+            const clientY = e.clientY;
             
             const x = clientX - rect.left;
             const y = clientY - rect.top;
             
-            // Центр элемента
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            // Вычисляем угол наклона (максимум 15 градусов)
-            const rotateX = ((y - centerY) / centerY) * -15;
-            const rotateY = ((x - centerX) / centerX) * 15;
+            const rotateX = ((y - centerY) / centerY) * -10; // Снизил угол для плавности
+            const rotateY = ((x - centerX) / centerX) * 10;
             
-            // Применяем стили без задержки (чтобы телефон "прилипал" к курсору)
-            phone.style.transition = 'none';
-            phone.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-            phone.style.zIndex = '10';
+            phone.style.transition = 'transform 0.1s ease-out';
+            phone.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
         };
 
         // Возврат в исходное положение
         const resetTilt = () => {
+            if (window.innerWidth <= 768) return;
             phone.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
             phone.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-            phone.style.zIndex = '1';
         };
 
-        // Слушатели для ПК (мышь)
-        phone.addEventListener('mousemove', handleMove);
-        phone.addEventListener('mouseleave', resetTilt);
-
-        // Слушатели для телефонов (касания)
-        phone.addEventListener('touchmove', handleMove);
-        phone.addEventListener('touchend', resetTilt);
+        // Слушатели только для ПК (мышь)
+        visual.addEventListener('mousemove', handleMove);
+        visual.addEventListener('mouseleave', resetTilt);
     });
 });
