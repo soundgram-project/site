@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundGram — Telegram нового поколения</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="ambient-light one"></div>
+    <div class="ambient-light two"></div>
+    <div class="ambient-light three"></div>
+
+    <nav class="navbar hidden">
+        <div class="logo">
+            <span class="brand-text">SoundGram</span>
+        </div>
+        <div class="nav-links desktop-only">
+            <a href="#music">Музыка</a>
+            <a href="#visual">Визуал</a>
+            <a href="#features">Возможности</a>
+        </div>
+        <a href="https://t.me/SoundGram_project" target="_blank" class="tg-btn__nav">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.665 3.333L3.333 10.665L8.665 13.333L18 6L10.665 15.333L16 20.665L20.665 3.333Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Канал проекта
+        </a>
+    </nav>
+
+    <header class="hero header-section hidden">
+        <video class="hero-bg-video" autoplay loop muted playsinline poster="assets/hero-miku.png">
+            <source src="assets/hero-video.mp4" type="video/mp4">
+        </video>
+        
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <span class="badge-new delay-200 hidden">Революция в общении</span>
+            <h1 class="delay-300 hidden">Telegram, который<br> <span class="gradient-text">звучит и выглядит</span> так, как хочешь ты.</h1>
+            <p class="lead-text delay-400 hidden">Ультимативная модификация клиента: встроенный музыкальный комбайн, живые видео-обои в чатах и безграничная кастомизация интерфейса.</p>
+            <div class="buttons delay-500 hidden">
+                <a href="https://t.me/SoundGram_project" target="_blank" class="btn-primary glow-effect">
+                    Вступить в сообщество
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="showcase-section right-layout" id="music">
+        <div class="showcase-text hidden">
+            <h2>Музыкальный центр <span class="accent-color">без ограничений</span></h2>
+            <p>Забудьте о сторонних плеерах. SoundGram интегрирует музыку прямо в сердце Telegram.</p>
+            <ul class="feature-list">
+                <li><strong>Глобальный поиск:</strong> Находите любые треки, ремиксы и каверы за секунды.</li>
+                <li><strong>Умный кэш и скачивание:</strong> Сохраняйте музыку в один клик и слушайте оффлайн в высоком качестве.</li>
+                <li><strong>Полноценный плеер:</strong> Удобное управление очередью, тексты песен и красивые обложки прямо в чате.</li>
+            </ul>
+        </div>
+        <div class="showcase-visual dual-phones hidden delay-200">
+            <div class="phone-mockup p-left tilt-left">
+                <img src="assets/feature-search.png" alt="Интерфейс поиска музыки">
+            </div>
+            <div class="phone-mockup p-right tilt-right main-focus">
+                <img src="assets/feature-player.png" alt="Интерфейс музыкального плеера">
+            </div>
+        </div>
+    </section>
+
+    <section class="showcase-section left-layout" id="visual">
+        <div class="showcase-visual single-phone hidden">
+            <div class="phone-mockup tilt-center video-container">
+                <video autoplay loop muted playsinline poster="assets/feature-chat-bg.png">
+                    <source src="assets/feature-video-bg.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="floating-settings hidden delay-400">
+                <img src="assets/feature-settings.png" alt="Меню настроек">
+            </div>
+        </div>
+        <div class="showcase-text hidden delay-200">
+            <h2>Твой уникальный <span class="gradient-text">Flow Design</span></h2>
+            <p>Сделай Telegram продолжением своего стиля. SoundGram дает инструменты для полной визуальной трансформации.</p>
+            <ul class="feature-list">
+                <li><strong>Живые Видео-обои:</strong> Используй любимые аниме-сцены или видео из галереи как анимированный фон чата. Поддержка плавного воспроизведения 24FPS.</li>
+                <li><strong>Атмосферные фоны:</strong> Устанавливай уникальные обои не только в чаты, но и в главное меню списка диалогов.</li>
+                <li><strong>Глубокие настройки:</strong> Управляй каждым аспектом оформления через специальное меню SoundGram.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="features-grid-section" id="features">
+        <h2 class="text-center hidden">Продумано до мелочей</h2>
+        <div class="feature-grid">
+            <div class="feature-box frosted-glass hidden">
+                <div class="f-icon">🎧</div>
+                <h3>Hi-Res Аудио</h3>
+                <p>Поддержка воспроизведения треков в исходном качестве без принудительного сжатия.</p>
+            </div>
+            <div class="feature-box frosted-glass hidden delay-100">
+                <div class="f-icon">📂</div>
+                <h3>Мульти-добавление</h3>
+                <p>Выделяйте десятки треков в поиске и добавляйте их в свой плейлист одним нажатием.</p>
+            </div>
+            <div class="feature-box frosted-glass hidden delay-200">
+                <div class="f-icon">📹</div>
+                <h3>Видео-кружки из галереи</h3>
+                <p>Отправляйте любые готовые видео как "живые" круглые видеосообщения.</p>
+            </div>
+            <div class="feature-box frosted-glass hidden delay-300">
+                <div class="f-icon">🚀</div>
+                <h3>Оптимизация</h3>
+                <p>Несмотря на обилие функций, клиент остается быстрым и не расходует лишнюю батарею.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="cta-footer">
+        <div class="footer-content hidden">
+            <h2>Готов изменить свой опыт общения?</h2>
+            <p>Присоединяйся к каналу проекта, следи за новостями и стань одним из первых пользователей SoundGram.</p>
+            <a href="https://t.me/SoundGram_project" target="_blank" class="btn-primary glow-effect big-btn">
+                Перейти в Telegram канал
+            </a>
+        </div>
+        <div class="copyright">
+            <p>SoundGram Project © 2026. Не является официальным клиентом Telegram.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

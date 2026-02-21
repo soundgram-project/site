@@ -1,0 +1,260 @@
+:root {
+    --bg: #030005;
+    --text: #ffffff;
+    --text-muted: #a3a3a3;
+    --accent: #8b5cf6;
+    --accent-hover: #7c3aed;
+    --accent-secondary: #db2777;
+    --glass-bg: rgba(20, 20, 30, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --section-spacing: 120px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* --- Анимации появления --- */
+.hidden { opacity: 0; transform: translateY(40px) scale(0.98); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.show { opacity: 1; transform: translateY(0) scale(1); }
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+.delay-500 { transition-delay: 0.5s; }
+
+/* --- Фоновый свет --- */
+.ambient-light {
+    position: fixed;
+    width: 60vw;
+    height: 60vw;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    z-index: -1;
+    pointer-events: none;
+}
+.one { top: -20%; left: -20%; background: var(--accent); animation: floatLight 15s infinite alternate-reverse; }
+.two { bottom: -20%; right: -20%; background: var(--accent-secondary); animation: floatLight 12s infinite alternate; }
+.three { top: 40%; left: 30%; width: 40vw; height: 40vw; background: #4c1d95; opacity: 0.1; animation: floatLight 20s infinite alternate-reverse; }
+
+@keyframes floatLight { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.1); } }
+
+/* --- Типографика --- */
+h1 { font-size: 4rem; line-height: 1.1; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 24px; }
+h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; }
+p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; margin-bottom: 40px; }
+.text-center { text-align: center; }
+.accent-color { color: var(--accent); }
+
+.gradient-text {
+    background: linear-gradient(135deg, #a78bfa 0%, #f472b6 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* --- Кнопки и Бейджи --- */
+.badge-new {
+    background: rgba(139, 92, 246, 0.15); color: #c4b5fd;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 0.85rem; font-weight: 600;
+    margin-bottom: 20px; display: inline-block;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--text); color: black;
+    padding: 16px 32px; border-radius: 40px;
+    text-decoration: none; font-weight: 700; font-size: 1rem;
+    transition: all 0.3s ease;
+}
+.btn-primary:hover { transform: translateY(-3px); background: #ffffff; }
+.btn-primary.glow-effect:hover { box-shadow: 0 0 30px rgba(167, 139, 250, 0.5); }
+.big-btn { padding: 18px 40px; font-size: 1.1rem; }
+
+.tg-btn__nav {
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none; color: white;
+    background: rgba(255,255,255,0.05);
+    padding: 10px 20px; border-radius: 30px;
+    border: 1px solid var(--glass-border);
+    transition: 0.3s; font-weight: 600; font-size: 0.9rem;
+}
+.tg-btn__nav:hover { background: var(--accent); border-color: var(--accent); color: white; }
+
+/* --- Навигация --- */
+.navbar {
+    padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
+    position: fixed; width: 100%; z-index: 100; top: 0;
+    background: rgba(3, 0, 5, 0.7); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+}
+.brand-text { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; }
+.nav-links.desktop-only { display: flex; gap: 30px; }
+.nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; transition: 0.3s; font-size: 0.9rem; }
+.nav-links a:hover { color: var(--text); }
+
+/* --- Hero Section с Видео --- */
+.hero {
+    min-height: 95vh; display: flex; align-items: center;
+    padding: 120px 5% 0; position: relative; overflow: hidden;
+}
+
+/* НОВЫЕ СТИЛИ ДЛЯ ФОНОВОГО ВИДЕО */
+.hero-bg-video {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; /* Видео заполняет весь экран, сохраняя пропорции */
+    z-index: -2;
+    opacity: 0.4; /* Полупрозрачность */
+}
+
+.hero-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    /* Градиент поверх видео, чтобы текст лучше читался */
+    background: radial-gradient(circle at center, transparent 0%, var(--bg) 80%),
+                linear-gradient(to bottom, transparent 50%, var(--bg) 100%);
+    z-index: -1;
+}
+.hero-content { max-width: 800px; z-index: 2; }
+
+/* --- Showcase Sections --- */
+.showcase-section {
+    padding: var(--section-spacing) 5%;
+    display: flex; align-items: center; gap: 60px;
+    min-height: 80vh;
+}
+.showcase-section.right-layout { justify-content: space-between; }
+.showcase-section.left-layout { flex-direction: row-reverse; justify-content: space-between; }
+
+.showcase-text { flex: 1; max-width: 500px; }
+.showcase-text h2 { font-size: 2.8rem; line-height: 1.2; }
+.showcase-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 30px; }
+
+.feature-list { list-style: none; }
+.feature-list li {
+    margin-bottom: 20px; padding-left: 30px; position: relative; color: var(--text-muted);
+}
+.feature-list li::before {
+    content: ''; position: absolute; left: 0; top: 8px;
+    width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent);
+}
+.feature-list li strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 1.1rem; }
+
+/* --- Phone Mockups (Мокапы телефонов) --- */
+.showcase-visual { flex: 1; display: flex; justify-content: center; position: relative; perspective: 1500px; }
+
+.phone-mockup {
+    width: 300px; height: auto;
+    border-radius: 40px;
+    border: 8px solid #1a1a1a;
+    overflow: hidden;
+    box-shadow: 0 20px 50px -20px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,255,255,0.05);
+    background: #000;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+}
+
+/* НОВЫЕ СТИЛИ: Поддержка изображений И видео внутри телефона */
+.phone-mockup img, 
+.phone-mockup video { 
+    width: 100%; 
+    height: 100%; /* Важно для видео, чтобы оно заполнило контейнер */
+    object-fit: cover;
+    display: block; 
+}
+
+/* Эффекты наклона */
+.tilt-left:hover { transform: rotateY(-15deg) rotateX(5deg) scale(1.02); z-index: 10; }
+.tilt-right:hover { transform: rotateY(15deg) rotateX(5deg) scale(1.02); z-index: 10; }
+.tilt-center:hover { transform: rotateY(0deg) rotateX(5deg) scale(1.05); }
+
+.dual-phones { align-items: center; }
+.phone-mockup.p-left { transform: rotateY(-10deg) translateX(20px) scale(0.9); opacity: 0.8; z-index: 1; }
+.phone-mockup.p-right { transform: rotateY(10deg) translateX(-20px); z-index: 5; box-shadow: 0 30px 60px -30px rgba(139, 92, 246, 0.5); }
+
+.floating-settings {
+    position: absolute; bottom: -40px; right: -40px;
+    width: 200px; border-radius: 25px;
+    overflow: hidden; border: 4px solid #1a1a1a;
+    box-shadow: 0 15px 30px -10px rgba(0,0,0,0.8);
+    transform: rotate(-5deg); z-index: 10;
+    animation: floatSettings 6s ease-in-out infinite alternate;
+}
+.floating-settings img { width: 100%; }
+@keyframes floatSettings { 0% { transform: rotate(-5deg) translateY(0); } 100% { transform: rotate(-8deg) translateY(15px); } }
+
+/* --- Features Grid --- */
+.features-grid-section { padding: var(--section-spacing) 5%; }
+.feature-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; margin-top: 60px;
+}
+.feature-box {
+    padding: 40px; border-radius: 30px;
+    transition: 0.4s; border: 1px solid var(--glass-border);
+    display: flex; flex-direction: column; align-items: flex-start;
+}
+.frosted-glass {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.feature-box:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px -20px rgba(139, 92, 246, 0.3);
+}
+.f-icon { font-size: 2.5rem; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(139,92,246,0.3)); }
+.feature-box h3 { font-size: 1.3rem; margin-bottom: 15px; font-weight: 700; }
+.feature-box p { color: var(--text-muted); font-size: 1rem; line-height: 1.5; }
+
+/* --- Footer --- */
+.cta-footer {
+    padding: var(--section-spacing) 5% 40px; text-align: center;
+    background: linear-gradient(to top, #0a0a0a, transparent);
+}
+.footer-content { margin-bottom: 80px; }
+.footer-content h2 { font-size: 3rem; margin-bottom: 20px; }
+.footer-content p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; }
+.copyright {
+    padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.9rem; color: #666;
+}
+
+/* --- Адаптивность --- */
+@media (max-width: 1024px) {
+    h1 { font-size: 3rem; }
+    .showcase-section { flex-direction: column; text-align: center; gap: 60px; padding-top: 80px; }
+    .showcase-section.left-layout { flex-direction: column; }
+    .showcase-text { max-width: 100%; margin: 0 auto; }
+    .feature-list { display: inline-block; text-align: left; }
+    .phone-mockup { width: 260px; }
+    .nav-links.desktop-only { display: none; }
+}
+
+@media (max-width: 768px) {
+    .navbar { padding: 15px 5%; }
+    .hero { padding-top: 140px; align-items: flex-start; min-height: auto; padding-bottom: 80px; }
+    h1 { font-size: 2.5rem; }
+    .lead-text { font-size: 1.1rem; }
+    .showcase-section { padding: 60px 5%; }
+    .showcase-text h2 { font-size: 2rem; }
+    
+    .dual-phones { flex-direction: column; gap: 30px; }
+    .phone-mockup.p-left, .phone-mockup.p-right { transform: none !important; opacity: 1; box-shadow: none; }
+    .phone-mockup { width: 240px; border-width: 5px; }
+    .floating-settings { display: none; }
+    
+    .feature-grid { grid-template-columns: 1fr; }
+    .footer-content h2 { font-size: 2rem; }
+}
