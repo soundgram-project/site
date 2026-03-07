@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const options = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.1
+        threshold: 0.15 // Немного увеличил порог для более плавного эффекта
     };
 
     const observerCallback = (entries, observer) => {
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 3. Динамический 3D-наклон телефонов
+    // 3. Динамический 3D-наклон телефонов (Автоматически применится и к новому скрину)
     const visuals = document.querySelectorAll('.showcase-visual');
 
     visuals.forEach(visual => {
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!phone) return;
 
         const handleMove = (e) => {
-            if (window.innerWidth <= 768) return;
+            if (window.innerWidth <= 1024) return; // Отключаем эффект на планшетах и телефонах
 
             const rect = visual.getBoundingClientRect();
             const clientX = e.clientX;
@@ -58,16 +58,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const rotateX = ((y - centerY) / centerY) * -10;
-            const rotateY = ((x - centerX) / centerX) * 10;
+            const rotateX = ((y - centerY) / centerY) * -12; // Чуть усилил эффект
+            const rotateY = ((x - centerX) / centerX) * 12;
             
-            phone.style.transition = 'transform 0.1s ease-out';
-            phone.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+            phone.style.transition = 'transform 0.1s ease-out, box-shadow 0.1s ease-out';
+            phone.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
         };
 
         const resetTilt = () => {
-            if (window.innerWidth <= 768) return;
-            phone.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            if (window.innerWidth <= 1024) return;
+            phone.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.6s ease';
             phone.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
         };
 
@@ -76,13 +76,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 4. Логика счетчика скачиваний (Локальная имитация)
-    const BASE_DOWNLOADS = 1204; // Базовое красивое число
+    const BASE_DOWNLOADS = 1204;
     const LOCAL_STORAGE_KEY = 'soundgram_downloads';
     
     const downloadDisplays = document.querySelectorAll('.dl-count-display');
     const downloadTriggers = document.querySelectorAll('.download-trigger');
 
-    // Получаем текущее количество (базовое + то, что накликал пользователь)
     let currentDownloads = localStorage.getItem(LOCAL_STORAGE_KEY);
     
     if (!currentDownloads) {
@@ -92,8 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
         currentDownloads = parseInt(currentDownloads, 10);
     }
 
-    // Функция обновления цифр на сайте
     const updateDisplays = (num) => {
+        if(downloadDisplays.length === 0) return;
         downloadDisplays.forEach(display => {
             display.textContent = num.toLocaleString('ru-RU');
         });
@@ -101,7 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateDisplays(currentDownloads);
 
-    // Добавляем событие клика на кнопки скачивания
     downloadTriggers.forEach(btn => {
         btn.addEventListener('click', () => {
             currentDownloads++;
@@ -110,3 +108,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+                
