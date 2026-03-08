@@ -21,6 +21,13 @@ html { scroll-behavior: smooth; }
 
 body {
     background-color: var(--bg);
+    /* Добавлена легкая технологичная сетка на фон */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center top;
+    
     color: var(--text);
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
@@ -73,6 +80,7 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     font-size: 0.85rem; font-weight: 600;
     margin-bottom: 20px; display: inline-block;
     border: 1px solid rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
 }
 
 .hero-buttons {
@@ -90,7 +98,8 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     transition: all 0.3s ease;
 }
 .btn-primary:hover { transform: translateY(-3px); background: #ffffff; }
-.btn-primary.glow-effect:hover { box-shadow: 0 0 30px rgba(167, 139, 250, 0.5); }
+.btn-primary.glow-effect { box-shadow: 0 0 20px rgba(167, 139, 250, 0.3); }
+.btn-primary.glow-effect:hover { box-shadow: 0 0 35px rgba(167, 139, 250, 0.6); }
 
 .btn-secondary {
     display: inline-flex; align-items: center; gap: 10px;
@@ -117,61 +126,33 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     border: 1px solid var(--glass-border);
     transition: 0.3s; font-weight: 600; font-size: 0.9rem;
 }
-.tg-btn__nav:hover { background: var(--accent); border-color: var(--accent); color: white; }
-
-/* --- Счетчик скачиваний --- */
-.download-counter {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    font-weight: 500;
-}
-.download-counter b {
-    color: var(--text);
-    font-weight: 700;
-}
-.pulse-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #10b981;
-    border-radius: 50%;
-    display: inline-block;
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-    animation: pulse 2s infinite;
-}
-@keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-}
+.tg-btn__nav:hover { background: var(--accent); border-color: var(--accent); color: white; box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }
 
 /* --- Навигация --- */
 .navbar {
     padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
     position: fixed; width: 100%; z-index: 100; top: 0;
-    background: rgba(3, 0, 5, 0.7); backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--glass-border);
+    background: rgba(3, 0, 5, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 .brand-text { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; }
 .nav-links.desktop-only { display: flex; gap: 30px; }
 .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; transition: 0.3s; font-size: 0.9rem; }
-.nav-links a:hover { color: var(--text); }
+.nav-links a:hover { color: var(--text); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
 /* --- Hero Section --- */
 .hero {
-    min-height: 95vh; display: flex; align-items: center;
+    min-height: 100vh; display: flex; align-items: center;
     padding: 120px 5% 0; position: relative; overflow: hidden;
 }
 .hero-bg-video {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover; z-index: -2; opacity: 0.4;
+    object-fit: cover; z-index: -2; opacity: 0.3; /* Сделал чуть темнее для контраста текста */
 }
 .hero-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background: radial-gradient(circle at center, transparent 0%, var(--bg) 80%),
-                linear-gradient(to bottom, transparent 50%, var(--bg) 100%);
+                linear-gradient(to bottom, transparent 60%, var(--bg) 100%);
     z-index: -1;
 }
 .hero-content { max-width: 800px; z-index: 2; }
@@ -206,11 +187,16 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     border-radius: 40px;
     border: 8px solid #1a1a1a;
     overflow: hidden;
-    box-shadow: 0 20px 50px -20px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,255,255,0.05);
+    /* Улучшенная тень для придания объема */
+    box-shadow: 0 25px 60px -15px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.1), 0 0 30px rgba(139, 92, 246, 0.1);
     background: #000;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.6s ease;
     position: relative;
     cursor: pointer;
+}
+
+.phone-mockup:hover {
+    box-shadow: 0 30px 70px -15px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.15), 0 0 45px rgba(139, 92, 246, 0.25);
 }
 
 .phone-mockup img, 
@@ -235,7 +221,7 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
 }
 .feature-box:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: var(--accent);
+    border-color: rgba(139, 92, 246, 0.5);
     transform: translateY(-10px);
     box-shadow: 0 20px 40px -20px rgba(139, 92, 246, 0.3);
 }
@@ -246,7 +232,7 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
 /* --- Footer --- */
 .cta-footer {
     padding: var(--section-spacing) 5% 40px; text-align: center;
-    background: linear-gradient(to top, #0a0a0a, transparent);
+    background: linear-gradient(to top, rgba(10,10,10,0.8), transparent);
 }
 .footer-content { margin-bottom: 80px; }
 .footer-content h2 { font-size: 3rem; margin-bottom: 20px; }
@@ -259,21 +245,24 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
 /* --- Адаптивность --- */
 @media (max-width: 1024px) {
     h1 { font-size: 3rem; }
-    .showcase-section, .showcase-section.left-layout { flex-direction: column; text-align: center; gap: 60px; padding-top: 80px; }
+    .showcase-section, .showcase-section.left-layout { flex-direction: column; text-align: center; gap: 50px; padding-top: 80px; padding-bottom: 80px;}
     .showcase-text { max-width: 100%; margin: 0 auto; }
-    .phone-mockup { width: 260px; }
+    .phone-mockup { width: 280px; }
     .nav-links.desktop-only { display: none; }
+    :root { --section-spacing: 80px; }
 }
 
 @media (max-width: 768px) {
     .navbar { padding: 15px 5%; }
-    .hero { padding-top: 140px; align-items: flex-start; min-height: auto; padding-bottom: 80px; }
-    .hero-bg-video { object-fit: contain; object-position: top center; opacity: 0.6; }
-    h1 { font-size: 2.5rem; }
-    .lead-text { font-size: 1.1rem; }
-    .showcase-section { padding: 60px 5%; }
+    .hero { padding-top: 120px; align-items: flex-start; min-height: auto; padding-bottom: 80px; }
+    .hero-bg-video { object-fit: cover; object-position: center; opacity: 0.4; }
+    h1 { font-size: 2.2rem; }
+    .lead-text { font-size: 1rem; }
+    .showcase-section { padding: 50px 5%; gap: 40px; }
     .showcase-text h2 { font-size: 2rem; }
-    .phone-mockup { width: 240px; border-width: 5px; }
-    .feature-grid { grid-template-columns: 1fr; }
+    .phone-mockup { width: 250px; border-width: 6px; border-radius: 35px; }
+    .feature-grid { grid-template-columns: 1fr; gap: 20px; }
+    .feature-box { padding: 30px; }
     .footer-content h2 { font-size: 2rem; }
+    .hero-buttons { justify-content: center; }
 }
