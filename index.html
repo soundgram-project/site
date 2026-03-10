@@ -19,9 +19,7 @@
         </div>
         <div class="nav-links desktop-only">
             <a href="#music">Музыка</a>
-            <a href="#playlists">Плейлисты</a>
-            <a href="#privacy">Приватность</a>
-            <a href="#visual">Визуал</a>
+            <a href="#ecosystem">Возможности</a>
             <a href="#features">Особенности</a>
         </div>
         <a href="https://t.me/SoundGram_project" target="_blank" class="tg-btn__nav">
@@ -34,9 +32,7 @@
         <video class="hero-bg-video" autoplay muted playsinline poster="assets/hero-miku.png">
             <source src="assets/hero-video.mp4" type="video/mp4">
         </video>
-        
         <div class="hero-overlay"></div>
-        
         <div class="hero-content">
             <span class="badge-new delay-200 hidden">Релизная версия доступна</span>
             <h1 class="delay-300 hidden">Telegram, который<br> <span class="gradient-text">звучит и выглядит</span> так, как хочешь ты.</h1>
@@ -53,74 +49,71 @@
         </div>
     </header>
 
-    <section class="showcase-section right-layout" id="music">
-        <div class="showcase-text hidden">
-            <h2>Глобальный поиск и <span class="accent-color">умный кэш</span></h2>
-            <p>Находите любые треки, ремиксы и каверы за секунды. Сохраняйте музыку в один клик и слушайте оффлайн в высоком качестве.</p>
-        </div>
-        <div class="showcase-visual hidden delay-200">
-            <div class="phone-mockup">
-                <img src="assets/feature-search.png" alt="Интерфейс поиска музыки">
+    <section class="interactive-hub" id="music">
+        <div class="hub-container hidden">
+            <div class="hub-text">
+                <h2>Идеальный <span class="gradient-text">Аудио-комбайн</span></h2>
+                <p class="lead-text">Забудь про сторонние плееры. Все инструменты для музыки интегрированы прямо в Telegram.</p>
+                
+                <div class="tabs-list">
+                    <div class="music-tab active" data-img="assets/feature-player.png">
+                        <h3>Полноценный плеер</h3>
+                        <p>Удобный интерфейс с обложками на весь экран и очередью воспроизведения.</p>
+                    </div>
+                    <div class="music-tab" data-img="assets/1000001392.png">
+                        <h3>Режим Караоке</h3>
+                        <p>Синхронизированные тексты песен, которые идут в такт с музыкой.</p>
+                    </div>
+                    <div class="music-tab" data-img="assets/1000001391.png">
+                        <h3>Эквалайзер и Таймер</h3>
+                        <p>Тонкая настройка частот, BassBoost, управление скоростью и таймер сна.</p>
+                    </div>
+                    <div class="music-tab" data-img="assets/1000001164.png">
+                        <h3>Мои Плейлисты</h3>
+                        <p>Создавай идеальные подборки для любого настроения и управляй ими.</p>
+                    </div>
+                    <div class="music-tab" data-img="assets/feature-search.png">
+                        <h3>Умный кэш и поиск</h3>
+                        <p>Глобальный поиск треков и сохранение в один клик для оффлайн-прослушивания.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hub-visual showcase-visual">
+                <div class="phone-mockup">
+                    <img id="dynamic-phone-img" src="assets/feature-player.png" alt="Музыкальный интерфейс">
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="showcase-section left-layout">
-        <div class="showcase-text hidden">
-            <h2>Полноценный <span class="accent-color">плеер</span></h2>
-            <p>Забудьте о сторонних приложениях. SoundGram интегрирует музыку прямо в сердце Telegram с удобным управлением очередью и красивыми обложками на весь экран.</p>
-        </div>
-        <div class="showcase-visual hidden delay-200">
-            <div class="phone-mockup main-focus">
-                <img src="assets/feature-player.png" alt="Интерфейс музыкального плеера">
+    <section class="bento-section" id="ecosystem">
+        <h2 class="text-center hidden">Больше, чем мессенджер</h2>
+        <p class="text-center lead-text hidden" style="margin: 0 auto 50px;">Полный контроль над приватностью и внешним видом приложения.</p>
+        
+        <div class="bento-grid">
+            <div class="bento-card hidden delay-100">
+                <div class="bento-content">
+                    <h3>Абсолютная <span class="accent-color">анонимность</span></h3>
+                    <p>Встроенный Ghost Mode (Режим Призрака). Читайте сообщения незаметно с помощью «нечиталки» и скрывайте статус набора текста.</p>
+                </div>
+                <img src="assets/242.png" alt="Приватность">
             </div>
-        </div>
-    </section>
 
-    <section class="showcase-section right-layout" id="playlists">
-        <div class="showcase-text hidden">
-            <h2>Ваши любимые <span class="gradient-text">плейлисты</span></h2>
-            <p>Создавайте идеальные подборки для любого настроения. Удобный интерфейс управления, поддержка длинных миксов и мгновенное переключение между треками. Ваша музыка всегда структурирована и под рукой.</p>
-        </div>
-        <div class="showcase-visual hidden delay-200">
-            <div class="phone-mockup">
-                <img src="assets/1000001164.png" alt="Интерфейс плейлистов SoundGram">
+            <div class="bento-card hidden delay-200">
+                <div class="bento-content">
+                    <h3>Локальный <span class="gradient-text">Premium</span></h3>
+                    <p>Управляйте настройками клиента, кастомным фоном и скрытыми функциями совершенно бесплатно.</p>
+                </div>
+                <img src="assets/243.png" alt="Настройки">
             </div>
-        </div>
-    </section>
 
-    <section class="showcase-section left-layout" id="privacy">
-        <div class="showcase-text hidden">
-            <h2>Абсолютная <span class="gradient-text">анонимность</span></h2>
-            <p>Встроенный <b>Ghost Mode (Режим Призрака)</b>. Читайте сообщения незаметно с помощью «нечиталки» и скрывайте статус набора текста. Вы полностью контролируете свою видимость для других пользователей. Создавайте собственные ключи шифрования для максимального уровня защиты ваших секретов.</p>
-        </div>
-        <div class="showcase-visual hidden delay-200">
-            <div class="phone-mockup">
-                <img src="assets/242.png" alt="Настройки приватности SoundGram">
-            </div>
-        </div>
-    </section>
-
-    <section class="showcase-section right-layout" id="visual">
-        <div class="showcase-text hidden">
-            <h2>Мод-меню и <span class="gradient-text">Premium</span> функции</h2>
-            <p>Включайте <b>Локальный Premium</b> бесплатно и настраивайте клиент под себя. Изменяйте видео-обои в чатах, устанавливайте фон списка диалогов и управляйте внешним видом SoundGram.</p>
-        </div>
-        <div class="showcase-visual hidden delay-200">
-            <div class="phone-mockup">
-                <img src="assets/243.png" alt="Настройки кастомизации">
-            </div>
-        </div>
-    </section>
-
-    <section class="showcase-section left-layout">
-        <div class="showcase-text hidden delay-200">
-            <h2>Живые <span class="gradient-text">видео-обои</span></h2>
-            <p>Используйте любимые аниме-сцены или видео из галереи как анимированный фон чата с поддержкой плавных 24FPS. Управляйте каждым аспектом оформления через специальное меню.</p>
-        </div>
-        <div class="showcase-visual hidden">
-            <div class="mockup-wrapper">
-                <div class="phone-mockup video-container">
+            <div class="bento-card wide hidden delay-300">
+                <div class="bento-content">
+                    <h3>Живые видео-обои</h3>
+                    <p>Используйте любимые аниме-сцены или видео из галереи как анимированный фон чата с поддержкой плавных 60FPS.</p>
+                </div>
+                <div class="video-wrapper">
                     <video autoplay loop muted playsinline poster="assets/feature-chat-bg.png">
                         <source src="assets/feature-video-bg.mp4" type="video/mp4">
                     </video>
@@ -176,5 +169,4 @@
 
     <script src="script.js"></script>
 </body>
-                </html>
-                
+</html>
