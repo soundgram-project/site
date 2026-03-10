@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const options = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.15 // Немного увеличил порог для более плавного эффекта
+        threshold: 0.15
     };
 
     const observerCallback = (entries, observer) => {
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 3. Динамический 3D-наклон телефонов (Автоматически применится и к новому скрину)
+    // 3. Динамический 3D-наклон телефонов
     const visuals = document.querySelectorAll('.showcase-visual');
 
     visuals.forEach(visual => {
@@ -46,19 +46,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!phone) return;
 
         const handleMove = (e) => {
-            if (window.innerWidth <= 1024) return; // Отключаем эффект на планшетах и телефонах
+            if (window.innerWidth <= 1024) return;
 
             const rect = visual.getBoundingClientRect();
-            const clientX = e.clientX;
-            const clientY = e.clientY;
-            
-            const x = clientX - rect.left;
-            const y = clientY - rect.top;
-            
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const rotateX = ((y - centerY) / centerY) * -12; // Чуть усилил эффект
+            const rotateX = ((y - centerY) / centerY) * -12;
             const rotateY = ((x - centerX) / centerX) * 12;
             
             phone.style.transition = 'transform 0.1s ease-out, box-shadow 0.1s ease-out';
@@ -75,10 +71,33 @@ document.addEventListener("DOMContentLoaded", () => {
         visual.addEventListener('mouseleave', resetTilt);
     });
 
-    // 4. Логика счетчика скачиваний (Локальная имитация)
+    // 4. Логика переключения изображений в Музыкальном Хабе
+    const musicTabs = document.querySelectorAll('.music-tab');
+    const dynamicPhoneImg = document.getElementById('dynamic-phone-img');
+
+    if (musicTabs.length > 0 && dynamicPhoneImg) {
+        musicTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Убираем класс active у всех
+                musicTabs.forEach(t => t.classList.remove('active'));
+                // Добавляем нажатому
+                tab.classList.add('active');
+                
+                // Плавное затухание картинки
+                dynamicPhoneImg.style.opacity = '0';
+                
+                // Смена источника и плавное появление
+                setTimeout(() => {
+                    dynamicPhoneImg.src = tab.getAttribute('data-img');
+                    dynamicPhoneImg.style.opacity = '1';
+                }, 300); // время должно совпадать с transition в CSS
+            });
+        });
+    }
+
+    // 5. Локальная имитация счетчика скачиваний
     const BASE_DOWNLOADS = 1204;
     const LOCAL_STORAGE_KEY = 'soundgram_downloads';
-    
     const downloadDisplays = document.querySelectorAll('.dl-count-display');
     const downloadTriggers = document.querySelectorAll('.download-trigger');
 
@@ -108,4 +127,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
-                
+                    
