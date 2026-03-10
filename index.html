@@ -11,7 +11,6 @@
 
     <div class="ambient-light one"></div>
     <div class="ambient-light two"></div>
-    <div class="ambient-light three"></div>
 
     <nav class="navbar hidden">
         <div class="logo">
@@ -19,28 +18,26 @@
         </div>
         <div class="nav-links desktop-only">
             <a href="#music">Музыка</a>
-            <a href="#ecosystem">Возможности</a>
-            <a href="#features">Особенности</a>
+            <a href="#features">Возможности</a>
         </div>
         <a href="https://t.me/SoundGram_project" target="_blank" class="tg-btn__nav">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.665 3.333L3.333 10.665L8.665 13.333L18 6L10.665 15.333L16 20.665L20.665 3.333Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Канал проекта
         </a>
     </nav>
 
-    <header class="hero header-section hidden">
+    <header class="hero hidden">
         <video class="hero-bg-video" autoplay muted playsinline poster="assets/hero-miku.png">
             <source src="assets/hero-video.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
+        
         <div class="hero-content">
-            <span class="badge-new delay-200 hidden">Релизная версия доступна</span>
-            <h1 class="delay-300 hidden">Telegram, который<br> <span class="gradient-text">звучит и выглядит</span> так, как хочешь ты.</h1>
-            <p class="lead-text delay-400 hidden">Ультимативная модификация клиента: встроенный музыкальный комбайн, полная анонимность, кастомное шифрование и живые обои.</p>
-            <div class="hero-buttons delay-500 hidden">
+            <span class="badge-new delay-100 hidden">Релизная версия доступна</span>
+            <h1 class="delay-200 hidden">Клиент Telegram, который <span class="gradient-text">звучит</span> иначе.</h1>
+            <p class="lead-text delay-300 hidden">Ультимативная модификация с полноценным музыкальным комбайном, кастомным шифрованием и уникальным визуалом.</p>
+            <div class="hero-buttons delay-400 hidden">
                 <a href="assets/soundgram.apk" download="soundgram.apk" class="btn-primary glow-effect download-trigger">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 15V3M12 15L8 11M12 15L16 11M2 17L2.621 19.485C2.72915 19.9177 2.97882 20.3018 3.33033 20.5763C3.68184 20.8508 4.11501 20.9999 4.561 21H19.439C19.885 20.9999 20.3182 20.8508 20.6697 20.5763C21.0212 20.3018 21.2708 19.9177 21.379 19.485L22 17" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    Скачать APK
+                    Скачать SoundGram
                 </a>
                 <a href="https://t.me/SoundGram_project" target="_blank" class="btn-secondary">
                     Telegram Канал
@@ -49,71 +46,67 @@
         </div>
     </header>
 
-    <section class="interactive-hub" id="music">
-        <div class="hub-container hidden">
-            <div class="hub-text">
-                <h2>Идеальный <span class="gradient-text">Аудио-комбайн</span></h2>
-                <p class="lead-text">Забудь про сторонние плееры. Все инструменты для музыки интегрированы прямо в Telegram.</p>
-                
-                <div class="tabs-list">
-                    <div class="music-tab active" data-img="assets/feature-player.png">
-                        <h3>Полноценный плеер</h3>
-                        <p>Удобный интерфейс с обложками на весь экран и очередью воспроизведения.</p>
-                    </div>
-                    <div class="music-tab" data-img="assets/1000001392.png">
-                        <h3>Режим Караоке</h3>
-                        <p>Синхронизированные тексты песен, которые идут в такт с музыкой.</p>
-                    </div>
-                    <div class="music-tab" data-img="assets/1000001391.png">
-                        <h3>Эквалайзер и Таймер</h3>
-                        <p>Тонкая настройка частот, BassBoost, управление скоростью и таймер сна.</p>
-                    </div>
-                    <div class="music-tab" data-img="assets/1000001164.png">
-                        <h3>Мои Плейлисты</h3>
-                        <p>Создавай идеальные подборки для любого настроения и управляй ими.</p>
-                    </div>
-                    <div class="music-tab" data-img="assets/feature-search.png">
-                        <h3>Умный кэш и поиск</h3>
-                        <p>Глобальный поиск треков и сохранение в один клик для оффлайн-прослушивания.</p>
-                    </div>
-                </div>
+    <section class="sticky-showcase" id="music">
+        <div class="sticky-text-column">
+            <div class="scroll-text-block" data-img="assets/feature-player.png">
+                <h2>Полноценный <span class="accent-color">плеер</span></h2>
+                <p>Забудьте о сторонних приложениях. Музыка интегрирована прямо в сердце мессенджера с красивыми обложками на весь экран и удобной очередью.</p>
             </div>
             
-            <div class="hub-visual showcase-visual">
-                <div class="phone-mockup">
-                    <img id="dynamic-phone-img" src="assets/feature-player.png" alt="Музыкальный интерфейс">
-                </div>
+            <div class="scroll-text-block" data-img="assets/1000001392.png">
+                <h2>Режим <span class="gradient-text">Караоке</span></h2>
+                <p>Подпевай любимым трекам. Синхронизированные тексты песен плавно идут в такт с музыкой, создавая идеальное погружение.</p>
+            </div>
+
+            <div class="scroll-text-block" data-img="assets/1000001391.png">
+                <h2>Эквалайзер и <span class="accent-color">Таймер</span></h2>
+                <p>Тонкая настройка звучания под ваши уши. Регулируйте частоты, включайте BassBoost, меняйте скорость воспроизведения и ставьте таймер сна.</p>
+            </div>
+
+            <div class="scroll-text-block" data-img="assets/1000001164.png">
+                <h2>Ваши <span class="gradient-text">плейлисты</span></h2>
+                <p>Создавайте идеальные подборки для любого настроения. Удобный интерфейс управления, поддержка длинных миксов и мгновенное переключение.</p>
+            </div>
+
+            <div class="scroll-text-block" data-img="assets/feature-search.png">
+                <h2>Глобальный <span class="accent-color">поиск</span></h2>
+                <p>Находите любые треки, ремиксы и каверы за секунды. Сохраняйте музыку в умный кэш в один клик и слушайте оффлайн в высоком качестве.</p>
+            </div>
+        </div>
+
+        <div class="sticky-visual-column">
+            <div class="phone-mockup">
+                <img id="sticky-phone-img" src="assets/feature-player.png" alt="Интерфейс SoundGram">
             </div>
         </div>
     </section>
 
-    <section class="bento-section" id="ecosystem">
-        <h2 class="text-center hidden">Больше, чем мессенджер</h2>
-        <p class="text-center lead-text hidden" style="margin: 0 auto 50px;">Полный контроль над приватностью и внешним видом приложения.</p>
+    <section class="extera-grid-section" id="features">
+        <h2 class="text-center section-title hidden">Больше, чем мессенджер</h2>
         
-        <div class="bento-grid">
-            <div class="bento-card hidden delay-100">
-                <div class="bento-content">
-                    <h3>Абсолютная <span class="accent-color">анонимность</span></h3>
-                    <p>Встроенный Ghost Mode (Режим Призрака). Читайте сообщения незаметно с помощью «нечиталки» и скрывайте статус набора текста.</p>
+        <div class="extera-grid">
+            <div class="extera-card hidden delay-100">
+                <div class="extera-card-text">
+                    <h3>Абсолютная анонимность</h3>
+                    <p>Ghost Mode (Режим Призрака). Читайте сообщения незаметно и скрывайте статус набора текста.</p>
                 </div>
                 <img src="assets/242.png" alt="Приватность">
             </div>
 
-            <div class="bento-card hidden delay-200">
-                <div class="bento-content">
-                    <h3>Локальный <span class="gradient-text">Premium</span></h3>
-                    <p>Управляйте настройками клиента, кастомным фоном и скрытыми функциями совершенно бесплатно.</p>
+            <div class="extera-card hidden delay-200">
+                <div class="extera-card-text">
+                    <h3>Локальный Premium</h3>
+                    <p>Бесплатно настраивайте клиент под себя. Изменяйте фон списка диалогов и управляйте визуалом.</p>
                 </div>
                 <img src="assets/243.png" alt="Настройки">
             </div>
 
-            <div class="bento-card wide hidden delay-300">
-                <div class="bento-content">
+            <div class="extera-card full-width hidden delay-300">
+                <div class="extera-card-text">
                     <h3>Живые видео-обои</h3>
                     <p>Используйте любимые аниме-сцены или видео из галереи как анимированный фон чата с поддержкой плавных 60FPS.</p>
                 </div>
-                <div class="video-wrapper">
+                <div class="extera-video-container">
                     <video autoplay loop muted playsinline poster="assets/feature-chat-bg.png">
                         <source src="assets/feature-video-bg.mp4" type="video/mp4">
                     </video>
@@ -122,43 +115,14 @@
         </div>
     </section>
 
-    <section class="features-grid-section" id="features">
-        <h2 class="text-center hidden">Продумано до мелочей</h2>
-        <div class="feature-grid">
-            <div class="feature-box frosted-glass hidden">
-                <div class="f-icon">🎧</div>
-                <h3>Hi-Res Аудио</h3>
-                <p>Поддержка воспроизведения треков в исходном качестве без принудительного сжатия.</p>
-            </div>
-            <div class="feature-box frosted-glass hidden delay-100">
-                <div class="f-icon">🔐</div>
-                <h3>Защита данных</h3>
-                <p>Управление ключами локального шифрования прямо из удобного меню мода.</p>
-            </div>
-            <div class="feature-box frosted-glass hidden delay-200">
-                <div class="f-icon">📹</div>
-                <h3>Видео-кружки</h3>
-                <p>Отправляйте любые готовые видео из галереи как "живые" круглые видеосообщения.</p>
-            </div>
-            <div class="feature-box frosted-glass hidden delay-300">
-                <div class="f-icon">🚀</div>
-                <h3>Оптимизация</h3>
-                <p>Несмотря на обилие функций, клиент остается быстрым и не расходует лишнюю батарею.</p>
-            </div>
-        </div>
-    </section>
-
     <footer class="cta-footer">
         <div class="footer-content hidden">
-            <h2>Готов изменить свой опыт общения?</h2>
-            <p>Скачай SoundGram прямо сейчас и присоединяйся к нашему сообществу в Telegram.</p>
+            <h2>Попробуй SoundGram сегодня</h2>
+            <p>Присоединяйся к нашему сообществу в Telegram и скачивай актуальную версию.</p>
             
-            <div class="hero-buttons" style="justify-content: center;">
+            <div class="hero-buttons" style="justify-content: center; margin-top: 30px;">
                 <a href="assets/soundgram.apk" download="soundgram.apk" class="btn-primary glow-effect big-btn download-trigger">
-                    Скачать SoundGram
-                </a>
-                <a href="https://t.me/SoundGram_project" target="_blank" class="btn-secondary big-btn">
-                    Мы в Telegram
+                    Скачать APK
                 </a>
             </div>
         </div>
