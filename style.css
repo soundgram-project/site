@@ -12,22 +12,16 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html, body {
-    overflow-x: hidden;
-    width: 100%;
-}
-
+html, body { overflow-x: hidden; width: 100%; }
 html { scroll-behavior: smooth; }
 
 body {
     background-color: var(--bg);
-    /* Добавлена легкая технологичная сетка на фон */
     background-image: 
         linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
     background-size: 40px 40px;
     background-position: center top;
-    
     color: var(--text);
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
@@ -44,14 +38,8 @@ body {
 
 /* --- Фоновый свет --- */
 .ambient-light {
-    position: fixed;
-    width: 60vw;
-    height: 60vw;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.15;
-    z-index: -1;
-    pointer-events: none;
+    position: fixed; width: 60vw; height: 60vw; border-radius: 50%;
+    filter: blur(120px); opacity: 0.15; z-index: -1; pointer-events: none;
 }
 .one { top: -20%; left: -20%; background: var(--accent); animation: floatLight 15s infinite alternate-reverse; }
 .two { bottom: -20%; right: -20%; background: var(--accent-secondary); animation: floatLight 12s infinite alternate; }
@@ -68,64 +56,32 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
 
 .gradient-text {
     background: linear-gradient(135deg, #a78bfa 0%, #f472b6 50%, #ffffff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;
 }
 
 /* --- Кнопки и Бейджи --- */
 .badge-new {
-    background: rgba(139, 92, 246, 0.15); color: #c4b5fd;
-    padding: 6px 14px; border-radius: 20px;
-    font-size: 0.85rem; font-weight: 600;
-    margin-bottom: 20px; display: inline-block;
-    border: 1px solid rgba(139, 92, 246, 0.3);
-    box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+    background: rgba(139, 92, 246, 0.15); color: #c4b5fd; padding: 6px 14px; border-radius: 20px;
+    font-size: 0.85rem; font-weight: 600; margin-bottom: 20px; display: inline-block;
+    border: 1px solid rgba(139, 92, 246, 0.3); box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
 }
+.hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px; }
 
-.hero-buttons {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
-}
-
-.btn-primary {
+.btn-primary, .btn-secondary {
     display: inline-flex; align-items: center; gap: 10px;
-    background: var(--text); color: black;
     padding: 16px 32px; border-radius: 40px;
-    text-decoration: none; font-weight: 700; font-size: 1rem;
-    transition: all 0.3s ease;
+    text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.3s ease;
 }
+.btn-primary { background: var(--text); color: black; }
 .btn-primary:hover { transform: translateY(-3px); background: #ffffff; }
 .btn-primary.glow-effect { box-shadow: 0 0 20px rgba(167, 139, 250, 0.3); }
 .btn-primary.glow-effect:hover { box-shadow: 0 0 35px rgba(167, 139, 250, 0.6); }
 
-.btn-secondary {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: rgba(255, 255, 255, 0.05); color: white;
-    padding: 16px 32px; border-radius: 40px;
-    text-decoration: none; font-weight: 700; font-size: 1rem;
-    border: 1px solid var(--glass-border);
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-}
-.btn-secondary:hover { 
-    background: rgba(255, 255, 255, 0.1); 
-    border-color: var(--text-muted);
-    transform: translateY(-3px);
-}
+.btn-secondary { background: rgba(255, 255, 255, 0.05); color: white; border: 1px solid var(--glass-border); backdrop-filter: blur(10px); }
+.btn-secondary:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--text-muted); transform: translateY(-3px); }
 
 .big-btn { padding: 18px 40px; font-size: 1.1rem; }
-
-.tg-btn__nav {
-    display: flex; align-items: center; gap: 8px;
-    text-decoration: none; color: white;
-    background: rgba(255,255,255,0.05);
-    padding: 10px 20px; border-radius: 30px;
-    border: 1px solid var(--glass-border);
-    transition: 0.3s; font-weight: 600; font-size: 0.9rem;
-}
+.tg-btn__nav { display: flex; align-items: center; gap: 8px; text-decoration: none; color: white; background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 30px; border: 1px solid var(--glass-border); transition: 0.3s; font-weight: 600; font-size: 0.9rem; }
 .tg-btn__nav:hover { background: var(--accent); border-color: var(--accent); color: white; box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }
 
 /* --- Навигация --- */
@@ -141,115 +97,124 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
 .nav-links a:hover { color: var(--text); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
 /* --- Hero Section --- */
-.hero {
-    min-height: 100vh; display: flex; align-items: center;
-    padding: 120px 5% 0; position: relative; overflow: hidden;
-}
-.hero-bg-video {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover; z-index: -2; opacity: 0.3; /* Сделал чуть темнее для контраста текста */
-}
-.hero-overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at center, transparent 0%, var(--bg) 80%),
-                linear-gradient(to bottom, transparent 60%, var(--bg) 100%);
-    z-index: -1;
-}
+.hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 5% 0; position: relative; overflow: hidden; }
+.hero-bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: 0.3; }
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, transparent 0%, var(--bg) 80%), linear-gradient(to bottom, transparent 60%, var(--bg) 100%); z-index: -1; }
 .hero-content { max-width: 800px; z-index: 2; }
 
-/* --- Showcase Sections --- */
-.showcase-section {
-    padding: var(--section-spacing) 5%;
-    display: flex; align-items: center; gap: 60px;
-    min-height: 80vh;
-    flex-direction: row; 
+/* --- НОВОЕ: Интерактивный Музыкальный Хаб --- */
+.interactive-hub { padding: var(--section-spacing) 5%; }
+.hub-container { display: flex; align-items: center; gap: 60px; max-width: 1400px; margin: 0 auto; }
+.hub-text { flex: 1; max-width: 550px; }
+
+.tabs-list { display: flex; flex-direction: column; gap: 15px; margin-top: 40px; }
+.music-tab {
+    padding: 20px; border-radius: 20px; border: 1px solid transparent;
+    cursor: pointer; transition: all 0.3s ease;
+    background: rgba(255,255,255,0.02);
 }
-.showcase-section.left-layout { 
-    flex-direction: row-reverse; 
+.music-tab h3 { font-size: 1.2rem; margin-bottom: 5px; transition: color 0.3s; }
+.music-tab p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.4; margin:0; }
+
+.music-tab:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
+.music-tab.active {
+    background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.2);
 }
+.music-tab.active h3 { color: #c4b5fd; }
 
-.showcase-text { flex: 1; max-width: 500px; }
-.showcase-text h2 { font-size: 2.8rem; line-height: 1.2; }
-.showcase-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 30px; }
-
-/* --- Phone Mockups --- */
-.showcase-visual { 
-    flex: 1; 
-    display: flex; 
-    justify-content: center; 
-    perspective: 1500px; 
-}
-
-.mockup-wrapper { position: relative; display: inline-block; }
-
+/* --- Phone Mockup (Универсальный) --- */
+.showcase-visual { flex: 1; display: flex; justify-content: center; perspective: 1500px; }
 .phone-mockup {
-    width: 300px; height: auto;
-    border-radius: 40px;
-    border: 8px solid #1a1a1a;
-    overflow: hidden;
-    /* Улучшенная тень для придания объема */
+    width: 300px; height: auto; border-radius: 40px; border: 8px solid #1a1a1a; overflow: hidden;
     box-shadow: 0 25px 60px -15px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.1), 0 0 30px rgba(139, 92, 246, 0.1);
-    background: #000;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.6s ease;
+    background: #000; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.6s ease;
+    position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.phone-mockup:hover { box-shadow: 0 30px 70px -15px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.15), 0 0 45px rgba(139, 92, 246, 0.25); }
+.phone-mockup img, .phone-mockup video { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.3s ease; }
+
+/* --- НОВОЕ: Bento Grid (Карточки) --- */
+.bento-section { padding: var(--section-spacing) 5%; max-width: 1400px; margin: 0 auto; }
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+.bento-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: 0.4s;
     position: relative;
-    cursor: pointer;
+}
+.bento-card:hover {
+    background: rgba(255, 255, 255, 0.05); border-color: rgba(139, 92, 246, 0.5);
+    transform: translateY(-5px); box-shadow: 0 20px 40px -20px rgba(139, 92, 246, 0.3);
+}
+.bento-content { padding: 40px 40px 0; z-index: 2; }
+.bento-content h3 { font-size: 1.5rem; margin-bottom: 10px; }
+.bento-content p { color: var(--text-muted); font-size: 1rem; line-height: 1.5; }
+
+/* Стилизация картинок внутри карточек */
+.bento-card img {
+    width: 70%; margin: 30px auto 0;
+    border-radius: 24px 24px 0 0;
+    border: 4px solid #1a1a1a;
+    border-bottom: none;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+    display: block;
+    object-fit: cover;
 }
 
-.phone-mockup:hover {
-    box-shadow: 0 30px 70px -15px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.15), 0 0 45px rgba(139, 92, 246, 0.25);
+.video-wrapper {
+    margin: 30px auto 0; width: 80%; border-radius: 24px 24px 0 0;
+    border: 4px solid #1a1a1a; border-bottom: none; overflow: hidden;
 }
+.video-wrapper video { width: 100%; display: block; }
 
-.phone-mockup img, 
-.phone-mockup video { 
-    width: 100%; height: 100%; object-fit: cover; display: block; 
+/* Широкая карточка для десктопа */
+@media (min-width: 1024px) {
+    .bento-card.wide {
+        grid-column: span 2;
+        flex-direction: row;
+        align-items: center;
+    }
+    .bento-card.wide .bento-content { padding: 40px; flex: 1; }
+    .bento-card.wide .video-wrapper {
+        margin: 40px 40px 0 0; width: 40%;
+        border-radius: 24px 24px 0 0;
+    }
 }
 
 /* --- Features Grid --- */
-.features-grid-section { padding: var(--section-spacing) 5%; }
-.feature-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px; margin-top: 60px;
-}
-.feature-box {
-    padding: 40px; border-radius: 30px;
-    transition: 0.4s; border: 1px solid var(--glass-border);
-    display: flex; flex-direction: column; align-items: flex-start;
-}
-.frosted-glass {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-}
-.feature-box:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(139, 92, 246, 0.5);
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px -20px rgba(139, 92, 246, 0.3);
-}
+.features-grid-section { padding: var(--section-spacing) 5%; max-width: 1400px; margin: 0 auto;}
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 60px; }
+.feature-box { padding: 40px; border-radius: 30px; transition: 0.4s; border: 1px solid var(--glass-border); display: flex; flex-direction: column; align-items: flex-start; }
+.frosted-glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.feature-box:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(139, 92, 246, 0.5); transform: translateY(-10px); box-shadow: 0 20px 40px -20px rgba(139, 92, 246, 0.3); }
 .f-icon { font-size: 2.5rem; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(139,92,246,0.3)); }
 .feature-box h3 { font-size: 1.3rem; margin-bottom: 15px; font-weight: 700; }
 .feature-box p { color: var(--text-muted); font-size: 1rem; line-height: 1.5; }
 
 /* --- Footer --- */
-.cta-footer {
-    padding: var(--section-spacing) 5% 40px; text-align: center;
-    background: linear-gradient(to top, rgba(10,10,10,0.8), transparent);
-}
+.cta-footer { padding: var(--section-spacing) 5% 40px; text-align: center; background: linear-gradient(to top, rgba(10,10,10,0.8), transparent); }
 .footer-content { margin-bottom: 80px; }
 .footer-content h2 { font-size: 3rem; margin-bottom: 20px; }
 .footer-content p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; }
-.copyright {
-    padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);
-    font-size: 0.9rem; color: #666;
-}
+.copyright { padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; color: #666; }
 
 /* --- Адаптивность --- */
 @media (max-width: 1024px) {
     h1 { font-size: 3rem; }
-    .showcase-section, .showcase-section.left-layout { flex-direction: column; text-align: center; gap: 50px; padding-top: 80px; padding-bottom: 80px;}
-    .showcase-text { max-width: 100%; margin: 0 auto; }
+    .hub-container { flex-direction: column; text-align: center; gap: 50px; }
+    .hub-text { max-width: 100%; margin: 0 auto; }
     .phone-mockup { width: 280px; }
     .nav-links.desktop-only { display: none; }
     :root { --section-spacing: 80px; }
+    .bento-card img, .video-wrapper { width: 85%; }
 }
 
 @media (max-width: 768px) {
@@ -258,11 +223,10 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     .hero-bg-video { object-fit: cover; object-position: center; opacity: 0.4; }
     h1 { font-size: 2.2rem; }
     .lead-text { font-size: 1rem; }
-    .showcase-section { padding: 50px 5%; gap: 40px; }
-    .showcase-text h2 { font-size: 2rem; }
     .phone-mockup { width: 250px; border-width: 6px; border-radius: 35px; }
-    .feature-grid { grid-template-columns: 1fr; gap: 20px; }
-    .feature-box { padding: 30px; }
     .footer-content h2 { font-size: 2rem; }
     .hero-buttons { justify-content: center; }
+    .tabs-list { gap: 10px; }
+    .music-tab { padding: 15px; }
+    .bento-content { padding: 30px 20px 0; }
 }
