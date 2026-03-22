@@ -23,6 +23,7 @@ html, body { overflow-x: hidden; background-color: var(--bg); color: var(--text)
 .delay-100 { transition-delay: 0.1s; }
 .delay-200 { transition-delay: 0.2s; }
 .delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
 
 /* Типографика */
 h1 { font-size: 4.5rem; line-height: 1.1; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 24px; }
@@ -79,9 +80,59 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
 /* Мобильный телефон скрыт на ПК */
 .mobile-phone-mockup { display: none; }
 
-.sticky-visual-column { flex: 1; position: sticky; top: 15vh; height: 70vh; display: flex; align-items: center; justify-content: center; }
+/* ИСПРАВЛЕНИЕ: Добавлен align-self: flex-start; */
+.sticky-visual-column { 
+    flex: 1; 
+    position: sticky; 
+    top: 15vh; 
+    height: 70vh; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    align-self: flex-start; 
+}
 .phone-mockup { width: 320px; border-radius: 45px; border: 10px solid #111; box-shadow: 0 30px 60px -15px rgba(0,0,0,1), 0 0 0 1px rgba(255,255,255,0.1); background: #000; overflow: hidden; position: relative; }
 .phone-mockup img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.4s ease-in-out; }
+
+
+/* === ГОРИЗОНТАЛЬНАЯ КАРУСЕЛЬ НАСТРОЕК === */
+.settings-gallery { padding: 40px 0 var(--section-spacing); position: relative; overflow: hidden; }
+.carousel-wrapper { position: relative; display: flex; align-items: center; max-width: 1400px; margin: 0 auto; }
+.carousel-track {
+    display: flex; gap: 24px; overflow-x: auto; padding: 30px 5%;
+    scroll-behavior: smooth; scroll-snap-type: x mandatory;
+    -ms-overflow-style: none; /* Скрытие скроллбара IE и Edge */
+    scrollbar-width: none; /* Скрытие скроллбара Firefox */
+}
+.carousel-track::-webkit-scrollbar { display: none; /* Скрытие скроллбара Chrome, Safari */ }
+
+.carousel-track img {
+    flex: 0 0 auto;
+    width: 260px; /* Ширина одного скрина на ПК */
+    height: auto;
+    border-radius: 30px;
+    scroll-snap-align: center;
+    border: 6px solid #111;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+    transition: transform 0.4s ease, border-color 0.4s ease;
+}
+.carousel-track img:hover { transform: translateY(-10px) scale(1.02); border-color: rgba(255,255,255,0.15); }
+
+/* Кнопки перелистывания карусели */
+.carousel-btn {
+    position: absolute; z-index: 10;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    color: white; font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: 0.3s ease;
+}
+.carousel-btn:hover { background: var(--accent); border-color: var(--accent); transform: scale(1.1); }
+.prev-btn { left: 2%; }
+.next-btn { right: 2%; }
+
 
 /* === СЕТКА КАРТОЧЕК (Bento Grid) === */
 .extera-grid-section { max-width: 1200px; margin: 0 auto; padding: 60px 5% var(--section-spacing); }
@@ -115,6 +166,8 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     .extera-grid { grid-template-columns: 1fr; }
     .extera-card.full-width { grid-column: span 1; flex-direction: column; text-align: center; }
     .extera-card.full-width .extera-card-text { padding: 50px 30px 20px; }
+    
+    .carousel-track img { width: 240px; }
 }
 
 @media (max-width: 768px) {
@@ -122,12 +175,10 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     .hero { padding-top: 120px; min-height: auto; padding-bottom: 60px; }
     .hero-buttons { justify-content: center; }
     
-    /* УБИРАЕМ ЗАЛИПАНИЕ НА МОБИЛКАХ, СТАВИМ ПРОСТОЙ СПИСОК */
     .desktop-only { display: none !important; }
     .sticky-showcase { flex-direction: column; padding: 40px 5%; gap: 0; }
     .sticky-text-column { padding-bottom: 0; }
     
-    /* Текст всегда 100% непрозрачный и отцентрированный */
     .scroll-text-block { 
         min-height: auto; 
         opacity: 1 !important; 
@@ -139,7 +190,6 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
     .scroll-text-block h2 { font-size: 2rem; margin-bottom: 15px; }
     .scroll-text-block p { font-size: 1.1rem; }
     
-    /* Показываем картинки телефонов прямо над текстом */
     .mobile-phone-mockup { 
         display: block; 
         width: 260px; 
@@ -155,8 +205,11 @@ p.lead-text { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; ma
         display: block; 
     }
 
-    /* Сетка карточек */
+    /* На мобилках картинки в карусели чуть меньше */
+    .carousel-track img { width: 220px; border-width: 4px; border-radius: 25px; }
+    .carousel-track { padding: 10px 5%; gap: 15px; }
+
     .extera-card-text { padding: 0 20px 30px; }
     .extera-card img, .extera-card.full-width video { width: 80%; }
     .section-title { font-size: 2.2rem; margin-bottom: 40px; }
-             }
+}
