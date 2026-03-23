@@ -10,7 +10,14 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html, body { overflow-x: hidden; background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; scroll-behavior: smooth; }
+html, body { 
+    overflow-x: clip; /* Заменили hidden на clip */
+    background-color: var(--bg); 
+    color: var(--text); 
+    font-family: 'Inter', sans-serif; 
+    line-height: 1.6; 
+    scroll-behavior: smooth; 
+}
 
 /* Фоновый свет */
 .ambient-light { position: fixed; width: 50vw; height: 50vw; border-radius: 50%; filter: blur(140px); opacity: 0.15; z-index: -1; pointer-events: none; }
