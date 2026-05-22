@@ -64,7 +64,7 @@ h4 { font-size: 18px; font-weight: 700; }
 }
 
 .sec {
-  padding: 84px 0;
+  padding: 92px 0;
 }
 
 /* ════════════════════ NAV ════════════════════ */
@@ -1017,13 +1017,11 @@ h1 { margin: 0; }
   .footer-inner { gap: 32px; }
   .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
 
-  .feat-row { padding: 14px 0; }
-  .feat-list { gap: 6px; }
-  .feat-text p { font-size: 15px; line-height: 1.5; }
+  .feat-row { padding: 26px 0; }
 }
 
 @media (max-width: 480px) {
-  .sec { padding: 52px 0; }
+  .sec { padding: 70px 0; }
   .settings-grid { grid-template-columns: 1fr; }
   .phone.phone-md { width: min(92vw, 310px); }
   .phone.phone-lg { width: min(94vw, 340px); }
