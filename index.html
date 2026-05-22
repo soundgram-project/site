@@ -1,169 +1,953 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoundGram — Telegram нового поколения</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SoundGram — Telegram-клиент нового поколения, специализирующийся на музыке. Библиотека, эквалайзер, тексты песен, профили исполнителей.">
+  <meta property="og:title" content="SoundGram — Telegram для музыки">
+  <meta property="og:description" content="Telegram-клиент с полноценным музыкальным центром, обходом замедлений и глубокой кастомизацией.">
+  <meta name="theme-color" content="#9333ea">
+  <meta property="og:image" content="assets/og-image.svg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <title>SoundGram — Telegram для музыки</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-    <div class="ambient-light one"></div>
-    <div class="ambient-light two"></div>
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">
+      <svg class="logo-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="18" fill="url(#navG)"/>
+        <path d="M13 27V15l12-3.5v12" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="11" cy="27" r="2.8" fill="white"/>
+        <circle cx="23" cy="23.5" r="2.8" fill="white"/>
+        <defs>
+          <linearGradient id="navG" x1="0" y1="0" x2="36" y2="36">
+            <stop offset="0%" stop-color="#9333ea"/>
+            <stop offset="100%" stop-color="#ec4899"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span>SoundGram</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#music">Музыка</a>
+      <a href="#bypass">Обход</a>
+      <a href="#customization">Кастомизация</a>
+      <a href="#settings">Настройки</a>
+      <a href="https://t.me/soundgram_project" target="_blank" class="nav-tg">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Канал
+      </a>
+      <a href="#download" class="btn-nav-dl">Скачать</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
-    <nav class="navbar hidden">
-        <div class="logo">
-            <span class="brand-text">SoundGram</span>
-        </div>
-        <div class="nav-links desktop-only">
-            <a href="#music">Музыка</a>
-            <a href="#settings">Настройки</a>
-            <a href="#features">Возможности</a>
-        </div>
-        <a href="https://t.me/SoundGram_project" target="_blank" class="tg-btn__nav">
-            Канал проекта
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="grain"></div>
+  </div>
+  <div class="hero-wrap">
+    <div class="hero-text reveal">
+      <div class="badge">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        Telegram-клиент · Android
+      </div>
+      <h1>Sound<span class="grad-text">Gram</span></h1>
+      <p class="hero-sub">Мессенджер, который чувствует музыку.<br>Библиотека, эквалайзер, профили исполнителей<br>и умные рекомендации — всё в одном.</p>
+      <div class="hero-btns">
+        <a href="assets/downloads/soundgram-arm64-v8a.apk" class="btn-primary" download>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          ARM64-v8a
         </a>
-    </nav>
-
-    <header class="hero hidden">
-        <video class="hero-bg-video" autoplay muted playsinline poster="assets/hero-miku.png">
-            <source src="assets/hero-video.mp4" type="video/mp4">
-        </video>
-        <div class="hero-overlay"></div>
-        
-        <div class="hero-content">
-            <span class="badge-new delay-100 hidden">Релизная версия доступна</span>
-            <h1 class="delay-200 hidden">Клиент Telegram, который <span class="gradient-text">звучит</span> иначе.</h1>
-            <p class="lead-text delay-300 hidden">Ультимативная модификация с полноценным музыкальным комбайном, кастомным шифрованием и уникальным визуалом.</p>
-            <div class="hero-buttons delay-400 hidden">
-                <a href="assets/soundgram.apk" download="soundgram.apk" class="btn-primary glow-effect download-trigger">
-                    Скачать SoundGram
-                </a>
-                <a href="https://t.me/SoundGram_project" target="_blank" class="btn-secondary">
-                    Telegram Канал
-                </a>
+        <a href="assets/downloads/soundgram-armeabi-v7a.apk" class="btn-ghost" download>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          ARMv7
+        </a>
+        <a href="https://t.me/soundgram_project" target="_blank" class="btn-tg-hero">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          @soundgram_project
+        </a>
+      </div>
+    </div>
+    <div class="hero-phones reveal-right">
+      <div class="hphone hp1">
+        <div class="phone">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m01.jpg" alt="Библиотека">
+            <div class="ph" style="--a:#9333ea;--b:#7c3aed">
+              <span class="phi">🎵</span><span class="phl">Библиотека</span>
             </div>
+          </div>
         </div>
-    </header>
-
-    <section class="sticky-showcase" id="music">
-        <div class="sticky-text-column">
-            
-            <div class="scroll-text-block" data-img="assets/feature-player.png">
-                <div class="mobile-phone-mockup">
-                    <img src="assets/feature-player.png" alt="Плеер">
-                </div>
-                <h2>Полноценный <span class="accent-color">плеер</span></h2>
-                <p>Забудьте о сторонних приложениях. Музыка интегрирована прямо в сердце мессенджера с красивыми обложками на весь экран и удобной очередью.</p>
+      </div>
+      <div class="hphone hp2">
+        <div class="phone">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m08.jpg" alt="Моя волна">
+            <div class="ph" style="--a:#ec4899;--b:#9333ea">
+              <span class="phi">🌊</span><span class="phl">Моя волна</span>
             </div>
-            
-            <div class="scroll-text-block" data-img="assets/1000001392.png">
-                <div class="mobile-phone-mockup">
-                    <img src="assets/1000001392.png" alt="Караоке">
-                </div>
-                <h2>Режим <span class="gradient-text">Караоке</span></h2>
-                <p>Подпевай любимым трекам. Синхронизированные тексты песен плавно идут в такт с музыкой, создавая идеальное погружение.</p>
-            </div>
-
-            <div class="scroll-text-block" data-img="assets/1000001391.png">
-                <div class="mobile-phone-mockup">
-                    <img src="assets/1000001391.png" alt="Эквалайзер">
-                </div>
-                <h2>Эквалайзер и <span class="accent-color">Таймер</span></h2>
-                <p>Тонкая настройка звучания под ваши уши. Регулируйте частоты, включайте BassBoost, меняйте скорость воспроизведения и ставьте таймер сна.</p>
-            </div>
-
-            <div class="scroll-text-block" data-img="assets/1000001164.png">
-                <div class="mobile-phone-mockup">
-                    <img src="assets/1000001164.png" alt="Плейлисты">
-                </div>
-                <h2>Ваши <span class="gradient-text">плейлисты</span></h2>
-                <p>Создавайте идеальные подборки для любого настроения. Удобный интерфейс управления, поддержка длинных миксов и мгновенное переключение.</p>
-            </div>
-
-            <div class="scroll-text-block" data-img="assets/feature-search.png">
-                <div class="mobile-phone-mockup">
-                    <img src="assets/feature-search.png" alt="Поиск">
-                </div>
-                <h2>Глобальный <span class="accent-color">поиск</span></h2>
-                <p>Находите любые треки, ремиксы и каверы за секунды. Сохраняйте музыку в умный кэш в один клик и слушайте оффлайн в высоком качестве.</p>
-            </div>
+          </div>
         </div>
-
-        <div class="sticky-visual-column desktop-only">
-            <div class="phone-mockup">
-                <img id="sticky-phone-img" src="assets/feature-player.png" alt="Интерфейс SoundGram">
+      </div>
+      <div class="hphone hp3">
+        <div class="phone">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m07.jpg" alt="Эквалайзер">
+            <div class="ph" style="--a:#7c3aed;--b:#ec4899">
+              <span class="phi">🎚️</span><span class="phl">Эквалайзер</span>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Прокрутите</span>
+    <div class="scroll-dot"></div>
+  </div>
+</section>
 
-    <section class="settings-gallery" id="settings">
-        <h2 class="text-center section-title hidden">Полный контроль настроек</h2>
-        
-        <div class="carousel-wrapper hidden delay-100">
-            <button class="carousel-btn prev-btn desktop-only">❮</button>
-            <div class="carousel-track" id="settings-track">
-                <img src="assets/242.png" alt="Скриншот настроек 22">
-                <img src="assets/243.png" alt="Скриншот настроек 23">
-                <img src="assets/1.png" alt="Скриншот настроек 1">
-                <img src="assets/2.png" alt="Скриншот настроек 2">
-                <img src="assets/3.png" alt="Скриншот настроек 3">
-                <img src="assets/4.png" alt="Скриншот настроек 4">
-                <img src="assets/5.png" alt="Скриншот настроек 5">
-                <img src="assets/6.png" alt="Скриншот настроек 6">
-                <img src="assets/7.png" alt="Скриншот настроек 7">
-                <img src="assets/8.png" alt="Скриншот настроек 8">
-                <img src="assets/9.png" alt="Скриншот настроек 9">
-                <img src="assets/10.png" alt="Скриншот настроек 10">
-                <img src="assets/11.png" alt="Скриншот настроек 11">
-                <img src="assets/12.png" alt="Скриншот настроек 12">
-                <img src="assets/13.png" alt="Скриншот настроек 13">
-                <img src="assets/14.png" alt="Скриншот настроек 14">
-                <img src="assets/15.png" alt="Скриншот настроек 15">
-                <img src="assets/16.png" alt="Скриншот настроек 16">
-                <img src="assets/17.png" alt="Скриншот настроек 17">
-                <img src="assets/18.png" alt="Скриншот настроек 18">
-                <img src="assets/19.png" alt="Скриншот настроек 19">
-                <img src="assets/20.png" alt="Скриншот настроек 20">
-                <img src="assets/21.png" alt="Скриншот настроек 21">
+<!-- ═══════════ TICKER ═══════════ -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack">
+    <span>♫ Библиотека</span><span class="sep">•</span>
+    <span>Поиск треков</span><span class="sep">•</span>
+    <span>Профили исполнителей</span><span class="sep">•</span>
+    <span>Альбомы</span><span class="sep">•</span>
+    <span>Плейлисты</span><span class="sep">•</span>
+    <span>Тексты песен</span><span class="sep">•</span>
+    <span>Эквалайзер</span><span class="sep">•</span>
+    <span>Моя волна</span><span class="sep">•</span>
+    <span>Мини-плеер</span><span class="sep">•</span>
+    <span>Обход замедлений</span><span class="sep">•</span>
+    <span>Живые обои</span><span class="sep">•</span>
+    <span>Режим призрака</span><span class="sep">•</span>
+    <span>Локальный Premium</span><span class="sep">•</span>
+    <span>Кастомизация UI</span><span class="sep">•</span>
+    <span>Умные рекомендации</span><span class="sep">•</span>
+  </div>
+</div>
+
+<!-- ═══════════ MUSIC SECTION ═══════════ -->
+<section class="sec music-sec" id="music">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-badge" style="--c1:#9333ea;--c2:#ec4899">🎵 Музыкальный центр</div>
+      <h2>Музыка — это главное</h2>
+      <p>Полноценный музыкальный центр прямо в мессенджере. Всё, что нужно меломану — библиотека, поиск, профили, тексты, эквалайзер и умные рекомендации.</p>
+    </div>
+
+    <!-- 1 -->
+    <div class="feat-row reveal">
+      <div class="feat-text">
+        <div class="feat-num">01</div>
+        <h3>Музыкальная библиотека</h3>
+        <p>Вся ваша музыка в одном месте. Умная организация по жанрам, настроению и исполнителям. Мгновенный доступ к недавно прослушанным и любимым трекам.</p>
+        <ul class="feat-list">
+          <li>Фильтрация по жанру и настроению</li>
+          <li>История прослушиваний</li>
+          <li>Избранные треки</li>
+          <li>Оффлайн-кэш</li>
+        </ul>
+      </div>
+      <div class="feat-phone">
+        <div class="phone phone-md">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m01.jpg" alt="Библиотека">
+            <div class="ph" style="--a:#9333ea;--b:#7c3aed">
+              <span class="phi">🎵</span><span class="phl">screen-m01.jpg</span>
             </div>
-            <button class="carousel-btn next-btn desktop-only">❯</button>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <section class="extera-grid-section" id="features">
-        <h2 class="text-center section-title hidden">Больше, чем мессенджер</h2>
-            <div class="extera-card full-width hidden delay-300">
-                <div class="extera-card-text">
-                    <h3>Живые видео-обои</h3>
-                    <p>Используйте любимые аниме-сцены или видео из галереи как анимированный фон чата с поддержкой плавных 60FPS.</p>
+    <!-- 2 -->
+    <div class="feat-row feat-row-rev reveal">
+      <div class="feat-text">
+        <div class="feat-num">02</div>
+        <h3>Умный поиск</h3>
+        <p>Мгновенный поиск по трекам, исполнителям, альбомам и плейлистам. Алгоритмы понимают опечатки, транслитерацию и неточные запросы.</p>
+        <ul class="feat-list">
+          <li>Поиск по всей базе треков</li>
+          <li>Поиск внутри плейлиста</li>
+          <li>Транслитерация и нечёткий поиск</li>
+          <li>Популярные запросы</li>
+        </ul>
+      </div>
+      <div class="feat-phone">
+        <div class="phone phone-md">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m02.jpg" alt="Поиск">
+            <div class="ph" style="--a:#7c3aed;--b:#db2777">
+              <span class="phi">🔍</span><span class="phl">screen-m02.jpg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="feat-row reveal">
+      <div class="feat-text">
+        <div class="feat-num">03</div>
+        <h3>Профили исполнителей</h3>
+        <p>Биография, дискография, популярные треки и похожие артисты в одном красивом профиле. Подписывайтесь на исполнителей и получайте уведомления о новых релизах.</p>
+        <ul class="feat-list">
+          <li>Биография и фотографии</li>
+          <li>Полная дискография</li>
+          <li>Похожие исполнители</li>
+          <li>Подписка на новинки</li>
+        </ul>
+      </div>
+      <div class="feat-phone">
+        <div class="phone phone-md">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m03.jpg" alt="Профили исполнителей">
+            <div class="ph" style="--a:#ec4899;--b:#9333ea">
+              <span class="phi">🎤</span><span class="phl">screen-m03.jpg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="feat-row feat-row-rev reveal">
+      <div class="feat-text">
+        <div class="feat-num">04</div>
+        <h3>Альбомы</h3>
+        <p>Полноценное представление альбомов с обложками высокого разрешения, треклистом, годом выпуска и описанием. Слушайте альбом целиком одним нажатием.</p>
+        <ul class="feat-list">
+          <li>Обложки в высоком качестве</li>
+          <li>Полный треклист</li>
+          <li>Информация о релизе</li>
+          <li>Скачать весь альбом</li>
+        </ul>
+      </div>
+      <div class="feat-phone">
+        <div class="phone phone-md">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m04.jpg" alt="Альбомы">
+            <div class="ph" style="--a:#6d28d9;--b:#be185d">
+              <span class="phi">💿</span><span class="phl">screen-m04.jpg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="feat-row reveal">
+      <div class="feat-text">
+        <div class="feat-num">05</div>
+        <h3>Плейлисты</h3>
+        <p>Создавайте, редактируйте и делитесь плейлистами прямо в мессенджере. Совместные плейлисты, которые ваши друзья могут дополнять.</p>
+        <ul class="feat-list">
+          <li>Создание и редактирование</li>
+          <li>Совместные плейлисты</li>
+          <li>Поделиться в чате</li>
+          <li>Импорт из треков Telegram</li>
+        </ul>
+      </div>
+      <div class="feat-phone">
+        <div class="phone phone-md">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m05.jpg" alt="Плейлисты">
+            <div class="ph" style="--a:#9333ea;--b:#ec4899">
+              <span class="phi">📋</span><span class="phl">screen-m05.jpg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="feat-row feat-row-rev reveal">
+      <div class="feat-text">
+        <div class="feat-num">06</div>
+        <h3>Тексты песен</h3>
+        <p>Синхронизированные тексты в реальном времени прямо во время воспроизведения. Слова подсвечиваются по мере звучания трека, как в лучших стриминговых сервисах.</p>
+        <ul class="feat-list">
+          <li>Синхронизация по тайм-кодам</li>
+          <li>Перевод текста</li>
+          <li>Полноэкранный режим</li>
+          <li>Обмен цитатами</li>
+        </ul>
+      </div>
+      <div class="feat-phone">
+        <div class="phone phone-md">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m06.jpg" alt="Тексты песен">
+            <div class="ph" style="--a:#db2777;--b:#7c3aed">
+              <span class="phi">📝</span><span class="phl">screen-m06.jpg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="feat-row reveal">
+      <div class="feat-text">
+        <div class="feat-num">07</div>
+        <h3>Эквалайзер</h3>
+        <p>Профессиональный 10-полосный эквалайзер с готовыми пресетами и возможностью сохранять собственные настройки. Настройте звук под свои уши.</p>
+        <ul class="feat-list">
+          <li>10-полосный параметрический EQ</li>
+          <li>Встроенные пресеты жанров</li>
+          <li>Сохранение своих пресетов</li>
+          <li>Усиление басов и высоких</li>
+        </ul>
+      </div>
+      <div class="feat-phone">
+        <div class="phone phone-md">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m07.jpg" alt="Эквалайзер">
+            <div class="ph" style="--a:#7c3aed;--b:#9333ea">
+              <span class="phi">🎚️</span><span class="phl">screen-m07.jpg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="feat-row feat-row-rev reveal">
+      <div class="feat-text">
+        <div class="feat-num">08</div>
+        <h3>Моя волна</h3>
+        <p>Умная система рекомендаций, которая изучает ваши вкусы и подбирает музыку, которая вам понравится. Моя волна работает во всём приложении — в любом чате и разделе.</p>
+        <ul class="feat-list">
+          <li>Персональные рекомендации</li>
+          <li>Адаптируется под настроение</li>
+          <li>Открытие новых исполнителей</li>
+          <li>Работает во всём приложении</li>
+        </ul>
+      </div>
+      <div class="feat-phone">
+        <div class="phone phone-md">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m08.jpg" alt="Моя волна">
+            <div class="ph" style="--a:#ec4899;--b:#6d28d9">
+              <span class="phi">🌊</span><span class="phl">screen-m08.jpg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="feat-row reveal">
+      <div class="feat-text">
+        <div class="feat-num">09</div>
+        <h3>Мини-плеер</h3>
+        <p>Музыка не прерывается никогда. Компактный мини-плеер доступен в любом разделе приложения — в чатах, поиске, профиле. Управляйте треком не покидая диалог.</p>
+        <ul class="feat-list">
+          <li>Постоянный доступ к плееру</li>
+          <li>Свайп для смены трека</li>
+          <li>Быстрое открытие полного плеера</li>
+          <li>Анимированная обложка</li>
+        </ul>
+      </div>
+      <div class="feat-phone">
+        <div class="phone phone-md">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m09.jpg" alt="Мини-плеер">
+            <div class="ph" style="--a:#9333ea;--b:#db2777">
+              <span class="phi">▶️</span><span class="phl">screen-m09.jpg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="feat-row feat-row-rev reveal">
+      <div class="feat-text">
+        <div class="feat-num">10</div>
+        <h3>Тонкая настройка музыки</h3>
+        <p>Управляйте каждым аспектом музыкального опыта: качество аудио, размер кэша, оффлайн-режим, нормализация громкости, кроссфейд между треками.</p>
+        <ul class="feat-list">
+          <li>Качество аудиопотока</li>
+          <li>Кроссфейд и нормализация</li>
+          <li>Управление кэшем</li>
+          <li>Оффлайн-загрузки</li>
+        </ul>
+      </div>
+      <div class="feat-phone">
+        <div class="phone phone-md">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m10.jpg" alt="Настройки музыки">
+            <div class="ph" style="--a:#6d28d9;--b:#ec4899">
+              <span class="phi">⚙️</span><span class="phl">screen-m10.jpg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ BYPASS SECTION ═══════════ -->
+<section class="sec bypass-sec" id="bypass">
+  <div class="bypass-glow"></div>
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-badge" style="--c1:#0891b2;--c2:#6366f1">🛡️ Технология</div>
+      <h2>Свобода без зависимостей</h2>
+      <p>Обход замедления Telegram, который работает без сторонних серверов и VPN. Только ваше устройство и зашифрованный туннель.</p>
+    </div>
+
+    <div class="bypass-body reveal">
+      <div class="bypass-explain">
+        <div class="bypass-card">
+          <div class="byp-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h4>Как это работает</h4>
+          <p>Трафик Telegram оборачивается в WebSocket-поток и передаётся через стандартный HTTPS-порт 443. Для любой системы глубокой инспекции пакетов это выглядит как обычный веб-запрос — никакого отличия от посещения сайта.</p>
+        </div>
+        <div class="bypass-card">
+          <div class="byp-icon byp-icon-2">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <h4>Без серверов</h4>
+          <p>Туннель строится непосредственно к серверам Telegram, минуя любые посредники. Ни прокси, ни VPN-серверы не задействованы. Ваши данные не проходят через третьих лиц — только шифрование end-to-end.</p>
+        </div>
+        <div class="bypass-card">
+          <div class="byp-icon byp-icon-3">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+            </svg>
+          </div>
+          <h4>Всегда доступен</h4>
+          <p>Не зависит от работоспособности сторонних серверов. Включается одной кнопкой и работает автоматически в фоне. Если соединение обычное — туннель не активируется.</p>
+        </div>
+        <div class="bypass-dl-row">
+          <a href="assets/downloads/soundgram-arm64-v8a.apk" class="btn-primary" download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            ARM64-v8a
+          </a>
+          <a href="assets/downloads/soundgram-armeabi-v7a.apk" class="btn-ghost" download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            ARMv7
+          </a>
+        </div>
+      </div>
+      <div class="bypass-phones">
+        <div class="bphone bp1">
+          <div class="phone">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/bypass/screen-b01.jpg" alt="Обход замедлений">
+              <div class="ph" style="--a:#0891b2;--b:#6366f1">
+                <span class="phi">🛡️</span><span class="phl">screen-b01.jpg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bphone bp2">
+          <div class="phone">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/bypass/screen-b02.jpg" alt="Настройки туннеля">
+              <div class="ph" style="--a:#6366f1;--b:#0891b2">
+                <span class="phi">⚡</span><span class="phl">screen-b02.jpg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CUSTOMIZATION SECTION ═══════════ -->
+<section class="sec custom-sec" id="customization">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-badge" style="--c1:#f59e0b;--c2:#ef4444">🎨 Кастомизация</div>
+      <h2>Сделайте его своим</h2>
+      <p>Обои в списке чатов и живые анимированные обои прямо в диалогах. Telegram, каким вы его ещё не видели.</p>
+    </div>
+
+    <div class="custom-grid reveal">
+      <!-- Card 1 -->
+      <div class="custom-card">
+        <div class="custom-card-inner">
+          <div class="custom-phone-wrap">
+            <div class="phone phone-lg">
+              <div class="pbar"></div>
+              <div class="pscreen">
+                <img src="assets/screenshots/custom/screen-c01.mp4" alt="Обои в чатах">
+                <div class="ph" style="--a:#f59e0b;--b:#ef4444">
+                  <span class="phi">🖼️</span><span class="phl">screen-c01.jpg</span>
                 </div>
-                <div class="extera-video-container">
-                    <video autoplay loop muted playsinline poster="assets/feature-chat-bg.png">
-                        <source src="assets/feature-video-bg.mp4" type="video/mp4">
-                    </video>
+              </div>
+            </div>
+          </div>
+          <div class="custom-info">
+            <div class="custom-tag">Персонализация</div>
+            <h3>Обои в списке чатов</h3>
+            <p>Установите любое изображение фоном списка диалогов. Размытие, яркость и прозрачность — всё настраивается. Сделайте главный экран мессенджера уникальным.</p>
+            <ul class="feat-list">
+              <li>Любое фото из галереи</li>
+              <li>Настройка размытия и яркости</li>
+              <li>Отдельные обои для папок</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="custom-card">
+        <div class="custom-card-inner">
+          <div class="custom-phone-wrap">
+            <div class="phone phone-lg">
+              <div class="pbar"></div>
+              <div class="pscreen">
+                <img src="assets/screenshots/custom/screen-c02.jpg" alt="Живые обои">
+                <div class="ph" style="--a:#ef4444;--b:#f59e0b">
+                  <span class="phi">✨</span><span class="phl">screen-c02.jpg</span>
                 </div>
+              </div>
             </div>
+          </div>
+          <div class="custom-info">
+            <div class="custom-tag">Анимация</div>
+            <h3>Живые обои в чатах</h3>
+            <p>Анимированные фоны прямо в диалогах — частицы, волны, градиентные переливы. Реагируют на входящие сообщения и музыку, которая играет в данный момент.</p>
+            <ul class="feat-list">
+              <li>Анимированные частицы</li>
+              <li>Реакция на музыку</li>
+              <li>Низкое потребление батареи</li>
+            </ul>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <footer class="cta-footer">
-        <div class="footer-content hidden">
-            <h2>Попробуй SoundGram сегодня</h2>
-            <p>Присоединяйся к нашему сообществу в Telegram и скачивай актуальную версию.</p>
-            
-            <div class="hero-buttons" style="justify-content: center; margin-top: 30px;">
-                <a href="assets/soundgram.apk" download="soundgram.apk" class="btn-primary glow-effect big-btn download-trigger">
-                    Скачать APK
-                </a>
+<!-- ═══════════ SETTINGS SECTION ═══════════ -->
+<section class="sec settings-sec" id="settings">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-badge" style="--c1:#10b981;--c2:#0891b2">⚙️ Настройки</div>
+      <h2>Тонкая настройка всего</h2>
+      <p>Полный контроль над каждым аспектом клиента. Настраивайте интерфейс, поведение, приватность и функции — так, как нужно именно вам.</p>
+    </div>
+
+    <div class="settings-grid reveal">
+
+      <!-- s01 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s01.jpg" alt="Основные настройки">
+              <div class="ph" style="--a:#10b981;--b:#0891b2"><span class="phi">⚙️</span></div>
             </div>
+          </div>
         </div>
-        <div class="copyright">
-            <p>SoundGram Project © 2026. Не является официальным клиентом Telegram.</p>
+        <div class="s-info">
+          <div class="s-icon s-icon-1">⚙️</div>
+          <h4>Основные настройки</h4>
+          <p>Главный раздел настроек SoundGram. Быстрый доступ ко всем функциям клиента.</p>
         </div>
-    </footer>
+      </div>
 
-    <script src="script.js"></script>
+      <!-- s02 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s02.jpg" alt="Режим призрака">
+              <div class="ph" style="--a:#6366f1;--b:#8b5cf6"><span class="phi">👻</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-2">👻</div>
+          <h4>Режим призрака</h4>
+          <p>Полная невидимость: никакого «онлайн», «печатает» и статуса прочтения. Вы есть, но вас не видят.</p>
+        </div>
+      </div>
+
+      <!-- s03 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s03.jpg" alt="Настройки чатов">
+              <div class="ph" style="--a:#0891b2;--b:#6366f1"><span class="phi">💬</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-3">💬</div>
+          <h4>Настройки чатов</h4>
+          <p>Автоудаление, умная сортировка, теги диалогов, архив и пины — управляйте хаосом.</p>
+        </div>
+      </div>
+
+      <!-- s04 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s04.jpg" alt="Кастомизация UI">
+              <div class="ph" style="--a:#ec4899;--b:#f59e0b"><span class="phi">🎨</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-4">🎨</div>
+          <h4>Кастомизация UI</h4>
+          <p>Округления, отступы, размеры шрифтов, пузыри сообщений, анимации — любая деталь интерфейса.</p>
+        </div>
+      </div>
+
+      <!-- s05 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s05.jpg" alt="Темы">
+              <div class="ph" style="--a:#9333ea;--b:#ec4899"><span class="phi">🌈</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-5">🌈</div>
+          <h4>Темы и цвета</h4>
+          <p>Встроенный редактор тем, импорт/экспорт, поддержка Material You на Android 12+.</p>
+        </div>
+      </div>
+
+      <!-- s06 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s06.jpg" alt="Уведомления">
+              <div class="ph" style="--a:#f59e0b;--b:#ef4444"><span class="phi">🔔</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-6">🔔</div>
+          <h4>Уведомления</h4>
+          <p>Тонкая настройка уведомлений для каждого чата: звук, вибрация, LED, расписание тишины.</p>
+        </div>
+      </div>
+
+      <!-- s07 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s07.jpg" alt="Конфиденциальность">
+              <div class="ph" style="--a:#10b981;--b:#059669"><span class="phi">🔒</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-7">🔒</div>
+          <h4>Конфиденциальность</h4>
+          <p>Блокировка пересылки, скрытие номера телефона, антискриншот и другие настройки приватности.</p>
+        </div>
+      </div>
+
+      <!-- s08 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s08.jpg" alt="Локальный Premium">
+              <div class="ph" style="--a:#f59e0b;--b:#9333ea"><span class="phi">⭐</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-8">⭐</div>
+          <h4>Локальный Premium</h4>
+          <p>Разблокировка всех Telegram Premium функций без подписки: лимиты, реакции, стикеры.</p>
+        </div>
+      </div>
+
+      <!-- s09 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s09.jpg" alt="Premium-стикеры">
+              <div class="ph" style="--a:#ec4899;--b:#f59e0b"><span class="phi">✨</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-9">✨</div>
+          <h4>Premium-стикеры и реакции</h4>
+          <p>Полный доступ ко всем Premium-стикерам, анимированным реакциям и эксклюзивным эмодзи.</p>
+        </div>
+      </div>
+
+      <!-- s10 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s10.jpg" alt="Скорость загрузки">
+              <div class="ph" style="--a:#0891b2;--b:#10b981"><span class="phi">⚡</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-10">⚡</div>
+          <h4>Скорость загрузки</h4>
+          <p>Ускоренная загрузка медиа через многопоточность. Файлы и фото качаются значительно быстрее.</p>
+        </div>
+      </div>
+
+      <!-- s11 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s11.jpg" alt="Жесты и анимации">
+              <div class="ph" style="--a:#8b5cf6;--b:#6366f1"><span class="phi">👆</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-11">👆</div>
+          <h4>Жесты и анимации</h4>
+          <p>Навигация свайпами, настраиваемые анимации переходов, скорость и физика движений.</p>
+        </div>
+      </div>
+
+      <!-- s12 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s12.jpg" alt="Блокировка">
+              <div class="ph" style="--a:#ef4444;--b:#ec4899"><span class="phi">🔐</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-12">🔐</div>
+          <h4>Блокировка приложения</h4>
+          <p>PIN-код, отпечаток пальца, Face ID и автоблокировка по таймеру. Ваши чаты под защитой.</p>
+        </div>
+      </div>
+
+      <!-- s13 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s13.jpg" alt="Переводы">
+              <div class="ph" style="--a:#10b981;--b:#6366f1"><span class="phi">🌐</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-13">🌐</div>
+          <h4>Встроенный переводчик</h4>
+          <p>Перевод сообщений прямо в чате с поддержкой 100+ языков. Один тап — и текст переведён.</p>
+        </div>
+      </div>
+
+      <!-- s14 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s14.jpg" alt="Бета-функции">
+              <div class="ph" style="--a:#f59e0b;--b:#ec4899"><span class="phi">🧪</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-14">🧪</div>
+          <h4>Бета-функции</h4>
+          <p>Экспериментальные функции для смелых пользователей. Включайте новинки раньше всех.</p>
+        </div>
+      </div>
+
+      <!-- s15 -->
+      <div class="s-card">
+        <div class="s-phone">
+          <div class="phone phone-sm">
+            <div class="pbar"></div>
+            <div class="pscreen">
+              <img src="assets/screenshots/settings/screen-s15.jpg" alt="Для разработчиков">
+              <div class="ph" style="--a:#6366f1;--b:#10b981"><span class="phi">🛠️</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="s-info">
+          <div class="s-icon s-icon-15">🛠️</div>
+          <h4>Для разработчиков</h4>
+          <p>Логи, отладка, сброс настроек, тест производительности и расширенная диагностика.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DOWNLOAD SECTION ═══════════ -->
+<section class="sec download-sec" id="download">
+  <div class="dl-glow"></div>
+  <div class="container">
+    <div class="dl-wrap reveal">
+      <div class="dl-text">
+        <div class="sec-badge" style="--c1:#9333ea;--c2:#ec4899">📥 Скачать</div>
+        <h2>Начните слушать<br>по‑другому</h2>
+        <p>Выберите подходящую версию для вашего устройства. Если не знаете — скорее всего вам нужна ARM64.</p>
+        <div class="dl-btns">
+          <a href="assets/downloads/soundgram-arm64-v8a.apk" class="btn-dl" download>
+            <div class="btn-dl-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            </div>
+            <div class="btn-dl-info">
+              <span class="dl-label">Скачать APK</span>
+              <span class="dl-sub">ARM64-v8a · Большинство устройств</span>
+            </div>
+          </a>
+          <a href="assets/downloads/soundgram-armeabi-v7a.apk" class="btn-dl btn-dl-alt" download>
+            <div class="btn-dl-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            </div>
+            <div class="btn-dl-info">
+              <span class="dl-label">Скачать APK</span>
+              <span class="dl-sub">ARMv7 · Старые устройства</span>
+            </div>
+          </a>
+          <a href="https://t.me/soundgram_project" target="_blank" class="btn-dl btn-dl-tg">
+            <div class="btn-dl-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </div>
+            <div class="btn-dl-info">
+              <span class="dl-label">Telegram-канал</span>
+              <span class="dl-sub">@soundgram_project · Обновления</span>
+            </div>
+          </a>
+        </div>
+        <p class="dl-note">Минимальная версия Android: 5.0+. Разрешите установку из неизвестных источников в настройках устройства.</p>
+      </div>
+      <div class="dl-phones">
+        <div class="phone phone-lg">
+          <div class="pbar"></div>
+          <div class="pscreen">
+            <img src="assets/screenshots/music/screen-m08.jpg" alt="SoundGram">
+            <div class="ph" style="--a:#9333ea;--b:#ec4899">
+              <span class="phi">🌊</span><span class="phl">SoundGram</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#top" class="nav-logo">
+          <svg class="logo-svg" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="18" fill="url(#footG)"/>
+            <path d="M13 27V15l12-3.5v12" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="11" cy="27" r="2.8" fill="white"/>
+            <circle cx="23" cy="23.5" r="2.8" fill="white"/>
+            <defs>
+              <linearGradient id="footG" x1="0" y1="0" x2="36" y2="36">
+                <stop offset="0%" stop-color="#9333ea"/>
+                <stop offset="100%" stop-color="#ec4899"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span>SoundGram</span>
+        </a>
+        <p>Telegram-клиент нового поколения,<br>созданный для любителей музыки.</p>
+      </div>
+      <div class="footer-links">
+        <div class="fl-group">
+          <div class="fl-title">Функции</div>
+          <a href="#music">Музыка</a>
+          <a href="#bypass">Обход замедлений</a>
+          <a href="#customization">Кастомизация</a>
+          <a href="#settings">Настройки</a>
+        </div>
+        <div class="fl-group">
+          <div class="fl-title">Скачать</div>
+          <a href="assets/downloads/soundgram-arm64-v8a.apk" download>APK ARM64-v8a</a>
+          <a href="assets/downloads/soundgram-armeabi-v7a.apk" download>APK ARMv7</a>
+          <a href="https://t.me/soundgram_project" target="_blank">Telegram-канал</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 SoundGram · Неофициальный клиент Telegram</span>
+      <a href="#top" class="back-top">↑ Наверх</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
 </body>
 </html>
