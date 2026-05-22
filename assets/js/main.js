@@ -82,6 +82,15 @@ document.querySelectorAll('.pscreen img').forEach(img => {
   }
 });
 
+
+// Video wallpaper fallback
+
+document.querySelectorAll('.pscreen video').forEach(video => {
+  video.addEventListener('error', () => {
+    video.style.display = 'none';
+  });
+});
+
 // ── SMOOTH ACTIVE NAV LINK ──
 const sections = document.querySelectorAll('section[id]');
 const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
