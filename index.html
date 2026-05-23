@@ -99,61 +99,54 @@
       <p class="sh-sub">Полноценный музыкальный центр прямо в мессенджере</p>
     </div>
 
-    <!-- Interactive music player -->
-    <div class="music-ui">
-      <div class="music-phone">
+    <!-- MUSIC CAROUSEL -->
+    <div class="mcar-wrap">
+      <!-- Phone viewport -->
+      <div class="mcar-phone">
         <div class="mock mock-lg">
           <div class="mbar"></div>
-          <div class="mscreen" id="musicScreen">
-            <img id="musicImg" src="assets/screenshots/music/screen-m01.jpg" alt="Скрин" loading="lazy">
-            <div class="mfb" id="musicFb" style="--ca:#9333ea;--cb:#7c3aed">
-              <span id="musicFbIcon">🎵</span><small id="musicFbTxt">screen-m01.jpg</small>
+          <div class="mscreen">
+            <div class="mcar-track" id="mcarTrack">
+              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m01.jpg" alt="Библиотека" loading="lazy"><div class="mfb" style="--ca:#9333ea;--cb:#7c3aed"><span>🎵</span><small>screen-m01.jpg</small></div></div>
+              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m02.jpg" alt="Плеер" loading="lazy"><div class="mfb" style="--ca:#ec4899;--cb:#9333ea"><span>▶️</span><small>screen-m02.jpg</small></div></div>
+              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m03.jpg" alt="Текст" loading="lazy"><div class="mfb" style="--ca:#7c3aed;--cb:#db2777"><span>🎤</span><small>screen-m03.jpg</small></div></div>
+              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m04.jpg" alt="Профиль" loading="lazy"><div class="mfb" style="--ca:#ec4899;--cb:#6d28d9"><span>🎙️</span><small>screen-m04.jpg</small></div></div>
+              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m05.jpg" alt="Альбом" loading="lazy"><div class="mfb" style="--ca:#6d28d9;--cb:#be185d"><span>💿</span><small>screen-m05.jpg</small></div></div>
+              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m06.jpg" alt="Моя волна" loading="lazy"><div class="mfb" style="--ca:#ec4899;--cb:#9333ea"><span>🌊</span><small>screen-m06.jpg</small></div></div>
+              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m07.jpg" alt="Плейлисты" loading="lazy"><div class="mfb" style="--ca:#9333ea;--cb:#ec4899"><span>📋</span><small>screen-m07.jpg</small></div></div>
+              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m08.jpg" alt="Поиск" loading="lazy"><div class="mfb" style="--ca:#0891b2;--cb:#6366f1"><span>🔍</span><small>screen-m08.jpg</small></div></div>
+              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m09.jpg" alt="Эквалайзер" loading="lazy"><div class="mfb" style="--ca:#7c3aed;--cb:#9333ea"><span>🎚️</span><small>screen-m09.jpg</small></div></div>
+              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m10.jpg" alt="Стиль" loading="lazy"><div class="mfb" style="--ca:#6d28d9;--cb:#ec4899"><span>🎨</span><small>screen-m10.jpg</small></div></div>
             </div>
           </div>
         </div>
+        <!-- Arrows -->
+        <button class="mcar-btn mcar-prev" id="mcarPrev" aria-label="Назад">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="mcar-btn mcar-next" id="mcarNext" aria-label="Вперёд">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
       </div>
-      <div class="music-tabs">
-        <div class="music-tab active" data-img="assets/screenshots/music/screen-m01.jpg" data-ca="#9333ea" data-cb="#7c3aed" data-icon="🎵" data-fn="screen-m01.jpg">
-          <div class="mt-head"><span class="mt-num">01</span><h4>Библиотека</h4></div>
-          <p>Вся музыка в одном месте. Фильтрация по жанру и настроению, история прослушиваний, избранные треки и оффлайн-кэш.</p>
-        </div>
-        <div class="music-tab" data-img="assets/screenshots/music/screen-m02.jpg" data-ca="#ec4899" data-cb="#9333ea" data-icon="▶️" data-fn="screen-m02.jpg">
-          <div class="mt-head"><span class="mt-num">02</span><h4>Полноэкранный плеер</h4></div>
-          <p>Красивый плеер с анимированной обложкой, прогресс-баром, управлением очередью и шейром прямо в чат.</p>
-        </div>
-        <div class="music-tab" data-img="assets/screenshots/music/screen-m03.jpg" data-ca="#7c3aed" data-cb="#db2777" data-icon="🎤" data-fn="screen-m03.jpg">
-          <div class="mt-head"><span class="mt-num">03</span><h4>Тексты · Режим Караоке</h4></div>
-          <p>Синхронизированные тексты подсвечиваются по тайм-кодам в реальном времени. Полноэкранный режим, перевод, обмен цитатами.</p>
-        </div>
-        <div class="music-tab" data-img="assets/screenshots/music/screen-m04.jpg" data-ca="#ec4899" data-cb="#6d28d9" data-icon="🎙️" data-fn="screen-m04.jpg">
-          <div class="mt-head"><span class="mt-num">04</span><h4>Профили исполнителей</h4></div>
-          <p>Биография, фото, дискография, похожие артисты — всё в одном красивом профиле. Подписка на новые релизы.</p>
-        </div>
-        <div class="music-tab" data-img="assets/screenshots/music/screen-m05.jpg" data-ca="#6d28d9" data-cb="#be185d" data-icon="💿" data-fn="screen-m05.jpg">
-          <div class="mt-head"><span class="mt-num">05</span><h4>Альбомы</h4></div>
-          <p>Обложки в высоком качестве, полный треклист с длительностью, год и описание. Слушать весь альбом одним нажатием.</p>
-        </div>
-        <div class="music-tab" data-img="assets/screenshots/music/screen-m06.jpg" data-ca="#ec4899" data-cb="#9333ea" data-icon="🌊" data-fn="screen-m06.jpg">
-          <div class="mt-head"><span class="mt-num">06</span><h4>Моя волна</h4></div>
-          <p>Умные рекомендации, которые изучают ваш вкус. Открытие новых исполнителей, адаптация под настроение. Работает во всём приложении.</p>
-        </div>
-        <div class="music-tab" data-img="assets/screenshots/music/screen-m07.jpg" data-ca="#9333ea" data-cb="#ec4899" data-icon="📋" data-fn="screen-m07.jpg">
-          <div class="mt-head"><span class="mt-num">07</span><h4>Плейлисты</h4></div>
-          <p>Создание, редактирование и шейр. Совместные плейлисты с друзьями, импорт треков из чатов Telegram.</p>
-        </div>
-        <div class="music-tab" data-img="assets/screenshots/music/screen-m08.jpg" data-ca="#0891b2" data-cb="#6366f1" data-icon="🔍" data-fn="screen-m08.jpg">
-          <div class="mt-head"><span class="mt-num">08</span><h4>Умный поиск</h4></div>
-          <p>Мгновенный поиск по трекам, исполнителям, альбомам. Понимает транслитерацию, опечатки и нечёткие запросы.</p>
-        </div>
-        <div class="music-tab" data-img="assets/screenshots/music/screen-m09.jpg" data-ca="#7c3aed" data-cb="#9333ea" data-icon="🎚️" data-fn="screen-m09.jpg">
-          <div class="mt-head"><span class="mt-num">09</span><h4>Эквалайзер</h4></div>
-          <p>Многополосный эквалайзер с ползунками по диапазонам — от суббасов до воздушных верхов. Готовые пресеты жанров (Rock, Pop, Jazz, Bass Boost и др.), ручная кривая с сохранением, нормализация громкости и усиление баса.</p>
-        </div>
-        <div class="music-tab" data-img="assets/screenshots/music/screen-m10.jpg" data-ca="#6d28d9" data-cb="#ec4899" data-icon="⚙️" data-fn="screen-m10.jpg">
-          <div class="mt-head"><span class="mt-num">10</span><h4>Настройки музыки</h4></div>
-          <p>Качество аудиопотока, кроссфейд между треками, нормализация, управление кэшем и оффлайн-загрузки.</p>
+
+      <!-- Description that scrolls with carousel -->
+      <div class="mcar-desc" id="mcarDesc">
+        <div class="mcar-desc-track" id="mcarDescTrack">
+          <div class="mcar-desc-slide"><span class="mcd-num">01</span><h4>Библиотека</h4><p>Вся музыка в одном месте — избранные треки, оффлайн-кэш и быстрый доступ к недавно прослушанному.</p></div>
+          <div class="mcar-desc-slide"><span class="mcd-num">02</span><h4>Полноэкранный плеер</h4><p>Красивый плеер с обложкой, прогресс-баром, управлением очередью и шейром прямо в чат.</p></div>
+          <div class="mcar-desc-slide"><span class="mcd-num">03</span><h4>Тексты · Режим Караоке</h4><p>Синхронизированные тексты подсвечиваются по тайм-кодам в реальном времени. Полноэкранный режим, перевод, обмен цитатами.</p></div>
+          <div class="mcar-desc-slide"><span class="mcd-num">04</span><h4>Профили исполнителей</h4><p>Биография, фото, полная дискография — всё в одном красивом профиле. Подписка на новые релизы.</p></div>
+          <div class="mcar-desc-slide"><span class="mcd-num">05</span><h4>Альбомы</h4><p>Обложки в высоком качестве, полный треклист с длительностью. Слушать весь альбом одним нажатием.</p></div>
+          <div class="mcar-desc-slide"><span class="mcd-num">06</span><h4>Моя волна</h4><p>Умные рекомендации, которые изучают ваш вкус. Адаптируется под настроение и работает во всём приложении.</p></div>
+          <div class="mcar-desc-slide"><span class="mcd-num">07</span><h4>Плейлисты</h4><p>Создание и редактирование плейлистов, импорт треков прямо из чатов Telegram.</p></div>
+          <div class="mcar-desc-slide"><span class="mcd-num">08</span><h4>Умный поиск</h4><p>Мгновенный поиск по трекам, исполнителям и альбомам. Понимает транслитерацию, опечатки и нечёткие запросы.</p></div>
+          <div class="mcar-desc-slide"><span class="mcd-num">09</span><h4>Эквалайзер</h4><p>Многополосный EQ с ползунками от суббасов до воздушных верхов. Готовые пресеты жанров (Rock, Pop, Jazz, Bass Boost), ручная кривая с сохранением и нормализация громкости.</p></div>
+          <div class="mcar-desc-slide"><span class="mcd-num">10</span><h4>Стиль плеера</h4><p>Настройка стиля плеера — регулировка прозрачности, обводки и цветовой палитры всех элементов интерфейса.</p></div>
         </div>
       </div>
+
+      <!-- Dots -->
+      <div class="mcar-dots" id="mcarDots"></div>
     </div>
   </div>
 </section>
@@ -166,47 +159,43 @@
       <h2>Свобода без зависимостей</h2>
       <p class="sh-sub">Работает без VPN и сторонних серверов — только ваше устройство</p>
     </div>
-    <div class="bypass-grid">
-      <div class="bypass-cards">
-        <div class="byp-card">
-          <div class="byp-ico" style="--c:#0891b2">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div>
-            <h4>Как это работает</h4>
-            <p>Трафик Telegram оборачивается в WebSocket-поток и передаётся через стандартный HTTPS-порт 443 — для любой системы инспекции пакетов это выглядит как обычный веб-запрос.</p>
-          </div>
+    <div class="bypass-cards-only">
+      <div class="byp-card">
+        <div class="byp-ico" style="--c:#0891b2">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
-        <div class="byp-card">
-          <div class="byp-ico" style="--c:#6366f1">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </div>
-          <div>
-            <h4>Без серверов</h4>
-            <p>Туннель строится напрямую к серверам Telegram — никаких посредников, никаких прокси. Ваши данные не проходят через третьих лиц.</p>
-          </div>
-        </div>
-        <div class="byp-card">
-          <div class="byp-ico" style="--c:#10b981">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-          </div>
-          <div>
-            <h4>Всегда доступен</h4>
-            <p>Включается одной кнопкой, работает автоматически. Не зависит от внешних серверов — если они упали, вам всё равно.</p>
-          </div>
-        </div>
-        <div class="byp-btns">
-          <a href="assets/downloads/soundgram-arm64-v8a.apk" class="btn-prim" download>ARM64-v8a</a>
-          <a href="assets/downloads/soundgram-armeabi-v7a.apk" class="btn-out" download>ARMv7</a>
+        <div>
+          <h4>Как это работает</h4>
+          <p>Трафик Telegram оборачивается в WebSocket-поток и передаётся через стандартный HTTPS-порт 443 — для любой системы инспекции пакетов это выглядит как обычный веб-запрос, ничем не отличимый от посещения сайта.</p>
         </div>
       </div>
-      <div class="bypass-phones">
-        <div class="bp-wrap bp1">
-          <div class="mock"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/bypass/screen-b01.jpg" alt="Обход" loading="lazy"><div class="mfb" style="--ca:#0891b2;--cb:#6366f1"><span>🛡️</span><small>screen-b01.jpg</small></div></div></div>
+      <div class="byp-card">
+        <div class="byp-ico" style="--c:#6366f1">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         </div>
-        <div class="bp-wrap bp2">
-          <div class="mock"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/bypass/screen-b02.jpg" alt="Настройки туннеля" loading="lazy"><div class="mfb" style="--ca:#6366f1;--cb:#0891b2"><span>⚡</span><small>screen-b02.jpg</small></div></div></div>
+        <div>
+          <h4>Без серверов</h4>
+          <p>Туннель строится напрямую к серверам Telegram — никаких посредников, никаких прокси. Ваши данные не проходят через третьих лиц и не логируются нигде.</p>
         </div>
+      </div>
+      <div class="byp-card">
+        <div class="byp-ico" style="--c:#10b981">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div>
+          <h4>Всегда доступен</h4>
+          <p>Включается одной кнопкой, работает автоматически в фоне. Не зависит от внешних серверов — никакого простоя, никаких подписок.</p>
+        </div>
+      </div>
+      <div class="byp-btns">
+        <a href="assets/downloads/soundgram-arm64-v8a.apk" class="btn-prim" download>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          ARM64-v8a
+        </a>
+        <a href="assets/downloads/soundgram-armeabi-v7a.apk" class="btn-out" download>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          ARMv7
+        </a>
       </div>
     </div>
   </div>
@@ -221,9 +210,10 @@
       <p class="sh-sub">Обои в списке чатов и живые анимированные обои в диалогах</p>
     </div>
     <div class="cust-grid">
+      <!-- Card 1: обои в СПИСКЕ ЧАТОВ → screen-c02.jpg -->
       <div class="cust-card">
         <div class="cust-phone">
-          <div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/custom/screen-c01.jpg" alt="Обои в списке чатов" loading="lazy"><div class="mfb" style="--ca:#f59e0b;--cb:#ef4444"><span>🖼️</span><small>screen-c01.jpg</small></div></div></div>
+          <div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/custom/screen-c02.jpg" alt="Обои в списке чатов" loading="lazy"><div class="mfb" style="--ca:#f59e0b;--cb:#ef4444"><span>🖼️</span><small>screen-c02.jpg</small></div></div></div>
         </div>
         <div class="cust-info">
           <span class="cust-tag" style="color:#f59e0b">Список чатов</span>
@@ -236,9 +226,13 @@
           </ul>
         </div>
       </div>
+      <!-- Card 2: ЖИВЫЕ ОБОИ в чатах → screen-c01.mp4 -->
       <div class="cust-card">
         <div class="cust-phone">
-          <div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/custom/screen-c02.jpg" alt="Живые обои в чатах" loading="lazy"><div class="mfb" style="--ca:#ef4444;--cb:#f59e0b"><span>✨</span><small>screen-c02.jpg</small></div></div></div>
+          <div class="mock mock-md"><div class="mbar"></div><div class="mscreen">
+            <video src="assets/screenshots/custom/screen-c01.mp4" autoplay muted loop playsinline></video>
+            <div class="mfb" style="--ca:#ef4444;--cb:#f59e0b"><span>✨</span><small>screen-c01.mp4</small></div>
+          </div></div>
         </div>
         <div class="cust-info">
           <span class="cust-tag" style="color:#ef4444">Внутри чата</span>
@@ -263,173 +257,34 @@
       <h2>Тонкая настройка всего</h2>
       <p class="sh-sub">Полный контроль над каждым аспектом — от интерфейса до приватности</p>
     </div>
-    <div class="sets-grid">
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s01.jpg" data-name="Основные настройки">
-        <div class="set-icon">⚙️</div>
-        <div class="set-text">
-          <h5>Основные настройки</h5>
-          <p>Главный хаб всех функций клиента с быстрым доступом</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s01.jpg" alt="Основные настройки" loading="lazy"><div class="mfb" style="--ca:#10b981;--cb:#0891b2"><span style="font-size:16px">⚙️</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s02.jpg" data-name="Режим призрака">
-        <div class="set-icon">👻</div>
-        <div class="set-text">
-          <h5>Режим призрака</h5>
-          <p>Скрыть онлайн, «печатает», галочки прочтения — полная невидимость</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s02.jpg" alt="Режим призрака" loading="lazy"><div class="mfb" style="--ca:#6366f1;--cb:#8b5cf6"><span style="font-size:16px">👻</span></div></div></div>
+    <!-- Settings carousel -->
+    <div class="scar-wrap">
+      <div class="scar-viewport">
+        <div class="scar-track" id="scarTrack">
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s01.jpg" alt="Основные настройки" loading="lazy"><div class="mfb" style="--ca:#10b981;--cb:#0891b2"><span>⚙️</span><small>Основные настройки</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s02.jpg" alt="Режим призрака" loading="lazy"><div class="mfb" style="--ca:#6366f1;--cb:#8b5cf6"><span>👻</span><small>Режим призрака</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s03.jpg" alt="Настройки чатов" loading="lazy"><div class="mfb" style="--ca:#0891b2;--cb:#6366f1"><span>💬</span><small>Настройки чатов</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s04.jpg" alt="Кастомизация UI" loading="lazy"><div class="mfb" style="--ca:#ec4899;--cb:#f59e0b"><span>🎨</span><small>Кастомизация UI</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s05.jpg" alt="Темы и цвета" loading="lazy"><div class="mfb" style="--ca:#9333ea;--cb:#ec4899"><span>🌈</span><small>Темы и цвета</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s06.jpg" alt="Уведомления" loading="lazy"><div class="mfb" style="--ca:#f59e0b;--cb:#ef4444"><span>🔔</span><small>Уведомления</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s07.jpg" alt="Конфиденциальность" loading="lazy"><div class="mfb" style="--ca:#10b981;--cb:#059669"><span>🔒</span><small>Конфиденциальность</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s08.jpg" alt="Локальный Premium" loading="lazy"><div class="mfb" style="--ca:#f59e0b;--cb:#9333ea"><span>⭐</span><small>Локальный Premium</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s09.jpg" alt="Premium-стикеры" loading="lazy"><div class="mfb" style="--ca:#ec4899;--cb:#f59e0b"><span>✨</span><small>Premium-стикеры</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s10.jpg" alt="Скорость загрузки" loading="lazy"><div class="mfb" style="--ca:#0891b2;--cb:#10b981"><span>⚡</span><small>Скорость загрузки</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s11.jpg" alt="Жесты и анимации" loading="lazy"><div class="mfb" style="--ca:#8b5cf6;--cb:#6366f1"><span>👆</span><small>Жесты и анимации</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s12.jpg" alt="Блокировка" loading="lazy"><div class="mfb" style="--ca:#ef4444;--cb:#ec4899"><span>🔐</span><small>Блокировка</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s13.jpg" alt="Переводчик" loading="lazy"><div class="mfb" style="--ca:#10b981;--cb:#6366f1"><span>🌐</span><small>Переводчик</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s14.jpg" alt="Бета-функции" loading="lazy"><div class="mfb" style="--ca:#f59e0b;--cb:#ec4899"><span>🧪</span><small>Бета-функции</small></div></div></div></div>
+          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s15.jpg" alt="Для разработчиков" loading="lazy"><div class="mfb" style="--ca:#6366f1;--cb:#10b981"><span>🛠️</span><small>Для разработчиков</small></div></div></div></div>
         </div>
       </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s03.jpg" data-name="Настройки чатов">
-        <div class="set-icon">💬</div>
-        <div class="set-text">
-          <h5>Настройки чатов</h5>
-          <p>Автоудаление, умная сортировка, теги диалогов, архив и пины</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s03.jpg" alt="Настройки чатов" loading="lazy"><div class="mfb" style="--ca:#0891b2;--cb:#6366f1"><span style="font-size:16px">💬</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s04.jpg" data-name="Кастомизация UI">
-        <div class="set-icon">🎨</div>
-        <div class="set-text">
-          <h5>Кастомизация UI</h5>
-          <p>Округления, отступы, шрифты, пузыри сообщений, любая деталь интерфейса</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s04.jpg" alt="Кастомизация UI" loading="lazy"><div class="mfb" style="--ca:#ec4899;--cb:#f59e0b"><span style="font-size:16px">🎨</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s05.jpg" data-name="Темы и цвета">
-        <div class="set-icon">🌈</div>
-        <div class="set-text">
-          <h5>Темы и цвета</h5>
-          <p>Редактор тем, импорт/экспорт, поддержка Material You на Android 12+</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s05.jpg" alt="Темы" loading="lazy"><div class="mfb" style="--ca:#9333ea;--cb:#ec4899"><span style="font-size:16px">🌈</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s06.jpg" data-name="Уведомления">
-        <div class="set-icon">🔔</div>
-        <div class="set-text">
-          <h5>Уведомления</h5>
-          <p>Звук, вибрация, LED, расписание тишины — для каждого чата отдельно</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s06.jpg" alt="Уведомления" loading="lazy"><div class="mfb" style="--ca:#f59e0b;--cb:#ef4444"><span style="font-size:16px">🔔</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s07.jpg" data-name="Конфиденциальность">
-        <div class="set-icon">🔒</div>
-        <div class="set-text">
-          <h5>Конфиденциальность</h5>
-          <p>Блокировка пересылки, скрытие номера, антискриншот и настройки приватности</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s07.jpg" alt="Конфиденциальность" loading="lazy"><div class="mfb" style="--ca:#10b981;--cb:#059669"><span style="font-size:16px">🔒</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s08.jpg" data-name="Локальный Premium">
-        <div class="set-icon">⭐</div>
-        <div class="set-text">
-          <h5>Локальный Premium</h5>
-          <p>Все Premium-функции Telegram без подписки: лимиты, реакции, стикеры</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s08.jpg" alt="Локальный Premium" loading="lazy"><div class="mfb" style="--ca:#f59e0b;--cb:#9333ea"><span style="font-size:16px">⭐</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s09.jpg" data-name="Premium-стикеры">
-        <div class="set-icon">✨</div>
-        <div class="set-text">
-          <h5>Premium-стикеры и реакции</h5>
-          <p>Полный доступ ко всем анимированным реакциям и Premium-стикерам</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s09.jpg" alt="Premium-стикеры" loading="lazy"><div class="mfb" style="--ca:#ec4899;--cb:#f59e0b"><span style="font-size:16px">✨</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s10.jpg" data-name="Скорость загрузки">
-        <div class="set-icon">⚡</div>
-        <div class="set-text">
-          <h5>Скорость загрузки</h5>
-          <p>Многопоточная загрузка медиа — файлы и фото качаются заметно быстрее</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s10.jpg" alt="Скорость" loading="lazy"><div class="mfb" style="--ca:#0891b2;--cb:#10b981"><span style="font-size:16px">⚡</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s11.jpg" data-name="Жесты и анимации">
-        <div class="set-icon">👆</div>
-        <div class="set-text">
-          <h5>Жесты и анимации</h5>
-          <p>Навигация свайпами, настраиваемые переходы, скорость и физика движений</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s11.jpg" alt="Жесты" loading="lazy"><div class="mfb" style="--ca:#8b5cf6;--cb:#6366f1"><span style="font-size:16px">👆</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s12.jpg" data-name="Блокировка">
-        <div class="set-icon">🔐</div>
-        <div class="set-text">
-          <h5>Блокировка приложения</h5>
-          <p>PIN, отпечаток пальца, Face ID и автоблокировка по таймеру</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s12.jpg" alt="Блокировка" loading="lazy"><div class="mfb" style="--ca:#ef4444;--cb:#ec4899"><span style="font-size:16px">🔐</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s13.jpg" data-name="Переводчик">
-        <div class="set-icon">🌐</div>
-        <div class="set-text">
-          <h5>Встроенный переводчик</h5>
-          <p>Перевод сообщений прямо в чате, 100+ языков, один тап</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s13.jpg" alt="Переводчик" loading="lazy"><div class="mfb" style="--ca:#10b981;--cb:#6366f1"><span style="font-size:16px">🌐</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s14.jpg" data-name="Бета-функции">
-        <div class="set-icon">🧪</div>
-        <div class="set-text">
-          <h5>Бета-функции</h5>
-          <p>Экспериментальные возможности для смелых — включайте новинки первым</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s14.jpg" alt="Бета" loading="lazy"><div class="mfb" style="--ca:#f59e0b;--cb:#ec4899"><span style="font-size:16px">🧪</span></div></div></div>
-        </div>
-      </div>
-
-      <div class="set-item" data-img="assets/screenshots/settings/screen-s15.jpg" data-name="Для разработчиков">
-        <div class="set-icon">🛠️</div>
-        <div class="set-text">
-          <h5>Для разработчиков</h5>
-          <p>Логи, отладка, тест производительности и расширенная диагностика</p>
-        </div>
-        <div class="set-phone-inline">
-          <div class="mock mock-xs"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s15.jpg" alt="Разработчикам" loading="lazy"><div class="mfb" style="--ca:#6366f1;--cb:#10b981"><span style="font-size:16px">🛠️</span></div></div></div>
-        </div>
-      </div>
-
+      <button class="scar-btn scar-prev" id="scarPrev" aria-label="Назад">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="scar-btn scar-next" id="scarNext" aria-label="Вперёд">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <div class="scar-dots" id="scarDots"></div>
     </div>
   </div>
 </section>
@@ -501,16 +356,6 @@
     </div>
   </div>
 </footer>
-
-<!-- MODAL -->
-<div class="modal" id="modal" hidden>
-  <div class="modal-bg" id="modalBg"></div>
-  <div class="modal-inner">
-    <button class="modal-close" id="modalClose">✕</button>
-    <div class="modal-name" id="modalName"></div>
-    <div class="mock mock-modal"><div class="mbar"></div><div class="mscreen"><img id="modalImg" src="" alt=""><div class="mfb" id="modalFb" style="--ca:#9333ea;--cb:#ec4899"><span>📱</span></div></div></div>
-  </div>
-</div>
 
 <script src="assets/js/main.js"></script>
 </body>
