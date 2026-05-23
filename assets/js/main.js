@@ -1,159 +1,132 @@
-/* ═══════════════════════════════════════
-   SOUNDGRAM · main.js
-═══════════════════════════════════════ */
+/* SOUNDGRAM · main.js v2 */
 
-// ── NAV SCROLL EFFECT ──
+// Nav scroll
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 30);
-}, { passive: true });
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), {passive:true});
 
-// ── BURGER MENU ──
+// Burger
 const burger = document.getElementById('burger');
 const navLinks = document.getElementById('navLinks');
-
 burger.addEventListener('click', () => {
   burger.classList.toggle('open');
   navLinks.classList.toggle('open');
 });
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  burger.classList.remove('open');
+  navLinks.classList.remove('open');
+}));
 
-// Close nav on link click
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    burger.classList.remove('open');
-    navLinks.classList.remove('open');
-  });
+// Ticker duplicate for seamless loop
+const ticker = document.getElementById('ticker');
+if (ticker) ticker.innerHTML += ticker.innerHTML;
+
+// Broken images → hide, show gradient placeholder
+document.querySelectorAll('.mscreen img').forEach(img => {
+  const hide = () => (img.style.display = 'none');
+  img.addEventListener('error', hide);
+  if (img.complete && img.naturalWidth === 0) hide();
 });
 
-// ── SCROLL REVEAL ──
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('revealed');
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+// ── MUSIC TABS (interactive) ──
+const tabs = document.querySelectorAll('.music-tab');
+const musicImg = document.getElementById('musicImg');
+const musicFb  = document.getElementById('musicFb');
+const musicFbIcon = document.getElementById('musicFbIcon');
+const musicFbTxt  = document.getElementById('musicFbTxt');
 
-document.querySelectorAll('.reveal, .reveal-right').forEach(el => {
-  observer.observe(el);
-});
+function activateTab(tab) {
+  tabs.forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
 
-// Staggered children reveal for grids
-const gridObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const children = entry.target.querySelectorAll('.s-card, .custom-card, .bypass-card');
-      children.forEach((child, i) => {
-        child.style.transitionDelay = `${i * 60}ms`;
-        child.style.opacity = '0';
-        child.style.transform = 'translateY(24px)';
-        child.style.transition = 'opacity .5s ease, transform .5s ease';
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            child.style.opacity = '1';
-            child.style.transform = 'translateY(0)';
-          }, i * 60);
-        });
-      });
-      gridObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.05 });
+  const img = tab.dataset.img;
+  const ca  = tab.dataset.ca;
+  const cb  = tab.dataset.cb;
+  const icon = tab.dataset.icon;
+  const fn  = tab.dataset.fn;
 
-document.querySelectorAll('.settings-grid, .custom-grid, .bypass-explain').forEach(el => {
-  gridObserver.observe(el);
-});
+  // Fade transition
+  musicImg.style.opacity = '0';
+  setTimeout(() => {
+    musicImg.src = img;
+    musicImg.onload  = () => musicImg.style.opacity = '1';
+    musicImg.onerror = () => (musicImg.style.display = 'none', musicImg.style.opacity = '1');
+    musicImg.style.display = '';
+  }, 180);
 
-// ── TICKER DUPLICATE (seamless loop) ──
-const ticker = document.getElementById('tickerTrack');
-if (ticker) {
-  ticker.innerHTML += ticker.innerHTML;
+  musicFb.style.setProperty('--ca', ca);
+  musicFb.style.setProperty('--cb', cb);
+  musicFbIcon.textContent = icon;
+  musicFbTxt.textContent  = fn;
 }
 
-// ── BROKEN IMAGE HANDLING ──
-// When screenshot not yet added, hide <img> and show gradient placeholder
-document.querySelectorAll('.pscreen img').forEach(img => {
-  img.addEventListener('error', () => {
-    img.style.display = 'none';
-  });
-  // If already broken (cached 404 etc.)
-  if (img.complete && img.naturalWidth === 0) {
-    img.style.display = 'none';
-  }
+musicImg.style.transition = 'opacity .18s ease';
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => activateTab(tab));
 });
 
+// ── SETTINGS MODAL ──
+const modal     = document.getElementById('modal');
+const modalBg   = document.getElementById('modalBg');
+const modalClose = document.getElementById('modalClose');
+const modalImg  = document.getElementById('modalImg');
+const modalName = document.getElementById('modalName');
+const modalFb   = document.getElementById('modalFb');
 
-// Video wallpaper fallback
+document.querySelectorAll('.set-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const img  = item.dataset.img;
+    const name = item.dataset.name;
+    // grab colors from inline phone inside the item
+    const inlinePhone = item.querySelector('.mfb');
+    const ca = inlinePhone ? inlinePhone.style.getPropertyValue('--ca') : '#9333ea';
+    const cb = inlinePhone ? inlinePhone.style.getPropertyValue('--cb') : '#ec4899';
 
-document.querySelectorAll('.pscreen video').forEach(video => {
-  video.addEventListener('error', () => {
-    video.style.display = 'none';
+    modalName.textContent = name;
+    modalImg.src = img;
+    modalImg.style.display = '';
+    modalImg.onerror = () => (modalImg.style.display = 'none');
+    modalFb.style.setProperty('--ca', ca.trim());
+    modalFb.style.setProperty('--cb', cb.trim());
+
+    modal.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
   });
 });
 
-// ── SMOOTH ACTIVE NAV LINK ──
-const sections = document.querySelectorAll('section[id]');
-const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+function closeModal() {
+  modal.setAttribute('hidden', '');
+  document.body.style.overflow = '';
+}
+modalBg.addEventListener('click', closeModal);
+modalClose.addEventListener('click', closeModal);
+document.addEventListener('keydown', e => e.key === 'Escape' && closeModal());
 
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const id = entry.target.getAttribute('id');
-      navAnchors.forEach(a => {
-        a.style.color = a.getAttribute('href') === `#${id}` ? '#fff' : '';
-      });
+// ── REVEAL ON SCROLL ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
     }
   });
-}, { threshold: 0.4 });
+}, {threshold: 0.08, rootMargin:'0px 0px -40px 0px'});
 
-sections.forEach(sec => sectionObserver.observe(sec));
-
-// ── PARALLAX BLOBS ──
-document.addEventListener('mousemove', (e) => {
-  const blobs = document.querySelectorAll('.blob');
-  const cx = window.innerWidth / 2;
-  const cy = window.innerHeight / 2;
-  const dx = (e.clientX - cx) / cx;
-  const dy = (e.clientY - cy) / cy;
-
-  blobs.forEach((blob, i) => {
-    const factor = (i + 1) * 12;
-    blob.style.transform = `translate(${dx * factor}px, ${dy * factor}px)`;
-  });
-}, { passive: true });
-
-// ── PHONE HOVER TILT ──
-document.querySelectorAll('.s-card, .custom-card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    card.style.transform = `translateY(-4px) rotateX(${-y * 4}deg) rotateY(${x * 4}deg)`;
-    card.style.transition = 'transform .1s ease';
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-    card.style.transition = 'border-color .25s, transform .4s, box-shadow .25s';
-  });
+document.querySelectorAll('.sh, .byp-card, .cust-card, .dl-card, .set-item').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(22px)';
+  el.style.transition = `opacity .55s ease ${(i % 6) * 55}ms, transform .55s ease ${(i % 6) * 55}ms`;
+  io.observe(el);
 });
 
-// ── PAGE LOAD ANIMATION ──
-window.addEventListener('load', () => {
-  document.body.style.opacity = '0';
-  document.body.style.transition = 'opacity .4s ease';
-  requestAnimationFrame(() => {
-    document.body.style.opacity = '1';
-  });
-
-  // Hero text staggers in
-  const heroEls = document.querySelectorAll('.hero-text > *');
-  heroEls.forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity .6s ease ${i * 0.1 + 0.2}s, transform .6s ease ${i * 0.1 + 0.2}s`;
-    requestAnimationFrame(() => {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
+// ── PARALLAX BLOBS (desktop only) ──
+if (window.innerWidth > 768) {
+  document.addEventListener('mousemove', e => {
+    const cx = innerWidth / 2, cy = innerHeight / 2;
+    const dx = (e.clientX - cx) / cx, dy = (e.clientY - cy) / cy;
+    document.querySelectorAll('.blob').forEach((b, i) => {
+      const f = (i + 1) * 10;
+      b.style.transform = `translate(${dx * f}px,${dy * f}px)`;
     });
-  });
-});
+  }, {passive: true});
+}
