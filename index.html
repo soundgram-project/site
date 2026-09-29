@@ -2,348 +2,1730 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SoundGram — Telegram-клиент для музыки. Библиотека, эквалайзер, тексты, профили исполнителей.">
-  <meta property="og:title" content="SoundGram — Telegram для музыки">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#070a14">
+  <meta name="description" content="SoundGram — модификация Telegram на базе CherryGram и AyuGram. Полноценный музыкальный плеер, караоке-тексты, 10-полосный эквалайзер, живые видеообои, режим призрака и защита от удаления сообщений.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SoundGram — Музыка, кастомизация и тонкая настройка Telegram">
+  <meta property="og:description" content="Полноценный музыкальный комбайн, тексты Synced Lyrics, живые обои до 24 FPS, режим призрака, CameraX 60 FPS и универсальный APK.">
   <meta property="og:image" content="assets/og-image.svg">
-  <meta name="theme-color" content="#9333ea">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <title>SoundGram — Telegram для музыки</title>
+  <title>SoundGram — Музыка, кастомизация и тонкая настройка Telegram</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav" id="nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
-        <circle cx="18" cy="18" r="18" fill="url(#ng)"/>
-        <path d="M13 27V16l12-3.5v11.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="11" cy="27" r="2.8" fill="#fff"/>
-        <circle cx="23" cy="24" r="2.8" fill="#fff"/>
-        <defs><linearGradient id="ng" x1="0" y1="0" x2="36" y2="36"><stop stop-color="#9333ea"/><stop offset="1" stop-color="#ec4899"/></linearGradient></defs>
-      </svg>
-      SoundGram
-    </a>
-    <div class="nav-links" id="navLinks">
-      <a href="#music">Музыка</a>
-      <a href="#bypass">Обход</a>
-      <a href="#custom">Кастомизация</a>
-      <a href="#settings">Настройки</a>
-      <a href="https://t.me/soundgram_project" target="_blank">Канал</a>
-      <a href="#download" class="nav-dl">Скачать</a>
-    </div>
-    <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  <!-- BACKGROUND GLOWS -->
+  <div class="ambient-layer" aria-hidden="true">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+    <div class="grid-overlay"></div>
   </div>
-</nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg">
-    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
-  </div>
-  <div class="hero-inner">
-    <div class="chip">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-      Telegram-клиент · Android
-    </div>
-    <h1>Sound<span class="gtext">Gram</span></h1>
-    <p>Мессенджер, который чувствует музыку. Библиотека, эквалайзер, профили исполнителей, тексты в режиме Караоке и умные рекомендации.</p>
-    <div class="hero-btns">
-      <a href="assets/downloads/soundgram-arm64-v8a.apk" class="btn-prim" download>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-        ARM64-v8a
+  <!-- NAVIGATION -->
+  <header class="header" id="header">
+    <div class="header-container">
+      <a href="#" class="brand-logo" aria-label="SoundGram Главная">
+        <div class="logo-mark">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="20" fill="url(#logo-grad)"/>
+            <path d="M15 29V17l14-4v12" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12.5" cy="29" r="3.2" fill="#ffffff"/>
+            <circle cx="26.5" cy="25" r="3.2" fill="#ffffff"/>
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#9333ea"/>
+                <stop offset="50%" stop-color="#ec4899"/>
+                <stop offset="100%" stop-color="#3b82f6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Sound<span class="gradient-text">Gram</span></span>
+          <span class="brand-badge">12.10</span>
+        </div>
       </a>
-      <a href="assets/downloads/soundgram-armeabi-v7a.apk" class="btn-out" download>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-        ARMv7
-      </a>
-      <a href="https://t.me/soundgram_project" target="_blank" class="btn-tg">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        @soundgram_project
-      </a>
+
+      <nav class="desktop-nav" aria-label="Основная навигация">
+        <a href="#features" class="nav-item">Возможности</a>
+        <a href="#music" class="nav-item">Музыка</a>
+        <a href="#custom" class="nav-item">Кастомизация</a>
+        <a href="#privacy" class="nav-item">Приватность</a>
+        <a href="#camera" class="nav-item">Камера & Bypass</a>
+        <a href="#team" class="nav-item">Команда</a>
+        <a href="#gallery" class="nav-item">Скриншоты</a>
+        <a href="#donate" class="nav-item nav-donate-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          Поддержать
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="https://t.me/soundgram_project" target="_blank" rel="noopener" class="btn-icon-link" aria-label="Telegram Канал">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+        <a href="#download" class="btn-primary-header">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          <span>Скачать APK</span>
+        </a>
+        <button class="burger-toggle" id="burgerToggle" aria-label="Открыть мобильное меню" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER MENU -->
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <div class="brand-logo">
+          <div class="logo-mark"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="url(#logo-grad)"/><path d="M15 29V17l14-4v12" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12.5" cy="29" r="3.2" fill="#ffffff"/><circle cx="26.5" cy="25" r="3.2" fill="#ffffff"/></svg></div>
+          <span class="brand-name">Sound<span class="gradient-text">Gram</span></span>
+        </div>
+        <button class="drawer-close" id="drawerClose" aria-label="Закрыть меню">✕</button>
+      </div>
+      <div class="drawer-links">
+        <a href="#features" class="drawer-link">✨ Эксклюзивные возможности</a>
+        <a href="#music" class="drawer-link">🎵 Музыкальный комбайн</a>
+        <a href="#custom" class="drawer-link">🎨 Интерфейс & Кастомизация</a>
+        <a href="#privacy" class="drawer-link">👻 Приватность & AyuGram</a>
+        <a href="#camera" class="drawer-link">⚡ CameraX & Скорость</a>
+        <a href="#team" class="drawer-link">👥 Наша команда</a>
+        <a href="#gallery" class="drawer-link">🖼️ Галерея скриншотов (31)</a>
+        <a href="#donate" class="drawer-link">💖 Поддержать автора</a>
+        <a href="https://t.me/soundgram_project" target="_blank" rel="noopener" class="drawer-link tg-link">✈️ Наш Telegram-канал</a>
+      </div>
+      <div class="drawer-footer">
+        <a href="Soundgra_unibuild_12.10.5.apk" class="btn-primary btn-full" download data-apk-download>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Скачать универсальный APK
+        </a>
+      </div>
     </div>
   </div>
-</section>
 
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker" id="ticker">
-    <span>♫ Библиотека</span><b>·</b><span>Полноэкранный плеер</span><b>·</b><span>Режим Караоке</span><b>·</b><span>Профили исполнителей</span><b>·</b><span>Альбомы</span><b>·</b><span>Моя волна</span><b>·</b><span>Плейлисты</span><b>·</b><span>Умный поиск</span><b>·</b><span>Эквалайзер</span><b>·</b><span>Обход замедлений</span><b>·</b><span>Живые обои</span><b>·</b><span>Режим призрака</span><b>·</b><span>Локальный Premium</span><b>·</b><span>Кастомизация UI</span><b>·</b>
-  </div>
-</div>
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <div class="pill-badge animate-float">
+            <span class="badge-dot"></span>
+            <span class="badge-text" id="heroBadgeText">SoundGram v12.10.5 · 1 универсальный APK</span>
+          </div>
 
-<!-- ═══ MUSIC ═══ -->
-<section class="sec" id="music">
-  <div class="wrap">
-    <div class="sh">
-      <div class="chip-s" style="--c:#9333ea">🎵 Музыкальный центр</div>
-      <h2>Музыка — это главное</h2>
-      <p class="sh-sub">Полноценный музыкальный центр прямо в мессенджере</p>
-    </div>
+          <h1 class="hero-title">
+            Музыка, кастомизация и тонкая настройка <span class="gradient-text">Telegram</span>
+          </h1>
 
-    <!-- MUSIC CAROUSEL -->
-    <div class="mcar-wrap">
-      <!-- Phone viewport -->
-      <div class="mcar-phone">
-        <div class="mock mock-lg">
-          <div class="mbar"></div>
-          <div class="mscreen">
-            <div class="mcar-track" id="mcarTrack">
-              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m01.jpg" alt="Библиотека" loading="lazy"><div class="mfb" style="--ca:#9333ea;--cb:#7c3aed"><span>🎵</span><small>screen-m01.jpg</small></div></div>
-              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m02.jpg" alt="Плеер" loading="lazy"><div class="mfb" style="--ca:#ec4899;--cb:#9333ea"><span>▶️</span><small>screen-m02.jpg</small></div></div>
-              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m03.jpg" alt="Текст" loading="lazy"><div class="mfb" style="--ca:#7c3aed;--cb:#db2777"><span>🎤</span><small>screen-m03.jpg</small></div></div>
-              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m04.jpg" alt="Профиль" loading="lazy"><div class="mfb" style="--ca:#ec4899;--cb:#6d28d9"><span>🎙️</span><small>screen-m04.jpg</small></div></div>
-              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m05.jpg" alt="Альбом" loading="lazy"><div class="mfb" style="--ca:#6d28d9;--cb:#be185d"><span>💿</span><small>screen-m05.jpg</small></div></div>
-              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m06.jpg" alt="Моя волна" loading="lazy"><div class="mfb" style="--ca:#ec4899;--cb:#9333ea"><span>🌊</span><small>screen-m06.jpg</small></div></div>
-              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m07.jpg" alt="Плейлисты" loading="lazy"><div class="mfb" style="--ca:#9333ea;--cb:#ec4899"><span>📋</span><small>screen-m07.jpg</small></div></div>
-              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m08.jpg" alt="Поиск" loading="lazy"><div class="mfb" style="--ca:#0891b2;--cb:#6366f1"><span>🔍</span><small>screen-m08.jpg</small></div></div>
-              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m09.jpg" alt="Эквалайзер" loading="lazy"><div class="mfb" style="--ca:#7c3aed;--cb:#9333ea"><span>🎚️</span><small>screen-m09.jpg</small></div></div>
-              <div class="mcar-slide"><img src="assets/screenshots/music/screen-m10.jpg" alt="Стиль" loading="lazy"><div class="mfb" style="--ca:#6d28d9;--cb:#ec4899"><span>🎨</span><small>screen-m10.jpg</small></div></div>
+          <p class="hero-desc">
+            <strong>SoundGram</strong> — модификация Telegram на базе мессенджера с функционалом <em>CherryGram</em> и <em>AyuGram</em>, созданная специально для меломанов и энтузиастов глубокой кастомизации интерфейса.
+          </p>
+
+          <!-- HERO CTA BUTTONS -->
+          <div class="hero-cta-group">
+            <a href="Soundgra_unibuild_12.10.5.apk" class="btn-primary btn-hero-dl" download id="heroDownloadBtn" data-apk-download>
+              <div class="btn-content">
+                <span class="btn-main-label">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  Скачать универсальный APK
+                </span>
+                <span class="btn-sub-label" id="heroSubLabel">~93 МБ · ARM64, ARMv7, x86_64 · Android 5.0+</span>
+              </div>
+            </a>
+
+            <a href="https://t.me/soundgram_project" target="_blank" rel="noopener" class="btn-secondary btn-hero-tg">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+              <span>Канал @soundgram_project</span>
+            </a>
+          </div>
+
+          <!-- HIGHLIGHT CHIPS -->
+          <div class="hero-stats">
+            <div class="stat-pill">
+              <span class="stat-icon">🎧</span>
+              <span class="stat-text"><strong>10-полосный EQ</strong> + BassBoost</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-icon">🎤</span>
+              <span class="stat-text"><strong>Synced Lyrics</strong> караоке</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-icon">✨</span>
+              <span class="stat-text"><strong>Видеообои</strong> до 24 FPS</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-icon">👻</span>
+              <span class="stat-text"><strong>Режим призрака</strong> & Удалёнки</span>
             </div>
           </div>
         </div>
-        <!-- Arrows -->
-        <button class="mcar-btn mcar-prev" id="mcarPrev" aria-label="Назад">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <button class="mcar-btn mcar-next" id="mcarNext" aria-label="Вперёд">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
+
+        <!-- HERO MOCKUP WITH REAL PLAYER SCREENSHOT -->
+        <div class="hero-visual">
+          <div class="device-stage">
+            <div class="floating-badge badge-top-left glass-card">
+              <span class="f-icon">🎚️</span>
+              <div>
+                <strong>10-полосный EQ</strong>
+                <span>+ BassBoost & 3D</span>
+              </div>
+            </div>
+
+            <div class="floating-badge badge-top-right glass-card">
+              <span class="f-icon">📷</span>
+              <div>
+                <strong>CameraX 60 FPS</strong>
+                <span>Кружки в 1080p</span>
+              </div>
+            </div>
+
+            <div class="floating-badge badge-mid-left glass-card">
+              <span class="f-icon">🎬</span>
+              <div>
+                <strong>Видеообои 24 FPS</strong>
+                <span>Анимированный фон</span>
+              </div>
+            </div>
+
+            <div class="floating-badge badge-bottom-right glass-card">
+              <span class="f-icon">⚡</span>
+              <div>
+                <strong>WebSocket Bypass</strong>
+                <span>Порт 1443 без VPN</span>
+              </div>
+            </div>
+
+            <div class="floating-badge badge-bottom-left glass-card">
+              <span class="f-icon">👻</span>
+              <div>
+                <strong>Режим призрака</strong>
+                <span>Анти-удаление AyuGram</span>
+              </div>
+            </div>
+
+            <!-- SMARTPHONE FRAME -->
+            <div class="phone-frame hero-phone">
+              <div class="phone-speaker"></div>
+              <div class="phone-screen">
+                <img src="assets/screenshots/music/01-player.jpg" alt="Полноэкранный плеер SoundGram" class="phone-screenshot" loading="eager">
+              </div>
+              <div class="phone-home-indicator"></div>
+            </div>
+
+            <!-- SOUND VISUALIZER AT BOTTOM -->
+            <div class="sound-wave-visualizer" aria-hidden="true">
+              <span class="bar b1"></span>
+              <span class="bar b2"></span>
+              <span class="bar b3"></span>
+              <span class="bar b4"></span>
+              <span class="bar b5"></span>
+              <span class="bar b6"></span>
+              <span class="bar b7"></span>
+              <span class="bar b8"></span>
+              <span class="bar b9"></span>
+              <span class="bar b10"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKER STRIP -->
+    <section class="ticker-section" aria-label="Ключевые возможности">
+      <div class="ticker-track">
+        <div class="ticker-items" id="tickerItems">
+          <span>🎵 Полноэкранный плеер</span>
+          <span class="t-sep">✦</span>
+          <span>🎤 Синхронизированные тексты караоке</span>
+          <span class="t-sep">✦</span>
+          <span>🎚️ 10-полосный эквалайзер & BassBoost</span>
+          <span class="t-sep">✦</span>
+          <span>🌊 Интерактивная «Моя волна»</span>
+          <span class="t-sep">✦</span>
+          <span>🎬 Анимированные видеообои до 24 FPS</span>
+          <span class="t-sep">✦</span>
+          <span>👻 Режим призрака & Анти-удаление сообщений</span>
+          <span class="t-sep">✦</span>
+          <span>🎨 Движок иконпаков exteragram & Nothing</span>
+          <span class="t-sep">✦</span>
+          <span>⚡ WebSocket Bypass прокси 1443</span>
+          <span class="t-sep">✦</span>
+          <span>📷 CameraX и видеокружки 1080p 60 FPS</span>
+          <span class="t-sep">✦</span>
+          <span>📦 1 универсальный APK</span>
+          <span class="t-sep">✦</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CRITICAL STORAGE CHANNEL WARNING -->
+    <section class="container alert-section">
+      <div class="warning-banner glass-card" role="alert">
+        <div class="warning-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="warning-content">
+          <div class="warning-title">ВАЖНОЕ ПРАВИЛО: КАНАЛ-ХРАНИЛИЩЕ БИБЛИОТЕКИ</div>
+          <p class="warning-text">
+            Канал, который автоматически создаётся в вашем аккаунте при первом входе в клиент — <strong>это облачное хранилище вашей музыкальной библиотеки</strong>. Пожалуйста, <strong>не удаляйте и не трогайте его</strong>, иначе ваша коллекция треков и кэш станут недоступны!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ EXCLUSIVE: INTERACTIVE FEATURES STAGE (EXTERAGRAM STYLE) ═══ -->
+    <section class="section features-stage-section" id="features">
+      <div class="container">
+        <div class="features-stage-wrapper glass-card">
+          <div class="features-stage-intro">
+            <div class="section-chip chip-purple">
+              <span class="chip-icon">✨</span>
+              <span>Эксклюзивные возможности</span>
+            </div>
+            <h2 class="stage-title">Что делает <span class="gradient-text">SoundGram</span> особенным?</h2>
+            <p class="stage-subtitle">
+              Переключайте разделы и исследуйте главные преимущества над официальным клиентом Telegram.
+            </p>
+
+            <!-- TABS -->
+            <div class="features-tabs-bar" id="featureTabs" role="tablist">
+              <button class="feat-tab-btn active" role="tab" aria-selected="true" data-slide="0">
+                <span class="tab-emoji">🎧</span>
+                <span>Hi-Fi Плеер & EQ</span>
+              </button>
+              <button class="feat-tab-btn" role="tab" aria-selected="false" data-slide="1">
+                <span class="tab-emoji">🎨</span>
+                <span>Видеообои & Иконки</span>
+              </button>
+              <button class="feat-tab-btn" role="tab" aria-selected="false" data-slide="2">
+                <span class="tab-emoji">👻</span>
+                <span>Приватность & Призрак</span>
+              </button>
+              <button class="feat-tab-btn" role="tab" aria-selected="false" data-slide="3">
+                <span class="tab-emoji">⚡</span>
+                <span>CameraX & Bypass</span>
+              </button>
+            </div>
+
+            <!-- SLIDE CONTENT DETAILS -->
+            <div class="stage-content-panels" id="stageContentPanels">
+              <!-- PANEL 0 -->
+              <div class="stage-panel active" data-panel="0">
+                <h3 class="panel-heading">Полноэкранный плеер с караоке и 10-полосным эквалайзером</h3>
+                <p class="panel-desc">
+                  Превратите Telegram в продвинутый плеер студийного уровня. Слушайте музыку без ограничений, синхронизируйте тексты в такт трекам и настраивайте звук под любые наушники.
+                </p>
+                <ul class="panel-bullets">
+                  <li><span>✓</span> 10-полосный эквалайзер, BassBoost и 3D объемный звук</li>
+                  <li><span>✓</span> Караоке-тексты Synced Lyrics с плавной подсветкой строк</li>
+                  <li><span>✓</span> Оффлайн-кэширование в одно касание и умная «Моя волна»</li>
+                </ul>
+                <div class="panel-actions">
+                  <button class="btn-outline-glow" onclick="openLightbox('assets/screenshots/music/01-player.jpg', 'Полноэкранный плеер SoundGram с большими обложками')">
+                    Смотреть плеер
+                  </button>
+                  <button class="btn-ghost-pill" onclick="openLightbox('assets/screenshots/music/03-equalizer.jpg', '10-полосный эквалайзер с BassBoost')">
+                    Открыть EQ
+                  </button>
+                </div>
+              </div>
+
+              <!-- PANEL 1 -->
+              <div class="stage-panel" data-panel="1">
+                <h3 class="panel-heading">Анимированные видеообои и движок наборов иконок</h3>
+                <p class="panel-desc">
+                  Устанавливайте живые видеоролики из памяти на фон чатов до 24 FPS. Полная поддержка иконпаков от Nothing, exteragram, Liquid Glass, Solar и Plumpy для уникального стиля.
+                </p>
+                <ul class="panel-bullets">
+                  <li><span>✓</span> Видеообои в диалогах с плавной энергоэффективной частотой до 24 FPS</li>
+                  <li><span>✓</span> Движок иконок Nothing, exteragram, Solar и Liquid Glass</li>
+                  <li><span>✓</span> iOS-стиль строки ввода, цветные ответы и настройка формы аватарок</li>
+                </ul>
+                <div class="panel-actions">
+                  <button class="btn-outline-glow" onclick="openLightbox('assets/screenshots/custom/01-chat-bg.jpg', 'Обои в главном списке чатов с иконпаком Nothing')">
+                    Смотреть кастомизацию
+                  </button>
+                  <button class="btn-ghost-pill" onclick="openLightbox('assets/screenshots/custom/03-iconpack-engine.jpg', 'Движок иконпаков SoundGram')">
+                    Иконпаки
+                  </button>
+                </div>
+              </div>
+
+              <!-- PANEL 2 -->
+              <div class="stage-panel" data-panel="2">
+                <h3 class="panel-heading">Полная невидимость и сохранение удаленных сообщений</h3>
+                <p class="panel-desc">
+                  Все возможности AyuGram прямо в клиенте: читайте чаты без галочек, скрывайте статус «В сети», анонимно смотрите истории и сохраняйте удалённые собеседниками сообщения и медиа.
+                </p>
+                <ul class="panel-bullets">
+                  <li><span>✓</span> Режим призрака: нечиталки, скрытие онлайна, тайпинга и Stories</li>
+                  <li><span>✓</span> Анти-удаление: сохранение стёртых текстов, фото, видео и истории правок</li>
+                  <li><span>✓</span> Аппаратная биометрическая защита чатов и экстренный PIN-код</li>
+                </ul>
+                <div class="panel-actions">
+                  <button class="btn-outline-glow" onclick="openLightbox('assets/screenshots/privacy/01-ghost-mode.jpg', 'Настройки Режима призрака: нечиталки и скрытие онлайна')">
+                    Смотреть Режим призрака
+                  </button>
+                  <button class="btn-ghost-pill" onclick="openLightbox('assets/screenshots/privacy/02-anti-delete.jpg', 'Сохранение удаленных сообщений AyuGram')">
+                    Анти-удаление
+                  </button>
+                </div>
+              </div>
+
+              <!-- PANEL 3 -->
+              <div class="stage-panel" data-panel="3">
+                <h3 class="panel-heading">Кружки 1080p 60 FPS и встроенный WebSocket Bypass</h3>
+                <p class="panel-desc">
+                  Записывайте видеосообщения в максимальном качестве на обе камеры одновременно с оптической стабилизацией. Обходите любые замедления Telegram через встроенный локальный WS-прокси 1443.
+                </p>
+                <ul class="panel-bullets">
+                  <li><span>✓</span> CameraX: видеокружки 1080p, 60 кадров/сек, битрейт до 2200 kbps и OIS</li>
+                  <li><span>✓</span> Одновременная запись на основную и селфи-камеру</li>
+                  <li><span>✓</span> SoundGram Bypass: порт 1443, работает прямо на смартфоне без сторонних VPN</li>
+                </ul>
+                <div class="panel-actions">
+                  <button class="btn-outline-glow" onclick="openLightbox('assets/screenshots/features/04-video-notes-quality.jpg', 'Качество кружков 1080p 60 FPS и оптическая стабилизация')">
+                    Смотреть CameraX
+                  </button>
+                  <button class="btn-ghost-pill" onclick="openLightbox('assets/screenshots/features/01-bypass-proxy.jpg', 'SoundGram Bypass на порту 1443')">
+                    Bypass прокси
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- STAGE CONTROLS & DOTS -->
+            <div class="stage-dots-row">
+              <div class="stage-dots" id="stageDots">
+                <button class="s-dot active" aria-label="Слайд 1" data-slide="0"></button>
+                <button class="s-dot" aria-label="Слайд 2" data-slide="1"></button>
+                <button class="s-dot" aria-label="Слайд 3" data-slide="2"></button>
+                <button class="s-dot" aria-label="Слайд 4" data-slide="3"></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- VISUAL DEVICE SHOWCASE -->
+          <div class="features-stage-screen">
+            <div class="stage-phone-mockup">
+              <div class="phone-speaker"></div>
+              <div class="phone-screen" id="stageScreenWrapper">
+                <img src="assets/screenshots/music/01-player.jpg" alt="Плеер SoundGram" class="stage-screenshot active" id="stageImg" loading="lazy">
+              </div>
+              <div class="phone-home-indicator"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ALTERNATING FEATURE SHOWCASES (EXTERAGRAM FIGURE STYLE) ═══ -->
+    <section class="section showcase-figures-section">
+      <div class="container">
+        <div class="figures-stack">
+
+          <!-- FIGURE 1: LIVE VIDEO WALLPAPERS -->
+          <figure class="feature-figure figure-reverse">
+            <div class="figure-media">
+              <div class="figure-phone-frame">
+                <video src="assets/video/chat-wallpaper.mp4" autoplay loop muted playsinline class="figure-video"></video>
+                <div class="figure-badge-overlay">
+                  <span class="rec-dot"></span> Живые обои · до 24 FPS
+                </div>
+              </div>
+            </div>
+            <figcaption class="figure-caption">
+              <div class="figure-icon-circle icon-pink">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="4"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              </div>
+              <span class="figure-tag">Динамический интерфейс</span>
+              <h3 class="figure-title">Живые видеообои в чатах</h3>
+              <p class="figure-desc">
+                Оживите ваши диалоги любимыми аниме-сценами, клипами или видео из галереи телефона. Оптимизированный рендеринг работает плавно на частоте до 24 кадров в секунду, не перегружая процессор и сохраняя заряд батареи.
+              </p>
+              <ul class="figure-checklist">
+                <li>Любые видеофайлы из галереи смартфона</li>
+                <li>Плавная частота кадров до 24 FPS</li>
+                <li>Мягкое затемнение для комфортного чтения сообщений</li>
+              </ul>
+            </figcaption>
+          </figure>
+
+          <!-- FIGURE 2: 10-BAND EQ & KARAOKE -->
+          <figure class="feature-figure">
+            <div class="figure-media">
+              <div class="figure-phone-frame" onclick="openLightbox('assets/screenshots/music/03-equalizer.jpg', '10-полосный эквалайзер SoundGram с BassBoost и пресетами')">
+                <img src="assets/screenshots/music/03-equalizer.jpg" alt="10-полосный эквалайзер" loading="lazy">
+              </div>
+            </div>
+            <figcaption class="figure-caption">
+              <div class="figure-icon-circle icon-purple">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+              </div>
+              <span class="figure-tag">Аудиофильский комбайн</span>
+              <h3 class="figure-title">10-полосный EQ & Synced Lyrics</h3>
+              <p class="figure-desc">
+                Полный контроль над звуковой картиной: регулируйте частоты на интерактивном графике, активируйте мощный BassBoost и комнатную реверберацию. А караоке-тексты песен скроллятся синхронно с битом трека прямо в плеере.
+              </p>
+              <ul class="figure-checklist">
+                <li>Точный 10-полосный эквалайзер с пресетами (Rock, Pop, Flat, zxc...)</li>
+                <li>Караоке Synced Lyrics с живой подсветкой строк</li>
+                <li>Изменение скорости воспроизведения и тональности трека</li>
+              </ul>
+            </figcaption>
+          </figure>
+
+          <!-- FIGURE 3: AYUGRAM STEALTH & ANTI-DELETE -->
+          <figure class="feature-figure figure-reverse">
+            <div class="figure-media">
+              <div class="figure-phone-frame" onclick="openLightbox('assets/screenshots/privacy/02-anti-delete.jpg', 'Сохранение удаленных сообщений и медиа AyuGram')">
+                <img src="assets/screenshots/privacy/02-anti-delete.jpg" alt="Анти-удаление сообщений" loading="lazy">
+              </div>
+            </div>
+            <figcaption class="figure-caption">
+              <div class="figure-icon-circle icon-emerald">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <span class="figure-tag">Безопасность AyuGram</span>
+              <h3 class="figure-title">Анти-удаление и Режим призрака</h3>
+              <p class="figure-desc">
+                Собеседники больше никогда не смогут скрыть от вас удалённое или исправленное сообщение. Все удалённые тексты и медиафайлы сохраняются в чатах со специальной пометкой, а режим призрака делает вас абсолютно незаметным.
+              </p>
+              <ul class="figure-checklist">
+                <li>Сохранение удалённых сообщений, фото, видео и голосовых</li>
+                <li>Полная история правок и редактирования сообщений</li>
+                <li>Невидимый статус «В сети», скрытие тайпинга и анонимные Stories</li>
+              </ul>
+            </figcaption>
+          </figure>
+
+          <!-- FIGURE 4: CAMERAX & SOUNDGRAM BYPASS -->
+          <figure class="feature-figure">
+            <div class="figure-media">
+              <div class="figure-phone-frame" onclick="openLightbox('assets/screenshots/features/04-video-notes-quality.jpg', 'CameraX 1080p 60 FPS кружки')">
+                <img src="assets/screenshots/features/04-video-notes-quality.jpg" alt="CameraX 1080p 60 FPS" loading="lazy">
+              </div>
+            </div>
+            <figcaption class="figure-caption">
+              <div class="figure-icon-circle icon-cyan">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              </div>
+              <span class="figure-tag">Аппаратная мощь</span>
+              <h3 class="figure-title">CameraX 60 FPS & WebSocket Bypass</h3>
+              <p class="figure-desc">
+                Используйте все возможности камеры вашего Android смартфона: видеокружки в честных 60 FPS с оптической стабилизацией и битрейтом до 2200 kbps. А встроенный WebSocket Bypass на порту 1443 спасает от любых замедлений провайдеров без сторонних VPN.
+              </p>
+              <ul class="figure-checklist">
+                <li>Запись кружков в 1080p 60 FPS и одновременная запись на две камеры</li>
+                <li>Локальный прокси 1443 без сторонних серверов и утечек данных</li>
+                <li>Многопоточное ускорение скачивания треков и тяжелых файлов</li>
+              </ul>
+            </figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ BIG MARQUEE TYPOGRAPHY STRIP (EXTERAGRAM STYLE) ═══ -->
+    <section class="marquee-giant-section" aria-hidden="true">
+      <div class="marquee-giant-row row-filled">
+        <div class="marquee-giant-track">
+          <span>SOUNDGRAM · HI-FI AUDIO · EQUALIZER · SYNCED LYRICS · GHOST MODE · CAMERAX 60 FPS · BYPASS · NOTHING ICONS · </span>
+          <span>SOUNDGRAM · HI-FI AUDIO · EQUALIZER · SYNCED LYRICS · GHOST MODE · CAMERAX 60 FPS · BYPASS · NOTHING ICONS · </span>
+        </div>
+      </div>
+      <div class="marquee-giant-row row-outlined">
+        <div class="marquee-giant-track reverse">
+          <span>BEAUTIFUL · HANDY · MODERN · FAST · SUPERIOR · 24 FPS WALLPAPERS · ANTI-DELETE · UNIBUILD · </span>
+          <span>BEAUTIFUL · HANDY · MODERN · FAST · SUPERIOR · 24 FPS WALLPAPERS · ANTI-DELETE · UNIBUILD · </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION: MUSIC COMBINE ═══ -->
+    <section class="section" id="music">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-chip chip-purple">
+            <span class="chip-icon">🎧</span>
+            <span>Музыкальный комбайн</span>
+          </div>
+          <h2 class="section-title">Забудьте о примитивных кнопках в статус-баре</h2>
+          <p class="section-subtitle">
+            SoundGram превращает Telegram в настоящий Hi-Fi аудиоплеер с большими обложками, глубоким эквалайзером, оффлайн-кэшем и караоке.
+          </p>
+        </div>
+
+        <!-- MUSIC SHOWCASE GRID -->
+        <div class="feature-grid-3">
+          <!-- CARD 1 -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-purple">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+            </div>
+            <h3 class="card-title">Полноэкранный плеер и очередь</h3>
+            <p class="card-desc">
+              Красивый интерфейс с огромными обложками на весь экран, удобным управлением плейлистом и очередью, таймлайном с точностью до секунды и быстрым шерингом трека в любой чат.
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/music/01-player.jpg', 'Полноэкранный плеер с большими обложками и управлением очередью')">
+              <img src="assets/screenshots/music/01-player.jpg" alt="Полноэкранный плеер" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+
+          <!-- CARD 2 -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-pink">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            </div>
+            <h3 class="card-title">Синхронизированные караоке-тексты</h3>
+            <p class="card-desc">
+              Встроенная поддержка <strong>Synced Lyrics</strong>. Строчки плавно подсвечиваются и скроллятся синхронно с ритмом трека — подпевайте любимым композициям вживую.
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/music/02-lyrics.jpg', 'Синхронизированные тексты песен (Synced Lyrics) в ритм трека')">
+              <img src="assets/screenshots/music/02-lyrics.jpg" alt="Тексты песен караоке" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+
+          <!-- CARD 3 -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            </div>
+            <h3 class="card-title">10-полосный EQ & BassBoost</h3>
+            <p class="card-desc">
+              Интерактивный график АЧХ, глубокое усиление басов, 3D объёмный звук, изменение скорости (0.5x–2.0x) и тональности, комнатная реверберация и быстрые пресеты (Rock, Pop, Flat, zxc...).
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/music/03-equalizer.jpg', '10-полосный эквалайзер с BassBoost, скоростью, тональностью и пресетами')">
+              <img src="assets/screenshots/music/03-equalizer.jpg" alt="Эквалайзер SoundGram" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+
+          <!-- CARD 4 -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-cyan">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <h3 class="card-title">Глобальный поиск и оффлайн-кэш</h3>
+            <p class="card-desc">
+              Умный поиск по всей музыкальной базе Telegram: треки, каверы, ремиксы и студийные альбомы. Сохраняйте треки в кэш одной кнопкой и слушайте даже без интернета в метро или в самолёте.
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/music/08-search.jpg', 'Глобальный поиск по трекам, альбомам и исполнителям')">
+              <img src="assets/screenshots/music/08-search.jpg" alt="Поиск музыки" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+
+          <!-- CARD 5 -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-emerald">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <h3 class="card-title">Профили артистов и дискографии</h3>
+            <p class="card-desc">
+              Полноценные карточки исполнителей с фотографиями, популярными релизами, синглами, альбомами и возможностью мгновенно включить персональную «Мою волну» по исполнителю.
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/music/09-artist-profile.jpg', 'Профиль исполнителя с дискографией и треками')">
+              <img src="assets/screenshots/music/09-artist-profile.jpg" alt="Профиль артиста" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+
+          <!-- CARD 6 -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-amber">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            </div>
+            <h3 class="card-title">«Моя волна» & Плейлисты</h3>
+            <p class="card-desc">
+              Создавайте и кастомизируйте собственные плейлисты с обложками. Интерактивная светящаяся сфера «Моя волна» изучает ваши вкусы и генерирует идеальный персональный поток.
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/music/05-my-wave.jpg', 'Интерактивная Моя волна с настройкой жанров и сферой')">
+              <img src="assets/screenshots/music/05-my-wave.jpg" alt="Моя волна" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MUSIC TABS INTERACTIVE SHOWCASE -->
+        <div class="showcase-box glass-card">
+          <div class="showcase-content">
+            <span class="showcase-tag">Студийный звук</span>
+            <h3 class="showcase-heading">Тонкая настройка вкладки «Музыка»</h3>
+            <p class="showcase-text">
+              В SoundGram доступна детальная статистика прослушиваний (количество прослушанных треков и часов), тонкая калибровка интенсивности лучей и размера 3D-сферы «Моя волна», а также эффекты стеклянного размытия (Glassmorphism) для карточек релизов.
+            </p>
+            <div class="showcase-bullets">
+              <div class="s-bullet"><span>✓</span> Статистика часов и треков</div>
+              <div class="s-bullet"><span>✓</span> Настройка лучей и размера сферы</div>
+              <div class="s-bullet"><span>✓</span> Эффект матового стекла для списков</div>
+            </div>
+            <button class="btn-outline-glow" onclick="openLightbox('assets/screenshots/music/11-visual-tuning.jpg', 'Статистика прослушиваний и визуальные параметры вкладки Музыка')">
+              Открыть скриншот настроек
+            </button>
+          </div>
+          <div class="showcase-phones">
+            <div class="phone-frame mini-phone" onclick="openLightbox('assets/screenshots/music/04-library.jpg', 'Музыкальная библиотека и плейлисты')">
+              <img src="assets/screenshots/music/04-library.jpg" alt="Библиотека" loading="lazy">
+            </div>
+            <div class="phone-frame mini-phone active-phone" onclick="openLightbox('assets/screenshots/music/11-visual-tuning.jpg', 'Внешний вид и статистика')">
+              <img src="assets/screenshots/music/11-visual-tuning.jpg" alt="Настройки музыки" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION: INTERFACE & CUSTOMIZATION ═══ -->
+    <section class="section section-alt" id="custom">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-chip chip-pink">
+            <span class="chip-icon">🎨</span>
+            <span>Интерфейс и кастомизация</span>
+          </div>
+          <h2 class="section-title">Сделайте мессенджер по-настоящему своим</h2>
+          <p class="section-subtitle">
+            От живых анимированных видеообоев до формы курсора и движка иконок — в SoundGram кастомизируется абсолютно всё.
+          </p>
+        </div>
+
+        <div class="custom-split-grid">
+          <!-- CARD 1: LIVE CHAT VIDEO WALLPAPERS -->
+          <div class="custom-large-card glass-card">
+            <div class="custom-video-preview">
+              <div class="phone-frame video-phone">
+                <div class="phone-screen">
+                  <video src="assets/video/chat-wallpaper.mp4" autoplay loop muted playsinline class="chat-bg-video"></video>
+                  <div class="video-overlay-badge">
+                    <span class="rec-dot"></span> Живые обои в чатах · до 24 FPS
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="custom-card-text">
+              <div class="badge-mini">Динамический фон</div>
+              <h3>Анимированные видеообои до 24 FPS</h3>
+              <p>
+                Устанавливайте любые видеоролики из галереи, аниме-эпизоды или зацикленные клипы в качестве фона ваших чатов. Энергоэффективный рендеринг оптимизирован для плавности без лишнего расхода аккумулятора.
+              </p>
+              <ul class="feature-checklist">
+                <li>Любые видео из памяти смартфона</li>
+                <li>Плавная частота до 24 FPS</li>
+                <li>Мягкое затемнение и регулировка контраста</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- CARD 2: CHATS LIST WALLPAPER & NOTHING ICONS -->
+          <div class="custom-large-card glass-card">
+            <div class="custom-image-preview">
+              <div class="phone-frame video-phone" onclick="openLightbox('assets/screenshots/custom/01-chat-bg.jpg', 'Обои в главном списке чатов с иконпаком Nothing')">
+                <img src="assets/screenshots/custom/01-chat-bg.jpg" alt="Обои в списке чатов" loading="lazy">
+              </div>
+            </div>
+            <div class="custom-card-text">
+              <div class="badge-mini">Главный экран</div>
+              <h3>Обои в списке диалогов & Iconpack Engine</h3>
+              <p>
+                Поставьте атмосферное изображение на фон всего списка чатов. Встроенный движок иконпаков позволяет менять все иконки приложения с поддержкой наборов от <strong>exteraGram</strong>, <strong>Nothing</strong>, <strong>Liquid Glass</strong>, <strong>Solar</strong> и <strong>Plumpy</strong>.
+              </p>
+              <ul class="feature-checklist">
+                <li>Поддержка сторонних паков exteragram</li>
+                <li>Наборы Nothing, Solar, Liquid Glass, Plumpy</li>
+                <li>Настройка прозрачности и размытия Blur</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 DETAILS CARDS -->
+        <div class="feature-grid-4">
+          <!-- CARD 1 -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-cyan">⌨️</div>
+            <h3 class="card-title">Анимация набора и удаления текста</h3>
+            <p class="card-desc">
+              Эффекты размытия, скольжения, вращения и масштабирования при печати и стирании букв, а также <strong>плавный и жидкий курсор</strong>.
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/custom/04-typing-anim.jpg', 'Анимация набора и удаления текста, плавный и жидкий курсор')">
+              <img src="assets/screenshots/custom/04-typing-anim.jpg" alt="Анимация текста" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+
+          <!-- CARD 2 -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-purple">📑</div>
+            <h3 class="card-title">Органайзер нижних вкладок и папок</h3>
+            <p class="card-desc">
+              Меняйте порядок разделов (Чаты, Музыка, Настройки, Профиль) драг-н-дропом, переносите вкладки папок вниз экрана и отключайте лишнее.
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/custom/05-bottom-tabs.jpg', 'Органайзер нижних вкладок и папок')">
+              <img src="assets/screenshots/custom/05-bottom-tabs.jpg" alt="Органайзер вкладок" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+
+          <!-- CARD 3 -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-pink">💬</div>
+            <h3 class="card-title">Стиль сообщений и секунды во времени</h3>
+            <p class="card-desc">
+              Отображение времени с секундами (12:34:56), кастомные цвета в ответах и превью ссылок, эмодзи профиля на фоне цитирования.
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/custom/07-messages-style.jpg', 'Настройка сообщений: секунды, цветные ответы и превью')">
+              <img src="assets/screenshots/custom/07-messages-style.jpg" alt="Стиль сообщений" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+
+          <!-- CARD 4 -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-emerald">✨</div>
+            <h3 class="card-title">iOS-ввод, блики стекла и радиус аватарок</h3>
+            <p class="card-desc">
+              Раздельные блоки скрепки и текста как в iOS, эффект жидкого стекла, свечение медиа, и плавная настройка формы аватарок (от квадрата до круга).
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/custom/09-chat-ui.jpg', 'Ввод в стиле iOS, блики стекла, скрытие хвостиков')">
+              <img src="assets/screenshots/custom/09-chat-ui.jpg" alt="Стиль чата" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION: PRIVACY & GHOST MODE ═══ -->
+    <section class="section" id="privacy">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-chip chip-emerald">
+            <span class="chip-icon">👻</span>
+            <span>Приватность и безопасность</span>
+          </div>
+          <h2 class="section-title">Лучшее из AyuGram, CherryGram и DrKLO</h2>
+          <p class="section-subtitle">
+            Максимальная защита вашей приватности, сохранение истории переписок и полная невидимость в сети.
+          </p>
+        </div>
+
+        <div class="privacy-grid">
+          <!-- CARD 1: GHOST MODE -->
+          <div class="privacy-card glass-card">
+            <div class="privacy-icon-header">
+              <div class="card-icon icon-purple">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </div>
+              <span class="pill-green">Режим призрака</span>
+            </div>
+            <h3>Полная скрытность онлайн</h3>
+            <p>
+              Оставайтесь невидимым для всех собеседников:
+            </p>
+            <ul class="feature-checklist">
+              <li><strong>Не читать сообщения</strong> — читайте переписку без появления галочек о прочтении</li>
+              <li><strong>Не отправлять онлайн-статус</strong> — статус «В сети» никогда не обновится</li>
+              <li><strong>Скрытие тайпинга</strong> — собеседники не видят «печатает...» или отправку файла</li>
+              <li><strong>Анонимные истории</strong> — смотрите Stories без отображения в списке зрителей</li>
+              <li><strong>Чтение при ответе</strong> — сообщение помечается прочитанным только если вы сами на него ответили</li>
+            </ul>
+            <div class="privacy-phone-trigger" onclick="openLightbox('assets/screenshots/privacy/01-ghost-mode.jpg', 'Настройки Режима призрака: нечиталки, скрытие онлайна и тайпинга')">
+              <span>Открыть экран настроек призрака →</span>
+            </div>
+          </div>
+
+          <!-- CARD 2: ANTI-DELETE & EDIT HISTORY -->
+          <div class="privacy-card glass-card">
+            <div class="privacy-icon-header">
+              <div class="card-icon icon-emerald">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <span class="pill-purple">Анти-удаление AyuGram</span>
+            </div>
+            <h3>Сохранение удалёнок и правок</h3>
+            <p>
+              Больше никто не сможет скрыть от вас удалённое или отредактированное сообщение:
+            </p>
+            <ul class="feature-checklist">
+              <li><strong>Сохранение удалённых сообщений</strong> — текст остаётся в чате со значком корзины</li>
+              <li><strong>Сохранение удалённых медиа</strong> — фото, видео и голосовые не пропадают</li>
+              <li><strong>История изменений сообщений</strong> — просмотр всех версий отредактированного текста</li>
+              <li><strong>Сохранение в чатах с ботами</strong> — защита от автостирания логов ботами</li>
+              <li><strong>Локальная база данных</strong> — надёжное хранение на устройстве с возможностью очистки</li>
+            </ul>
+            <div class="privacy-phone-trigger" onclick="openLightbox('assets/screenshots/privacy/02-anti-delete.jpg', 'Сохранение удаленных сообщений, медиа и истории изменений')">
+              <span>Открыть экран сохранения удалёнок →</span>
+            </div>
+          </div>
+
+          <!-- CARD 3: LOCKS & EMERGENCY PIN -->
+          <div class="privacy-card glass-card">
+            <div class="privacy-icon-header">
+              <div class="card-icon icon-pink">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <span class="pill-cyan">Защита биометрией</span>
+            </div>
+            <h3>Блокировка чатов и экстренный PIN</h3>
+            <p>
+              Надёжная аппаратная защита ваших личных переписок:
+            </p>
+            <ul class="feature-checklist">
+              <li><strong>Защита «Избранного»</strong> — биометрия или пароль перед открытием Saved Messages</li>
+              <li><strong>Защита секретных чатов и архива</strong> — скрытие и блокировка доступа</li>
+              <li><strong>Экстренный код доступа</strong> — специальный PIN-код на случай принудительной разблокировки</li>
+              <li><strong>Подтверждение удаления</strong> — защита от случайного стирания чатов</li>
+              <li><strong>Скрытие спонсоров прокси</strong> — очистка интерфейса от навязчивых каналов</li>
+            </ul>
+            <div class="privacy-phone-trigger" onclick="openLightbox('assets/screenshots/privacy/03-security-pin.jpg', 'Биометрия, экстренный PIN-код и защита выбранных чатов')">
+              <span>Открыть экран блокировки чатов →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION: CAMERA & SPEED & BYPASS ═══ -->
+    <section class="section section-alt" id="camera">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-chip chip-cyan">
+            <span class="chip-icon">⚡</span>
+            <span>Камера, скорость и Bypass</span>
+          </div>
+          <h2 class="section-title">Аппаратная мощь и обход блокировок</h2>
+          <p class="section-subtitle">
+            Снимайте кружки в 1080p 60 FPS на обе камеры одновременно и забудьте о замедлениях Telegram.
+          </p>
+        </div>
+
+        <div class="feature-grid-3">
+          <!-- CARD 1: CAMERAX & 60 FPS -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-pink">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </div>
+            <h3 class="card-title">CameraX и видеокружки 60 FPS</h3>
+            <p class="card-desc">
+              Современный движок CameraX: запись видеосообщений (кружков) с повышенным качеством до <strong>1080p</strong>, частотой <strong>60 FPS</strong> и битрейтом до <strong>2200 kbps</strong>. Оптическая стабилизация (OIS) и непрерывный автофокус.
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/features/04-video-notes-quality.jpg', 'Качество кружков: 1080p, 60 FPS, OIS оптическая стабилизация')">
+              <img src="assets/screenshots/features/04-video-notes-quality.jpg" alt="Качество кружков" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+
+          <!-- CARD 2: DUAL CAMERA -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <h3 class="card-title">Двойная камера и старт с ширика</h3>
+            <p class="card-desc">
+              Записывайте видеосообщения <strong>одновременно на две камеры</strong> (основная + селфи) с мгновенным переключением. Возможность автоматически начинать запись со сверхширокоугольного объектива.
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/features/03-camerax.jpg', 'Двойная камера для кружков и старт со сверхширокоугольного модуля')">
+              <img src="assets/screenshots/features/03-camerax.jpg" alt="Настройки камеры" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+
+          <!-- CARD 3: SOUNDGRAM BYPASS -->
+          <div class="feature-card glass-card">
+            <div class="card-icon icon-emerald">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            </div>
+            <h3 class="card-title">SoundGram Bypass (Порт 1443)</h3>
+            <p class="card-desc">
+              Встроенный WebSocket-прокси прямо на вашем смартфоне: туннелирует трафик Telegram под видом обычного веб-трафика на порт 443/1443. <strong>Работает без сторонних серверов и VPN</strong>, защищая от замедлений провайдеров.
+            </p>
+            <div class="card-visual-pill" onclick="openLightbox('assets/screenshots/features/01-bypass-proxy.jpg', 'SoundGram Bypass: встроенный антицензурный WS-прокси')">
+              <img src="assets/screenshots/features/01-bypass-proxy.jpg" alt="SoundGram Bypass" loading="lazy">
+              <span>Смотреть экран</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- NETWORK SPEEDUP STRIP -->
+        <div class="speed-box glass-card">
+          <div class="speed-content">
+            <div class="speed-badge">⚡ Ускорение интернета для Telegram</div>
+            <h3>Многопоточная загрузка «Экстра» и параллельная отправка</h3>
+            <p>
+              SoundGram задействует дополнительные одновременные потоки к серверам Telegram для мгновенного скачивания музыки, тяжелых видеофайлов и отправки контента даже при нестабильном 3G/4G подключении.
+            </p>
+          </div>
+          <button class="btn-primary" onclick="openLightbox('assets/screenshots/features/02-network-speed.jpg', 'Ускорение загрузки Экстра и параллельные соединения')">
+            Посмотреть настройки сети
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION: SCREENSHOT GALLERY (ALL 31 IMAGES) ═══ -->
+    <section class="section" id="gallery">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-chip chip-purple">
+            <span class="chip-icon">🖼️</span>
+            <span>Интерактивная галерея</span>
+          </div>
+          <h2 class="section-title">Исследуйте все 31 экран клиента</h2>
+          <p class="section-subtitle">
+            Нажмите на любой скриншот, чтобы открыть его в полноэкранном режиме с описанием и удобным увеличением.
+          </p>
+
+          <!-- CATEGORY FILTERS -->
+          <div class="gallery-filters" id="galleryFilters">
+            <button class="filter-btn active" data-filter="all">Все (31)</button>
+            <button class="filter-btn" data-filter="music">🎵 Музыка (11)</button>
+            <button class="filter-btn" data-filter="custom">🎨 Кастомизация (10)</button>
+            <button class="filter-btn" data-filter="privacy">👻 Приватность (4)</button>
+            <button class="filter-btn" data-filter="features">⚙️ Настройки & Камера (6)</button>
+          </div>
+        </div>
+
+        <!-- GALLERY GRID -->
+        <div class="gallery-grid" id="galleryGrid">
+
+          <!-- ─── MUSIC CATEGORY (11 items) ─── -->
+          <div class="gallery-item" data-cat="music" data-src="assets/screenshots/music/01-player.jpg" data-title="Полноэкранный плеер" data-desc="Интерфейс плеера с большой обложкой на весь экран, оффлайн-кэшированием и элементами управления.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/music/01-player.jpg" alt="Полноэкранный плеер" loading="lazy">
+              <div class="gallery-overlay">
+                <span class="zoom-icon">🔍</span>
+                <span class="thumb-title">Полноэкранный плеер</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Музыка</span>
+              <h4>Полноэкранный плеер</h4>
+              <p>Большая обложка, очередь и оффлайн-кэш</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="music" data-src="assets/screenshots/music/02-lyrics.jpg" data-title="Синхронизированные тексты песен" data-desc="Караоке-тексты (Synced Lyrics), плавно скроллящиеся синхронно с воспроизведением трека.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/music/02-lyrics.jpg" alt="Караоке тексты" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Synced Lyrics</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Музыка</span>
+              <h4>Караоке тексты</h4>
+              <p>Синхронная прокрутка строк в такт</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="music" data-src="assets/screenshots/music/03-equalizer.jpg" data-title="10-полосный эквалайзер SoundGram" data-desc="График АЧХ, BassBoost, 3D звук, скорость (0.5x–2.0x), тональность, реверберация и пресеты.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/music/03-equalizer.jpg" alt="Эквалайзер" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">10-полосный EQ</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Музыка</span>
+              <h4>10-полосный EQ</h4>
+              <p>BassBoost, пресеты, 3D звук и скорость</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="music" data-src="assets/screenshots/music/04-library.jpg" data-title="Музыкальная библиотека" data-desc="Разделы Моя волна, Библиотека и Альбомы. Создание собственных подборок и плейлистов.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/music/04-library.jpg" alt="Библиотека" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Библиотека</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Музыка</span>
+              <h4>Библиотека</h4>
+              <p>Плейлисты, треклисты и подборки</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="music" data-src="assets/screenshots/music/05-my-wave.jpg" data-title="Интерактивная «Моя волна»" data-desc="Умная генерация треков по настроению и жанрам с интерактивной 3D-сферой.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/music/05-my-wave.jpg" alt="Моя волна" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Моя волна</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Музыка</span>
+              <h4>Моя волна</h4>
+              <p>Умный поток музыки с фильтром жанров</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="music" data-src="assets/screenshots/music/06-playlist-view.jpg" data-title="Просмотр плейлиста" data-desc="Красивый экран плейлиста с хронометражем, количеством треков и запуском «Моей волны».">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/music/06-playlist-view.jpg" alt="Плейлист" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Плейлист</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Музыка</span>
+              <h4>Плейлисты</h4>
+              <p>Создание и управление подборками</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="music" data-src="assets/screenshots/music/07-albums.jpg" data-title="Сетка альбомов" data-desc="Сетка альбомов в высоком разрешении для мгновенного прослушивания релизов целиком.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/music/07-albums.jpg" alt="Альбомы" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Альбомы</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Музыка</span>
+              <h4>Альбомы</h4>
+              <p>Удобный каталог студийных релизов</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="music" data-src="assets/screenshots/music/08-search.jpg" data-title="Глобальный поиск музыки" data-desc="Мгновенный поиск по трекам, исполнителям, альбомам и ремиксам по всей базе.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/music/08-search.jpg" alt="Поиск" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Поиск треков</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Музыка</span>
+              <h4>Глобальный поиск</h4>
+              <p>Поиск по трекам, исполнителям и каверам</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="music" data-src="assets/screenshots/music/09-artist-profile.jpg" data-title="Профиль артиста" data-desc="Биография, фото, популярные релизы и лучшие треки выбранного исполнителя.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/music/09-artist-profile.jpg" alt="Профиль артиста" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Профиль артиста</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Музыка</span>
+              <h4>Профили исполнителей</h4>
+              <p>Дискография и популярные синглы</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="music" data-src="assets/screenshots/music/10-album-tracks.jpg" data-title="Детали альбома" data-desc="Полный треклист выбранного альбома с временем звучания и обложкой.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/music/10-album-tracks.jpg" alt="Детали альбома" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Треклист альбома</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Музыка</span>
+              <h4>Треклист альбома</h4>
+              <p>Слушайте альбомы в оригинальном порядке</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="music" data-src="assets/screenshots/music/11-visual-tuning.jpg" data-title="Статистика и внешний вид музыки" data-desc="Счетчик треков и часов прослушивания, калибровка лучей сферы и стеклянный стиль.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/music/11-visual-tuning.jpg" alt="Статистика и визуал" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Визуал музыки</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Музыка</span>
+              <h4>Визуал & Статистика</h4>
+              <p>Часы музыки, размер сферы и блюр</p>
+            </div>
+          </div>
+
+          <!-- ─── CUSTOMIZATION CATEGORY (10 items) ─── -->
+          <div class="gallery-item" data-cat="custom" data-src="assets/screenshots/custom/01-chat-bg.jpg" data-title="Обои в главном списке чатов" data-desc="Установка любых фото из галереи фоном главного экрана диалогов и иконпак Nothing.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/custom/01-chat-bg.jpg" alt="Обои списка чатов" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Обои списка чатов</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Кастомизация</span>
+              <h4>Обои в списке чатов</h4>
+              <p>Любые фото из памяти + Nothing иконки</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="custom" data-src="assets/screenshots/custom/03-iconpack-engine.jpg" data-title="Движок наборов иконок (Iconpacks)" data-desc="Поддержка иконпаков exteragram, Nothing, Liquid Glass, Solar, Plumpy.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/custom/03-iconpack-engine.jpg" alt="Наборы иконок" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Iconpack Engine</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Кастомизация</span>
+              <h4>Движок иконпаков</h4>
+              <p>Solar, Liquid Glass, Nothing, exteragram</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="custom" data-src="assets/screenshots/custom/04-typing-anim.jpg" data-title="Анимация набора и удаления текста" data-desc="Эффекты размытия, вращения, масштабирования текста и жидкий/плавный курсор.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/custom/04-typing-anim.jpg" alt="Анимация набора текста" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Анимация текста</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Кастомизация</span>
+              <h4>Анимация текста</h4>
+              <p>Размытие, вращение и жидкий курсор</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="custom" data-src="assets/screenshots/custom/05-bottom-tabs.jpg" data-title="Органайзер нижних вкладок" data-desc="Настройка порядка вкладок (Чаты, Музыка, Настройки, Профиль) и быстрый поиск.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/custom/05-bottom-tabs.jpg" alt="Органайзер вкладок" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Нижние вкладки</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Кастомизация</span>
+              <h4>Нижние вкладки</h4>
+              <p>Свободный порядок и включение иконок</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="custom" data-src="assets/screenshots/custom/06-folders.jpg" data-title="Настройка вкладок папок" data-desc="Скрытие вкладки «Все чаты», счетчиков, обводка активной папки и перенос папок вниз.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/custom/06-folders.jpg" alt="Настройки папок" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Папки чатов</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Кастомизация</span>
+              <h4>Папки чатов</h4>
+              <p>Перенос папок вниз экрана и скрытие счетчиков</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="custom" data-src="assets/screenshots/custom/07-messages-style.jpg" data-title="Стиль сообщений и профиля" data-desc="Время с секундами (12:34:56), кастомные цвета в ответах и превью, эмодзи в ответах.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/custom/07-messages-style.jpg" alt="Стиль сообщений" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Стиль сообщений</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Кастомизация</span>
+              <h4>Стиль сообщений</h4>
+              <p>Секунды в таймштампах и цветные ответы</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="custom" data-src="assets/screenshots/custom/08-avatars-stickers.jpg" data-title="Форма аватарок и размер стикеров" data-desc="Плавная регулировка скругления аватарок от квадрата до круга, размер стикеров.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/custom/08-avatars-stickers.jpg" alt="Аватарки и стикеры" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Аватарки и стикеры</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Кастомизация</span>
+              <h4>Форма аватарок</h4>
+              <p>Скругление аватарок и масштаб стикеров</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="custom" data-src="assets/screenshots/custom/09-chat-ui.jpg" data-title="Ввод в стиле iOS и стекло" data-desc="Раздельные блоки ввода, перестановка скрепки/эмодзи, блики стекла, свечение медиа.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/custom/09-chat-ui.jpg" alt="Интерфейс чата" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Интерфейс чата</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Кастомизация</span>
+              <h4>Стиль диалогов</h4>
+              <p>iOS-ввод, блики жидкого стекла и свечение</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="custom" data-src="assets/screenshots/custom/10-ui-toggles.jpg" data-title="Локальный Premium и переключатели MD3" data-desc="Локальная активация функций Telegram Premium, стиль MD3, размытие Blur, заголовок по центру.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/custom/10-ui-toggles.jpg" alt="Переключатели MD3" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Локальный Premium</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Кастомизация</span>
+              <h4>Локальный Premium</h4>
+              <p>MD3 переключатели, размытие и центр шапки</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="custom" data-src="assets/screenshots/custom/11-stickers-nav.jpg" data-title="Скрытие времени у стикеров" data-desc="Скрытие таймштампов у стикеров, тонкая настройка разделов Папки, Сообщения и Профиль.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/custom/11-stickers-nav.jpg" alt="Стикеры и меню" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Стикеры</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Кастомизация</span>
+              <h4>Стикеры & Разделы</h4>
+              <p>Скрытие времени и быстрые переходы</p>
+            </div>
+          </div>
+
+          <!-- ─── PRIVACY CATEGORY (4 items) ─── -->
+          <div class="gallery-item" data-cat="privacy" data-src="assets/screenshots/privacy/01-ghost-mode.jpg" data-title="Режим призрака" data-desc="Не читать сообщения, не отправлять онлайн, скрыть набор текста, анонимные истории.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/privacy/01-ghost-mode.jpg" alt="Режим призрака" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Режим призрака</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Приватность</span>
+              <h4>Режим призрака</h4>
+              <p>Скрытие онлайна, историй и тайпинга</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="privacy" data-src="assets/screenshots/privacy/02-anti-delete.jpg" data-title="Сохранение удаленных сообщений и правок" data-desc="Сохранение удалённых сообщений со значком корзины, удалённых медиа и истории правок.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/privacy/02-anti-delete.jpg" alt="Анти-удаление" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Анти-удаление</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Приватность</span>
+              <h4>Анти-удаление AyuGram</h4>
+              <p>Сохранение удалённых текстов, медиа и правок</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="privacy" data-src="assets/screenshots/privacy/03-security-pin.jpg" data-title="Биометрия и экстренный PIN" data-desc="Защита выбранных чатов, Избранного, секретных чатов и архива биометрией или PIN.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/privacy/03-security-pin.jpg" alt="Блокировка чатов" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Биометрия и PIN</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Приватность</span>
+              <h4>Биометрия & Экстренный код</h4>
+              <p>Блокировка Избранного, чатов и архива</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="privacy" data-src="assets/screenshots/privacy/04-stealth.jpg" data-title="Скрытые элементы и удаление аккаунта" data-desc="Скрытие рекламного прокси-канала, скрытие архивированных историй и быстрый доступ к удалению.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/privacy/04-stealth.jpg" alt="Скрытые элементы" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Скрытые элементы</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Приватность</span>
+              <h4>Скрытые элементы</h4>
+              <p>Скрытие рекламы прокси и архивных историй</p>
+            </div>
+          </div>
+
+          <!-- ─── FEATURES & CAMERA CATEGORY (6 items) ─── -->
+          <div class="gallery-item" data-cat="features" data-src="assets/screenshots/features/01-bypass-proxy.jpg" data-title="SoundGram Bypass (Антицензура)" data-desc="Встроенный WebSocket-прокси на порту 1443 без внешних VPN для обхода замедлений Telegram.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/features/01-bypass-proxy.jpg" alt="Bypass прокси" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">SoundGram Bypass</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Bypass</span>
+              <h4>SoundGram Bypass</h4>
+              <p>WS-прокси порт 1443 без внешних серверов</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="features" data-src="assets/screenshots/features/02-network-speed.jpg" data-title="Ускорение интернета Telegram" data-desc="Многопоточная загрузка «Экстра», параллельные соединения на отдачу и режим слабой сети.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/features/02-network-speed.jpg" alt="Ускорение сети" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Ускорение сети</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Скорость</span>
+              <h4>Ускорение Telegram</h4>
+              <p>Многопоточная загрузка Экстра и отдача</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="features" data-src="assets/screenshots/features/03-camerax.jpg" data-title="Камера CameraX и двойная запись" data-desc="Запись видеосообщений одновременно на две камеры, центрирование кнопок и ширик.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/features/03-camerax.jpg" alt="Камера CameraX" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">CameraX</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Камера</span>
+              <h4>Двойная камера CameraX</h4>
+              <p>Кружки на обе камеры и старт с ширика</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="features" data-src="assets/screenshots/features/04-video-notes-quality.jpg" data-title="Кружки 1080p, 60 FPS и OIS" data-desc="Битрейт 2200 kbps, 60 кадров/сек, оптическая стабилизация, шумоподавление и автофокус.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/features/04-video-notes-quality.jpg" alt="Качество кружков" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Кружки 60 FPS</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Камера</span>
+              <h4>Кружки 1080p 60 FPS</h4>
+              <p>Битрейт 2200 kbps и оптическая стабилизация</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="features" data-src="assets/screenshots/features/05-settings-hub.jpg" data-title="Главный экран настроек SoundGram" data-desc="Все разделы настроек клиента: Музыка, Внешний вид, Чаты, Камера, Приватность, Bypass.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/features/05-settings-hub.jpg" alt="Настройки SoundGram" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Хаб настроек</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Настройки</span>
+              <h4>Хаб настроек</h4>
+              <p>Удобный доступ ко всем возможностям клиента</p>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-cat="features" data-src="assets/screenshots/features/06-spring-animations.jpg" data-title="Пружинные анимации навигации" data-desc="Плавная смена экранов, предиктивный жест назад и заглушение не-контактов.">
+            <div class="gallery-thumb">
+              <img src="assets/screenshots/features/06-spring-animations.jpg" alt="Анимации навигации" loading="lazy">
+              <div class="gallery-overlay"><span class="zoom-icon">🔍</span><span class="thumb-title">Пружинные анимации</span></div>
+            </div>
+            <div class="gallery-caption">
+              <span class="g-tag">Настройки</span>
+              <h4>Пружинные анимации</h4>
+              <p>Плавные переходы и предиктивный жест назад</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION: DONATE & SUPPORT ═══ -->
+    <section class="section section-alt" id="donate">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-chip chip-pink">
+            <span class="chip-icon">💖</span>
+            <span>Поддержать автора</span>
+          </div>
+          <h2 class="section-title">Поддержите разработку SoundGram</h2>
+          <p class="section-subtitle">
+            Клиент развивается на чистом энтузиазме. Любая посильная поддержка помогает регулярно выпускать новые версии, оплачивать сервера и развивать функционал!
+          </p>
+        </div>
+
+        <div class="donate-cards-wrapper">
+          <!-- CARD 1: РФ И РБ -->
+          <div class="donate-card glass-card donate-card-featured">
+            <div class="donate-badge">🇷🇺 Для жителей РФ и РБ</div>
+            <div class="donate-bank-header">
+              <div class="bank-icon">🏦</div>
+              <div>
+                <h4>Банковская карта (МИР / СБП)</h4>
+                <p>Прямой перевод без комиссий</p>
+              </div>
+            </div>
+
+            <div class="card-number-box">
+              <span class="card-number" id="cardNumber">2200 7019 9922 2661</span>
+              <button class="btn-copy" id="copyCardBtn" aria-label="Скопировать номер карты">
+                <svg class="copy-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span class="copy-text">Скопировать</span>
+              </button>
+            </div>
+
+            <div class="card-holder-name">
+              Получатель: <strong>VLASOV SERGEY</strong>
+            </div>
+          </div>
+
+          <!-- CARD 2: TELEGRAM SEND (ОСТАЛЬНЫЕ СТРАНЫ) -->
+          <div class="donate-card glass-card">
+            <div class="donate-badge">🌍 Для остальных стран</div>
+            <div class="donate-bank-header">
+              <div class="bank-icon">✈️</div>
+              <div>
+                <h4>Telegram Send / Wallet</h4>
+                <p>Быстрая отправка через Telegram</p>
+              </div>
+            </div>
+            <p class="donate-card-desc">
+              Удобный и мгновенный способ перевода через официальный Telegram Send бот для пользователей со всего мира.
+            </p>
+            <a href="http://t.me/send?start=IVC5XMsGUEgz" target="_blank" rel="noopener" class="btn-primary btn-full">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+              Поддержать в Telegram
+            </a>
+          </div>
+
+          <!-- CARD 3: BOOSTY -->
+          <div class="donate-card glass-card">
+            <div class="donate-badge">🚀 Boosty Донаты</div>
+            <div class="donate-bank-header">
+              <div class="bank-icon">🧡</div>
+              <div>
+                <h4>Страница на Boosty</h4>
+                <p>Разовый донат или ежемесячная подписка</p>
+              </div>
+            </div>
+            <p class="donate-card-desc">
+              Поддержите проект через платформу Boosty удобным способом с любой карты или электронного кошелька.
+            </p>
+            <a href="https://boosty.to/soundgram_project/donate" target="_blank" rel="noopener" class="btn-secondary btn-full">
+              <span>Перейти на Boosty</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TEAM SECTION (EXTERAGRAM STYLE) ═══ -->
+    <section class="section team-section" id="team">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-chip chip-purple">
+            <span class="chip-icon">👥</span>
+            <span>Наша команда</span>
+          </div>
+          <h2 class="section-title">Создатели и контрибьюторы</h2>
+          <p class="section-subtitle">
+            Люди и открытые проекты, благодаря которым SoundGram дарит лучший опыт использования Telegram.
+          </p>
+        </div>
+
+        <div class="team-grid">
+          <!-- Card 1: Sergey Vlasov -->
+          <div class="team-card glass-card">
+            <div class="team-card-glow"></div>
+            <div class="team-avatar-wrap">
+              <div class="team-avatar-gradient">SV</div>
+            </div>
+            <h3 class="team-name">Sergey Vlasov</h3>
+            <p class="team-role">Lead Developer & Creator</p>
+            <p class="team-bio">Автор модификации SoundGram, интеграция музыкального плеера, эквалайзера и оптимизация сборки.</p>
+            <a href="https://t.me/lastsuns1ne" target="_blank" rel="noopener" class="btn-team-contact">
+              <span>Связаться</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+          </div>
+
+          <!-- Card 2: CherryGram Base -->
+          <div class="team-card glass-card">
+            <div class="team-card-glow"></div>
+            <div class="team-avatar-wrap">
+              <div class="team-avatar-gradient cherry">CG</div>
+            </div>
+            <h3 class="team-name">CherryGram Core</h3>
+            <p class="team-role">Upstream Customization</p>
+            <p class="team-bio">Продвинутая кастомизация интерфейса, движок сторонних иконпаков и шрифты.</p>
+            <a href="https://t.me/cherrygram" target="_blank" rel="noopener" class="btn-team-contact">
+              <span>Канал CherryGram</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+          </div>
+
+          <!-- Card 3: AyuGram Base -->
+          <div class="team-card glass-card">
+            <div class="team-card-glow"></div>
+            <div class="team-avatar-wrap">
+              <div class="team-avatar-gradient ayu">AG</div>
+            </div>
+            <h3 class="team-name">AyuGram Core</h3>
+            <p class="team-role">Privacy & Ghost Engine</p>
+            <p class="team-bio">Сохранение удаленных сообщений, медиафайлов, история изменений и режим призрака.</p>
+            <a href="https://t.me/ayugram" target="_blank" rel="noopener" class="btn-team-contact">
+              <span>Канал AyuGram</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+          </div>
+
+          <!-- Card 4: SoundGram Community -->
+          <div class="team-card glass-card">
+            <div class="team-card-glow"></div>
+            <div class="team-avatar-wrap">
+              <div class="team-avatar-gradient community">SG</div>
+            </div>
+            <h3 class="team-name">SoundGram Community</h3>
+            <p class="team-role">Melomans & Testers</p>
+            <p class="team-bio">Наши пользователи и тестеры, которые делятся идеями, находят баги и помогают проекту расти.</p>
+            <a href="https://t.me/soundgram_project" target="_blank" rel="noopener" class="btn-team-contact">
+              <span>Присоединиться</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION: UNIVERSAL APK DOWNLOAD & JOIN US (EXTERAGRAM STYLE) ═══ -->
+    <section class="section dl-section" id="download">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-chip chip-cyan">
+            <span class="chip-icon">📦</span>
+            <span>Загрузка</span>
+          </div>
+          <h2 class="section-title">Присоединяйтесь к семье <span class="gradient-text">SoundGram</span></h2>
+          <p class="section-subtitle">
+            Один универсальный файл для любых процессоров. Скачивайте прямо сейчас или подписывайтесь на канал.
+          </p>
+        </div>
+
+        <!-- 4 ACTION CARDS (LIKE EXTERAGRAM) -->
+        <div class="download-family-grid">
+          <a href="Soundgra_unibuild_12.10.5.apk" download class="dl-family-card glass-card" data-apk-download>
+            <div class="dl-family-icon icon-purple">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            </div>
+            <div class="dl-family-text">
+              <span class="dl-fam-sub">Прямая ссылка</span>
+              <h4 class="dl-fam-title">Скачать APK</h4>
+              <span class="dl-fam-meta" id="dlFamMeta">Универсальный · ~93 МБ</span>
+            </div>
+          </a>
+
+          <a href="https://t.me/soundgram_project" target="_blank" rel="noopener" class="dl-family-card glass-card">
+            <div class="dl-family-icon icon-cyan">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </div>
+            <div class="dl-family-text">
+              <span class="dl-fam-sub">Официальный канал</span>
+              <h4 class="dl-fam-title">Через Telegram</h4>
+              <span class="dl-fam-meta">@soundgram_project</span>
+            </div>
+          </a>
+
+          <a href="https://boosty.to/soundgram_project/donate" target="_blank" rel="noopener" class="dl-family-card glass-card">
+            <div class="dl-family-icon icon-pink">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="dl-family-text">
+              <span class="dl-fam-sub">Ранние билды</span>
+              <h4 class="dl-fam-title">Boosty Проект</h4>
+              <span class="dl-fam-meta">Эксклюзивные релизы</span>
+            </div>
+          </a>
+
+          <a href="#donate" class="dl-family-card glass-card">
+            <div class="dl-family-icon icon-emerald">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div class="dl-family-text">
+              <span class="dl-fam-sub">Поддержка автора</span>
+              <h4 class="dl-fam-title">Донат & Карты</h4>
+              <span class="dl-fam-meta">МИР, СБП, Send Bot</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- DETAILED SPECS CARD -->
+        <div class="download-card glass-card">
+          <div class="dl-badge">Единый универсальный билд</div>
+          <h3 class="dl-title" id="dlCardTitle">SoundGram v12.10.5 (Release)</h3>
+          <p class="dl-desc">
+            Универсальный APK-файл включает нативные библиотеки для всех современных процессоров (ARM64-v8a, ARMv7, x86_64).
+          </p>
+
+          <div class="dl-meta-info">
+            <div class="meta-item">
+              <span class="meta-label">Файл:</span>
+              <span class="meta-value" id="dlFileName">Soundgra_unibuild_12.10.5.apk</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Размер:</span>
+              <span class="meta-value" id="dlFileSize">~93 МБ</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Архитектуры:</span>
+              <span class="meta-value">ARM64, ARMv7, x86_64</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Android:</span>
+              <span class="meta-value" id="dlAndroid">5.0 и выше</span>
+            </div>
+          </div>
+
+          <div class="dl-action-row">
+            <a href="Soundgra_unibuild_12.10.5.apk" class="btn-primary btn-big-dl" download data-apk-download id="bigDownloadBtn">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              <span>Скачать универсальный APK</span>
+            </a>
+            <a href="https://t.me/soundgram_project" target="_blank" rel="noopener" class="btn-secondary btn-big-tg">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+              <span>Канал с обновлениями</span>
+            </a>
+          </div>
+
+          <p class="dl-tip">
+            Перед установкой убедитесь, что в настройках безопасности телефона включено разрешение на установку приложений из внешних источников.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <div class="logo-mark"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="url(#logo-grad)"/><path d="M15 29V17l14-4v12" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12.5" cy="29" r="3.2" fill="#ffffff"/><circle cx="26.5" cy="25" r="3.2" fill="#ffffff"/></svg></div>
+            <span class="brand-name">Sound<span class="gradient-text">Gram</span></span>
+          </div>
+          <p class="footer-tagline">
+            Музыкальный комбайн, безграничная кастомизация и надежная приватность на базе Telegram.
+          </p>
+        </div>
+
+        <div class="footer-nav-groups">
+          <div class="footer-col">
+            <span class="footer-heading">Навигация</span>
+            <a href="#music">Музыка</a>
+            <a href="#custom">Кастомизация</a>
+            <a href="#privacy">Приватность</a>
+            <a href="#camera">Камера & Скорость</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-heading">Ресурсы</span>
+            <a href="#gallery">Все 31 скриншот</a>
+            <a href="#donate">Поддержать автора</a>
+            <a href="https://t.me/soundgram_project" target="_blank" rel="noopener">Telegram Канал</a>
+            <a href="https://boosty.to/soundgram_project/donate" target="_blank" rel="noopener">Boosty</a>
+          </div>
+        </div>
       </div>
 
-      <!-- Description that scrolls with carousel -->
-      <div class="mcar-desc" id="mcarDesc">
-        <div class="mcar-desc-track" id="mcarDescTrack">
-          <div class="mcar-desc-slide"><span class="mcd-num">01</span><h4>Библиотека</h4><p>Вся музыка в одном месте — избранные треки, оффлайн-кэш и быстрый доступ к недавно прослушанному.</p></div>
-          <div class="mcar-desc-slide"><span class="mcd-num">02</span><h4>Полноэкранный плеер</h4><p>Красивый плеер с обложкой, прогресс-баром, управлением очередью и шейром прямо в чат.</p></div>
-          <div class="mcar-desc-slide"><span class="mcd-num">03</span><h4>Тексты · Режим Караоке</h4><p>Синхронизированные тексты подсвечиваются по тайм-кодам в реальном времени. Полноэкранный режим, перевод, обмен цитатами.</p></div>
-          <div class="mcar-desc-slide"><span class="mcd-num">04</span><h4>Профили исполнителей</h4><p>Биография, фото, полная дискография — всё в одном красивом профиле. Подписка на новые релизы.</p></div>
-          <div class="mcar-desc-slide"><span class="mcd-num">05</span><h4>Альбомы</h4><p>Обложки в высоком качестве, полный треклист с длительностью. Слушать весь альбом одним нажатием.</p></div>
-          <div class="mcar-desc-slide"><span class="mcd-num">06</span><h4>Моя волна</h4><p>Умные рекомендации, которые изучают ваш вкус. Адаптируется под настроение и работает во всём приложении.</p></div>
-          <div class="mcar-desc-slide"><span class="mcd-num">07</span><h4>Плейлисты</h4><p>Создание и редактирование плейлистов, импорт треков прямо из чатов Telegram.</p></div>
-          <div class="mcar-desc-slide"><span class="mcd-num">08</span><h4>Умный поиск</h4><p>Мгновенный поиск по трекам, исполнителям и альбомам. Понимает транслитерацию, опечатки и нечёткие запросы.</p></div>
-          <div class="mcar-desc-slide"><span class="mcd-num">09</span><h4>Эквалайзер</h4><p>Многополосный EQ с ползунками от суббасов до воздушных верхов. Готовые пресеты жанров (Rock, Pop, Jazz, Bass Boost), ручная кривая с сохранением и нормализация громкости.</p></div>
-          <div class="mcar-desc-slide"><span class="mcd-num">10</span><h4>Стиль плеера</h4><p>Настройка стиля плеера — регулировка прозрачности, обводки и цветовой палитры всех элементов интерфейса.</p></div>
+      <div class="footer-bottom">
+        <div class="copyright">
+          © 2026 SoundGram. Неофициальная модификация Telegram. Все права принадлежат их владельцам.
         </div>
-      </div>
-
-      <!-- Dots -->
-      <div class="mcar-dots" id="mcarDots"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ BYPASS ═══ -->
-<section class="sec sec-alt" id="bypass">
-  <div class="wrap">
-    <div class="sh">
-      <div class="chip-s" style="--c:#0891b2">🛡️ Обход замедлений</div>
-      <h2>Свобода без зависимостей</h2>
-      <p class="sh-sub">Работает без VPN и сторонних серверов — только ваше устройство</p>
-    </div>
-    <div class="bypass-cards-only">
-      <div class="byp-card">
-        <div class="byp-ico" style="--c:#0891b2">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div>
-          <h4>Как это работает</h4>
-          <p>Трафик Telegram оборачивается в WebSocket-поток и передаётся через стандартный HTTPS-порт 443 — для любой системы инспекции пакетов это выглядит как обычный веб-запрос, ничем не отличимый от посещения сайта.</p>
-        </div>
-      </div>
-      <div class="byp-card">
-        <div class="byp-ico" style="--c:#6366f1">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        </div>
-        <div>
-          <h4>Без серверов</h4>
-          <p>Туннель строится напрямую к серверам Telegram — никаких посредников, никаких прокси. Ваши данные не проходят через третьих лиц и не логируются нигде.</p>
-        </div>
-      </div>
-      <div class="byp-card">
-        <div class="byp-ico" style="--c:#10b981">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        </div>
-        <div>
-          <h4>Всегда доступен</h4>
-          <p>Включается одной кнопкой, работает автоматически в фоне. Не зависит от внешних серверов — никакого простоя, никаких подписок.</p>
-        </div>
-      </div>
-      <div class="byp-btns">
-        <a href="assets/downloads/soundgram-arm64-v8a.apk" class="btn-prim" download>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-          ARM64-v8a
+        <a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
+          <span>Наверх</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
         </a>
-        <a href="assets/downloads/soundgram-armeabi-v7a.apk" class="btn-out" download>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-          ARMv7
-        </a>
       </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- ═══ CUSTOMIZATION ═══ -->
-<section class="sec" id="custom">
-  <div class="wrap">
-    <div class="sh">
-      <div class="chip-s" style="--c:#f59e0b">🎨 Кастомизация</div>
-      <h2>Сделайте его своим</h2>
-      <p class="sh-sub">Обои в списке чатов и живые анимированные обои в диалогах</p>
-    </div>
-    <div class="cust-grid">
-      <!-- Card 1: обои в СПИСКЕ ЧАТОВ → screen-c02.jpg -->
-      <div class="cust-card">
-        <div class="cust-phone">
-          <div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/custom/screen-c02.jpg" alt="Обои в списке чатов" loading="lazy"><div class="mfb" style="--ca:#f59e0b;--cb:#ef4444"><span>🖼️</span><small>screen-c02.jpg</small></div></div></div>
-        </div>
-        <div class="cust-info">
-          <span class="cust-tag" style="color:#f59e0b">Список чатов</span>
-          <h3>Обои в списке чатов</h3>
-          <p>Установите любое фото из галереи фоном главного экрана с диалогами. Настройка размытия, яркости и прозрачности. Отдельные обои для каждой папки.</p>
-          <ul class="flist">
-            <li>Любое фото из галереи</li>
-            <li>Размытие и яркость</li>
-            <li>Отдельно для каждой папки</li>
-          </ul>
-        </div>
-      </div>
-      <!-- Card 2: ЖИВЫЕ ОБОИ в чатах → screen-c01.mp4 -->
-      <div class="cust-card">
-        <div class="cust-phone">
-          <div class="mock mock-md"><div class="mbar"></div><div class="mscreen">
-            <video src="assets/screenshots/custom/screen-c01.mp4" autoplay muted loop playsinline></video>
-            <div class="mfb" style="--ca:#ef4444;--cb:#f59e0b"><span>✨</span><small>screen-c01.mp4</small></div>
-          </div></div>
-        </div>
-        <div class="cust-info">
-          <span class="cust-tag" style="color:#ef4444">Внутри чата</span>
-          <h3>Живые обои в чатах</h3>
-          <p>Анимированные фоны прямо в диалогах — частицы, волны, градиентные переливы. Реагируют на входящие сообщения и играющую музыку.</p>
-          <ul class="flist">
-            <li>Анимированные частицы и волны</li>
-            <li>Реакция на музыку и сообщения</li>
-            <li>Экономичный режим для батареи</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SETTINGS ═══ -->
-<section class="sec sec-alt" id="settings">
-  <div class="wrap">
-    <div class="sh">
-      <div class="chip-s" style="--c:#10b981">⚙️ Настройки</div>
-      <h2>Тонкая настройка всего</h2>
-      <p class="sh-sub">Полный контроль над каждым аспектом — от интерфейса до приватности</p>
-    </div>
-    <!-- Settings carousel -->
-    <div class="scar-wrap">
-      <div class="scar-viewport">
-        <div class="scar-track" id="scarTrack">
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s01.jpg" alt="Основные настройки" loading="lazy"><div class="mfb" style="--ca:#10b981;--cb:#0891b2"><span>⚙️</span><small>Основные настройки</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s02.jpg" alt="Режим призрака" loading="lazy"><div class="mfb" style="--ca:#6366f1;--cb:#8b5cf6"><span>👻</span><small>Режим призрака</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s03.jpg" alt="Настройки чатов" loading="lazy"><div class="mfb" style="--ca:#0891b2;--cb:#6366f1"><span>💬</span><small>Настройки чатов</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s04.jpg" alt="Кастомизация UI" loading="lazy"><div class="mfb" style="--ca:#ec4899;--cb:#f59e0b"><span>🎨</span><small>Кастомизация UI</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s05.jpg" alt="Темы и цвета" loading="lazy"><div class="mfb" style="--ca:#9333ea;--cb:#ec4899"><span>🌈</span><small>Темы и цвета</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s06.jpg" alt="Уведомления" loading="lazy"><div class="mfb" style="--ca:#f59e0b;--cb:#ef4444"><span>🔔</span><small>Уведомления</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s07.jpg" alt="Конфиденциальность" loading="lazy"><div class="mfb" style="--ca:#10b981;--cb:#059669"><span>🔒</span><small>Конфиденциальность</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s08.jpg" alt="Локальный Premium" loading="lazy"><div class="mfb" style="--ca:#f59e0b;--cb:#9333ea"><span>⭐</span><small>Локальный Premium</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s09.jpg" alt="Premium-стикеры" loading="lazy"><div class="mfb" style="--ca:#ec4899;--cb:#f59e0b"><span>✨</span><small>Premium-стикеры</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s10.jpg" alt="Скорость загрузки" loading="lazy"><div class="mfb" style="--ca:#0891b2;--cb:#10b981"><span>⚡</span><small>Скорость загрузки</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s11.jpg" alt="Жесты и анимации" loading="lazy"><div class="mfb" style="--ca:#8b5cf6;--cb:#6366f1"><span>👆</span><small>Жесты и анимации</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s12.jpg" alt="Блокировка" loading="lazy"><div class="mfb" style="--ca:#ef4444;--cb:#ec4899"><span>🔐</span><small>Блокировка</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s13.jpg" alt="Переводчик" loading="lazy"><div class="mfb" style="--ca:#10b981;--cb:#6366f1"><span>🌐</span><small>Переводчик</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s14.jpg" alt="Бета-функции" loading="lazy"><div class="mfb" style="--ca:#f59e0b;--cb:#ec4899"><span>🧪</span><small>Бета-функции</small></div></div></div></div>
-          <div class="scar-slide"><div class="mock mock-md"><div class="mbar"></div><div class="mscreen"><img src="assets/screenshots/settings/screen-s15.jpg" alt="Для разработчиков" loading="lazy"><div class="mfb" style="--ca:#6366f1;--cb:#10b981"><span>🛠️</span><small>Для разработчиков</small></div></div></div></div>
-        </div>
-      </div>
-      <button class="scar-btn scar-prev" id="scarPrev" aria-label="Назад">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+  <!-- FULLSCREEN LIGHTBOX MODAL -->
+  <div class="lightbox-modal" id="lightboxModal" aria-hidden="true" role="dialog" aria-label="Просмотр скриншота">
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-window">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Закрыть">✕</button>
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Предыдущий скриншот">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
-      <button class="scar-btn scar-next" id="scarNext" aria-label="Вперёд">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Следующий скриншот">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
-      <div class="scar-dots" id="scarDots"></div>
-    </div>
-  </div>
-</section>
 
-<!-- ═══ DOWNLOAD ═══ -->
-<section class="sec dl-sec" id="download">
-  <div class="dl-glow"></div>
-  <div class="wrap">
-    <div class="sh">
-      <div class="chip-s" style="--c:#9333ea">📥 Скачать</div>
-      <h2>Начните слушать по-другому</h2>
-      <p class="sh-sub">Выберите подходящую версию. Если не знаете — скорее всего нужна ARM64.</p>
-    </div>
-    <div class="dl-cards">
-      <a href="assets/downloads/soundgram-arm64-v8a.apk" class="dl-card" download>
-        <div class="dl-ico" style="background:var(--grad)">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      <div class="lightbox-body">
+        <div class="lightbox-img-wrapper">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" alt="SoundGram скриншот" id="lightboxImg" class="lightbox-img">
         </div>
-        <div class="dl-info">
-          <strong>Скачать APK</strong>
-          <span>ARM64-v8a · Большинство устройств</span>
+        <div class="lightbox-info">
+          <div class="lightbox-counter" id="lightboxCounter">1 / 31</div>
+          <h3 class="lightbox-title" id="lightboxTitle">Заголовок</h3>
+          <p class="lightbox-desc" id="lightboxDesc">Описание скриншота</p>
         </div>
-        <svg class="dl-arr" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="assets/downloads/soundgram-armeabi-v7a.apk" class="dl-card" download>
-        <div class="dl-ico" style="background:linear-gradient(135deg,#6d28d9,#9333ea)">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-        </div>
-        <div class="dl-info">
-          <strong>Скачать APK</strong>
-          <span>ARMv7 · Старые устройства</span>
-        </div>
-        <svg class="dl-arr" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="https://t.me/soundgram_project" target="_blank" class="dl-card">
-        <div class="dl-ico" style="background:linear-gradient(135deg,#2563eb,#6366f1)">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        </div>
-        <div class="dl-info">
-          <strong>Telegram-канал</strong>
-          <span>@soundgram_project · Обновления</span>
-        </div>
-        <svg class="dl-arr" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-    <p class="dl-note">Минимальная версия Android: 5.0+. Перед установкой разрешите установку из неизвестных источников.</p>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="wrap">
-    <div class="foot-row">
-      <a href="#" class="nav-logo">
-        <svg width="28" height="28" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="18" fill="url(#fg)"/><path d="M13 27V16l12-3.5v11.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="27" r="2.8" fill="#fff"/><circle cx="23" cy="24" r="2.8" fill="#fff"/><defs><linearGradient id="fg" x1="0" y1="0" x2="36" y2="36"><stop stop-color="#9333ea"/><stop offset="1" stop-color="#ec4899"/></linearGradient></defs></svg>
-        SoundGram
-      </a>
-      <div class="foot-links">
-        <a href="#music">Музыка</a>
-        <a href="#bypass">Обход</a>
-        <a href="#custom">Кастомизация</a>
-        <a href="#settings">Настройки</a>
-        <a href="https://t.me/soundgram_project" target="_blank">Канал</a>
       </div>
     </div>
-    <div class="foot-bottom">
-      <span>© 2026 SoundGram · Неофициальный клиент Telegram</span>
-      <a href="#" class="back-top">↑ Наверх</a>
-    </div>
   </div>
-</footer>
 
-<script src="assets/js/main.js"></script>
+  <!-- COPIED TOAST NOTIFICATION -->
+  <div class="toast-notification" id="toastNotification" role="alert" aria-live="polite">
+    <div class="toast-icon">✓</div>
+    <span class="toast-text" id="toastText">Номер карты скопирован!</span>
+  </div>
+
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
