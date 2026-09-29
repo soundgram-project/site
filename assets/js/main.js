@@ -365,83 +365,85 @@ document.addEventListener('DOMContentLoaded', () => {
   // 7. FEATURES STAGE INTERACTIVE TABBED SLIDER
   // ══════════════════════════════════════════════════════
   const stageTabs = document.querySelectorAll('#featureTabs .feat-tab-btn');
-  const stagePanels = document.querySelectorAll('#stageContentPanels .stage-panel');
-  const stageDots = document.querySelectorAll('#stageDots .s-dot');
-  const stageImg = document.getElementById('stageImg');
-  const stageWrapper = document.querySelector('.features-stage-wrapper');
+  if (stageTabs.length > 0) {
+    const stagePanels = document.querySelectorAll('#stageContentPanels .stage-panel');
+    const stageDots = document.querySelectorAll('#stageDots .s-dot');
+    const stageImg = document.getElementById('stageImg');
+    const stageWrapper = document.querySelector('.features-stage-wrapper');
 
-  const stageScreenshots = [
-    'assets/screenshots/music/01-player.jpg',
-    'assets/screenshots/custom/01-chat-bg.jpg',
-    'assets/screenshots/privacy/01-ghost-mode.jpg',
-    'assets/screenshots/features/04-video-notes-quality.jpg'
-  ];
+    const stageScreenshots = [
+      'assets/screenshots/music/01-player.jpg',
+      'assets/screenshots/custom/01-chat-bg.jpg',
+      'assets/screenshots/privacy/01-ghost-mode.jpg',
+      'assets/screenshots/features/04-video-notes-quality.jpg'
+    ];
 
-  let currentStageSlide = 0;
+    let currentStageSlide = 0;
 
-  const setStageSlide = (index) => {
-    currentStageSlide = (index + stageScreenshots.length) % stageScreenshots.length;
+    const setStageSlide = (index) => {
+      currentStageSlide = (index + stageScreenshots.length) % stageScreenshots.length;
 
-    // Tabs
-    stageTabs.forEach((tab, i) => {
-      const isActive = i === currentStageSlide;
-      tab.classList.toggle('active', isActive);
-      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
-    });
+      // Tabs
+      stageTabs.forEach((tab, i) => {
+        const isActive = i === currentStageSlide;
+        tab.classList.toggle('active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
 
-    // Panels
-    stagePanels.forEach((panel, i) => {
-      panel.classList.toggle('active', i === currentStageSlide);
-    });
+      // Panels
+      stagePanels.forEach((panel, i) => {
+        panel.classList.toggle('active', i === currentStageSlide);
+      });
 
-    // Dots
-    stageDots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === currentStageSlide);
-    });
+      // Dots
+      stageDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentStageSlide);
+      });
 
-    // Image crossfade
-    if (stageImg) {
-      stageImg.style.opacity = '0';
-      stageImg.style.transform = 'scale(0.97)';
-      setTimeout(() => {
-        stageImg.src = stageScreenshots[currentStageSlide];
-        stageImg.style.opacity = '1';
-        stageImg.style.transform = 'scale(1)';
-      }, 160);
-    }
-  };
-
-  stageTabs.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const idx = parseInt(btn.getAttribute('data-slide'), 10);
-      setStageSlide(idx);
-    });
-  });
-
-  stageDots.forEach((dot) => {
-    dot.addEventListener('click', () => {
-      const idx = parseInt(dot.getAttribute('data-slide'), 10);
-      setStageSlide(idx);
-    });
-  });
-
-  // Touch Swipe on Stage Screen
-  let stageTouchStartX = 0;
-  let stageTouchEndX = 0;
-  if (stageWrapper) {
-    stageWrapper.addEventListener('touchstart', (e) => {
-      stageTouchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    stageWrapper.addEventListener('touchend', (e) => {
-      stageTouchEndX = e.changedTouches[0].screenX;
-      const swipeDist = 50;
-      if (stageTouchEndX < stageTouchStartX - swipeDist) {
-        setStageSlide(currentStageSlide + 1);
-      } else if (stageTouchEndX > stageTouchStartX + swipeDist) {
-        setStageSlide(currentStageSlide - 1);
+      // Image crossfade
+      if (stageImg) {
+        stageImg.style.opacity = '0';
+        stageImg.style.transform = 'scale(0.97)';
+        setTimeout(() => {
+          stageImg.src = stageScreenshots[currentStageSlide];
+          stageImg.style.opacity = '1';
+          stageImg.style.transform = 'scale(1)';
+        }, 160);
       }
-    }, { passive: true });
+    };
+
+    stageTabs.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-slide'), 10);
+        setStageSlide(idx);
+      });
+    });
+
+    stageDots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.getAttribute('data-slide'), 10);
+        setStageSlide(idx);
+      });
+    });
+
+    // Touch Swipe on Stage Screen
+    let stageTouchStartX = 0;
+    let stageTouchEndX = 0;
+    if (stageWrapper) {
+      stageWrapper.addEventListener('touchstart', (e) => {
+        stageTouchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      stageWrapper.addEventListener('touchend', (e) => {
+        stageTouchEndX = e.changedTouches[0].screenX;
+        const swipeDist = 50;
+        if (stageTouchEndX < stageTouchStartX - swipeDist) {
+          setStageSlide(currentStageSlide + 1);
+        } else if (stageTouchEndX > stageTouchStartX + swipeDist) {
+          setStageSlide(currentStageSlide - 1);
+        }
+      }, { passive: true });
+    }
   }
 
   // ══════════════════════════════════════════════════════
