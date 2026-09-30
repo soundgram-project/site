@@ -2,10 +2,10 @@
  * SOUNDGRAM INTERACTIVE ENGINE (Vanilla JS)
  * Handles:
  * - Responsive Navbar & Mobile Drawer
- * - Gallery Filtering & Count
+ * - Dynamic APK auto-discovery (ARM64, ARMv7)
+ * - Interactive Music Carousel (11 screens with synced captions & touch swipe)
  * - High-Res Fullscreen Lightbox with Keyboard & Touch Gestures
  * - 1-Click Card Copy & Toast Notification
- * - Video Viewport Autoplay/Pause
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   handleScroll();
 
   // ══════════════════════════════════════════════════════
-  // DYNAMIC APK AUTO-DISCOVERY (ANY APK FILENAME)
+  // 2. DYNAMIC APK AUTO-DISCOVERY (ARM64, ARMv7 ONLY)
   // ══════════════════════════════════════════════════════
   let activeApkData = {
     name: 'Soundgra_unibuild_12.10.5.apk',
@@ -51,18 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const heroSubLabel = document.getElementById('heroSubLabel');
     if (heroSubLabel) {
-      heroSubLabel.textContent = `${activeApkData.size} · ARM64, ARMv7, x86_64 · Android 5.0+`;
-    }
-
-    const dlFamMeta = document.getElementById('dlFamMeta');
-    if (dlFamMeta) {
-      dlFamMeta.textContent = `Универсальный · ${activeApkData.size}`;
+      heroSubLabel.textContent = `${activeApkData.size} · ARM64, ARMv7 · Android 5.0+`;
     }
 
     if (activeApkData.version) {
       const heroBadgeText = document.getElementById('heroBadgeText');
       if (heroBadgeText) {
-        heroBadgeText.textContent = `SoundGram v${activeApkData.version} · 1 универсальный APK`;
+        heroBadgeText.textContent = `SoundGram v${activeApkData.version} · Релиз`;
       }
       const dlCardTitle = document.getElementById('dlCardTitle');
       if (dlCardTitle) {
@@ -72,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const autoDiscoverApk = async () => {
-    // 1. Try local latest-apk.json first (fastest, no rate limits)
+    // 1. Try local latest-apk.json first
     try {
       const localRes = await fetch('latest-apk.json?t=' + Date.now());
       if (localRes.ok) {
@@ -83,16 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (e) {}
 
-    // 2. Query GitHub Repo contents to detect ANY .apk uploaded in the root or assets/downloads
+    // 2. Query GitHub Repo contents to detect ANY .apk
     try {
       const ghRes = await fetch('https://api.github.com/repos/soundgram-project/site/contents/?t=' + Date.now());
       if (ghRes.ok) {
         const items = await ghRes.json();
         if (Array.isArray(items)) {
-          // Find any file ending with .apk (ignoring case)
           const apkFiles = items.filter(f => f.name && f.name.toLowerCase().endsWith('.apk'));
           if (apkFiles.length > 0) {
-            // Sort to get newest or largest
             apkFiles.sort((a, b) => b.name.localeCompare(a.name));
             const latest = apkFiles[0];
             const sizeMb = latest.size ? `~${Math.round(latest.size / (1024 * 1024))} МБ` : '~93 МБ';
@@ -113,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   autoDiscoverApk();
 
-  // On click guarantee: download whatever active APK is resolved
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('[data-apk-download]');
     if (trigger) {
@@ -123,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ══════════════════════════════════════════════════════
-  // 2. MOBILE DRAWER MENU
+  // 3. MOBILE DRAWER MENU
   // ══════════════════════════════════════════════════════
   const burgerToggle = document.getElementById('burgerToggle');
   const drawerClose = document.getElementById('drawerClose');
@@ -151,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
   drawerLinks.forEach(link => link.addEventListener('click', closeDrawer));
 
   // ══════════════════════════════════════════════════════
-  // 3. COPY TO CLIPBOARD & TOAST NOTIFICATION
+  // 4. COPY TO CLIPBOARD & TOAST NOTIFICATION
   // ══════════════════════════════════════════════════════
   const copyCardBtn = document.getElementById('copyCardBtn');
   const toast = document.getElementById('toastNotification');
@@ -165,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearTimeout(toastTimeout);
     toastTimeout = setTimeout(() => {
       toast.classList.remove('active');
-    }, 3200);
+    }, 3000);
   };
 
   if (copyCardBtn) {
@@ -177,7 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (navigator.clipboard && window.isSecureContext) {
           await navigator.clipboard.writeText(cardNumberRaw);
         } else {
-          // Fallback
           const textarea = document.createElement('textarea');
           textarea.value = cardNumberRaw;
           textarea.style.position = 'fixed';
@@ -188,51 +179,122 @@ document.addEventListener('DOMContentLoaded', () => {
           document.body.removeChild(textarea);
         }
 
-        // Visual feedback on button
         copyCardBtn.classList.add('copied');
         copyCardBtn.innerHTML = `
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>Скопировано!</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span class="copy-text">Скопировано!</span>
         `;
         showToast('Номер карты 2200 7019 9922 2661 скопирован!');
 
         setTimeout(() => {
           copyCardBtn.classList.remove('copied');
           copyCardBtn.innerHTML = originalHtml;
-        }, 3000);
+        }, 2800);
       } catch (err) {
-        showToast('Номер: 2200701999222661');
+        showToast('Номер карты: 2200 7019 9922 2661');
       }
     });
   }
 
   // ══════════════════════════════════════════════════════
-  // 4. GALLERY FILTERING
+  // 5. INTERACTIVE MUSIC CAROUSEL (11 SCREENS)
   // ══════════════════════════════════════════════════════
-  const filterBtns = document.querySelectorAll('.gallery-filters .filter-btn');
-  const galleryItems = document.querySelectorAll('.gallery-grid .gallery-item');
+  const musicViewport = document.getElementById('musicViewport');
+  const musicTrack = document.getElementById('musicTrack');
+  const musicSlides = document.querySelectorAll('.carousel-slide');
+  const musicPrevBtn = document.getElementById('musicPrevBtn');
+  const musicNextBtn = document.getElementById('musicNextBtn');
+  const musicSlideCounter = document.getElementById('musicSlideCounter');
+  const musicTitlePreview = document.getElementById('musicTitlePreview');
+  const musicPillDots = document.querySelectorAll('.carousel-pills .pill-dot');
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.getAttribute('data-filter');
-      
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+  let currentMusicSlide = 0;
+  const totalMusicSlides = musicSlides.length;
 
-      galleryItems.forEach(item => {
-        const itemCat = item.getAttribute('data-cat');
-        if (filter === 'all' || itemCat === filter) {
-          item.style.display = 'flex';
-          item.style.animation = 'fadeIn 0.4s ease forwards';
-        } else {
-          item.style.display = 'none';
-        }
-      });
+  const updateCarouselUI = (index) => {
+    currentMusicSlide = Math.max(0, Math.min(index, totalMusicSlides - 1));
+
+    // Update Counter & Title Preview
+    if (musicSlideCounter) {
+      const formattedNum = (currentMusicSlide + 1 < 10 ? '0' : '') + (currentMusicSlide + 1);
+      musicSlideCounter.textContent = `${formattedNum} / ${totalMusicSlides}`;
+    }
+
+    const activeSlide = musicSlides[currentMusicSlide];
+    if (activeSlide && musicTitlePreview) {
+      musicTitlePreview.textContent = activeSlide.getAttribute('data-title') || '';
+    }
+
+    // Update Pills
+    musicPillDots.forEach((pill, i) => {
+      pill.classList.toggle('active', i === currentMusicSlide);
+    });
+
+    // Update Slide active class
+    musicSlides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === currentMusicSlide);
+    });
+  };
+
+  const scrollToSlide = (index) => {
+    if (!musicViewport || !musicSlides[index]) return;
+    const targetSlide = musicSlides[index];
+    const offset = targetSlide.offsetLeft - (musicViewport.clientWidth - targetSlide.clientWidth) / 2;
+    musicViewport.scrollTo({
+      left: Math.max(0, offset),
+      behavior: 'smooth'
+    });
+    updateCarouselUI(index);
+  };
+
+  if (musicPrevBtn) {
+    musicPrevBtn.addEventListener('click', () => {
+      const prevIdx = (currentMusicSlide - 1 + totalMusicSlides) % totalMusicSlides;
+      scrollToSlide(prevIdx);
+    });
+  }
+
+  if (musicNextBtn) {
+    musicNextBtn.addEventListener('click', () => {
+      const nextIdx = (currentMusicSlide + 1) % totalMusicSlides;
+      scrollToSlide(nextIdx);
+    });
+  }
+
+  musicPillDots.forEach((pill, i) => {
+    pill.addEventListener('click', () => {
+      scrollToSlide(i);
     });
   });
 
+  // Track scroll event to update UI when user scrolls or swipes
+  let scrollThrottle;
+  if (musicViewport) {
+    musicViewport.addEventListener('scroll', () => {
+      clearTimeout(scrollThrottle);
+      scrollThrottle = setTimeout(() => {
+        const scrollCenter = musicViewport.scrollLeft + musicViewport.clientWidth / 2;
+        let closestIdx = 0;
+        let closestDist = Infinity;
+
+        musicSlides.forEach((slide, i) => {
+          const slideCenter = slide.offsetLeft + slide.clientWidth / 2;
+          const dist = Math.abs(scrollCenter - slideCenter);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestIdx = i;
+          }
+        });
+
+        if (closestIdx !== currentMusicSlide) {
+          updateCarouselUI(closestIdx);
+        }
+      }, 50);
+    }, { passive: true });
+  }
+
   // ══════════════════════════════════════════════════════
-  // 5. FULLSCREEN LIGHTBOX MODAL
+  // 6. FULLSCREEN LIGHTBOX MODAL
   // ══════════════════════════════════════════════════════
   const lightboxModal = document.getElementById('lightboxModal');
   const lightboxBackdrop = document.getElementById('lightboxBackdrop');
@@ -244,21 +306,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightboxDesc = document.getElementById('lightboxDesc');
   const lightboxCounter = document.getElementById('lightboxCounter');
 
-  // Build current image array from gallery items
-  const galleryData = Array.from(galleryItems).map(item => ({
-    src: item.getAttribute('data-src'),
-    title: item.getAttribute('data-title'),
-    desc: item.getAttribute('data-desc')
-  }));
+  // Collect all lightboxable images
+  const allScreens = [
+    { src: 'assets/screenshots/music/01-player.jpg', title: 'Полноэкранный плеер', desc: 'Большая обложка, очередь воспроизведения и оффлайн-кэш' },
+    { src: 'assets/screenshots/music/02-lyrics.jpg', title: 'Синхронизированные тексты песен', desc: 'Караоке-тексты Synced Lyrics, скроллящиеся в такт' },
+    { src: 'assets/screenshots/music/03-equalizer.jpg', title: '10-полосный эквалайзер & BassBoost', desc: 'АЧХ, BassBoost, 3D звук, скорость и тональность' },
+    { src: 'assets/screenshots/music/04-library.jpg', title: 'Музыкальная библиотека', desc: 'Плейлисты, треки и альбомы из облачного канала' },
+    { src: 'assets/screenshots/music/05-my-wave.jpg', title: 'Интерактивная «Моя волна»', desc: 'Умный поток музыки с фильтром настроения и жанров' },
+    { src: 'assets/screenshots/music/06-playlist-view.jpg', title: 'Просмотр и запуск плейлиста', desc: 'Хронометраж, треки и запуск волны по плейлисту' },
+    { src: 'assets/screenshots/music/07-albums.jpg', title: 'Каталог студийных релизов', desc: 'Сетка альбомов в высоком разрешении' },
+    { src: 'assets/screenshots/music/08-search.jpg', title: 'Глобальный поиск музыки', desc: 'Поиск по трекам, альбомам и артистам по всей базе' },
+    { src: 'assets/screenshots/music/09-artist-profile.jpg', title: 'Профиль исполнителя', desc: 'Дискография, популярные треки и профиль музыканта' },
+    { src: 'assets/screenshots/music/10-album-tracks.jpg', title: 'Треклист альбома', desc: 'Оригинальный порядок треков и хронометраж' },
+    { src: 'assets/screenshots/music/11-visual-tuning.jpg', title: 'Статистика и визуальная настройка', desc: 'Счетчик часов прослушивания, лучи сферы и блюр' },
+    { src: 'assets/screenshots/features/01-bypass-proxy.jpg', title: 'SoundGram Bypass', desc: 'Встроенный модифицированный tgws-proxy на порту 1443 без сторонних VPN' },
+    { src: 'assets/screenshots/custom/03-iconpack-engine.jpg', title: 'Движок наборов иконок (Iconpack Engine)', desc: 'Поддержка кастомных наборов: exteragram, Nothing, Liquid Glass, Solar, Plumpy' },
+    { src: 'assets/screenshots/custom/01-chat-bg.jpg', title: 'Обои в главном списке диалогов', desc: 'Кастомные изображения фоном списка диалогов' },
+    { src: 'assets/screenshots/custom/04-typing-anim.jpg', title: 'Анимация набора и жидкий курсор', desc: 'Размытие, вращение букв и плавный курсор' },
+    { src: 'assets/screenshots/custom/05-bottom-tabs.jpg', title: 'Органайзер нижних вкладок и папок', desc: 'Свободный порядок вкладок и перенос папок вниз' },
+    { src: 'assets/screenshots/custom/07-messages-style.jpg', title: 'Стиль сообщений и секунды во времени', desc: 'Секунды во времени, цвета ответов и стиль цитирования' },
+    { src: 'assets/screenshots/features/05-settings-hub.jpg', title: 'Центр настроек SoundGram', desc: 'Единый хаб всех кастомных функций и переключателей' },
+    { src: 'assets/screenshots/privacy/01-ghost-mode.jpg', title: 'Режим призрака', desc: 'Скрытие онлайна, историй, тайпинга и нечиталки сообщений' },
+    { src: 'assets/screenshots/privacy/02-anti-delete.jpg', title: 'Анти-удаление сообщений', desc: 'Сохранение удаленных текстов, медиа и истории правок' },
+    { src: 'assets/screenshots/privacy/03-security-pin.jpg', title: 'Биометрия и экстренный PIN', desc: 'Защита избранного, скрытых чатов и архива паролем' },
+    { src: 'assets/screenshots/features/04-video-notes-quality.jpg', title: 'Качество видеокружков', desc: 'Запись кружков в 1080p 60 FPS с битрейтом до 2200 kbps и OIS' },
+    { src: 'assets/screenshots/features/03-camerax.jpg', title: 'Настройки камеры', desc: 'Двойная камера, старт со сверхширокоугольного модуля и зум' }
+  ];
 
-  let currentIndex = 0;
+  let currentLightboxIdx = 0;
 
   window.openLightbox = (src, title = '', desc = '') => {
-    // Find index if in gallery
-    const foundIdx = galleryData.findIndex(item => item.src === src);
+    const foundIdx = allScreens.findIndex(s => s.src === src);
     if (foundIdx !== -1) {
-      currentIndex = foundIdx;
-      updateLightboxContent();
+      currentLightboxIdx = foundIdx;
+      updateLightboxDisplay();
     } else {
       lightboxImg.src = src;
       lightboxTitle.textContent = title || 'SoundGram';
@@ -271,23 +352,23 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = 'hidden';
   };
 
-  const updateLightboxContent = () => {
-    const item = galleryData[currentIndex];
+  const updateLightboxDisplay = () => {
+    const item = allScreens[currentLightboxIdx];
     if (!item) return;
     lightboxImg.src = item.src;
     lightboxTitle.textContent = item.title;
     lightboxDesc.textContent = item.desc;
-    lightboxCounter.textContent = `${currentIndex + 1} / ${galleryData.length}`;
+    lightboxCounter.textContent = `${currentLightboxIdx + 1} / ${allScreens.length}`;
   };
 
-  const showPrevImage = () => {
-    currentIndex = (currentIndex - 1 + galleryData.length) % galleryData.length;
-    updateLightboxContent();
+  const showPrevLightbox = () => {
+    currentLightboxIdx = (currentLightboxIdx - 1 + allScreens.length) % allScreens.length;
+    updateLightboxDisplay();
   };
 
-  const showNextImage = () => {
-    currentIndex = (currentIndex + 1) % galleryData.length;
-    updateLightboxContent();
+  const showNextLightbox = () => {
+    currentLightboxIdx = (currentLightboxIdx + 1) % allScreens.length;
+    updateLightboxDisplay();
   };
 
   const closeLightbox = () => {
@@ -296,27 +377,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   };
 
-  // Attach click listener to gallery cards
-  galleryItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const src = item.getAttribute('data-src');
-      const title = item.getAttribute('data-title');
-      const desc = item.getAttribute('data-desc');
-      window.openLightbox(src, title, desc);
-    });
-  });
-
   if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
   if (lightboxBackdrop) lightboxBackdrop.addEventListener('click', closeLightbox);
-  if (lightboxPrev) lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); showPrevImage(); });
-  if (lightboxNext) lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); showNextImage(); });
+  if (lightboxPrev) lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); showPrevLightbox(); });
+  if (lightboxNext) lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); showNextLightbox(); });
 
-  // Keyboard navigation
   window.addEventListener('keydown', (e) => {
-    if (!lightboxModal.classList.contains('active')) return;
+    if (!lightboxModal || !lightboxModal.classList.contains('active')) return;
     if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') showPrevImage();
-    if (e.key === 'ArrowRight') showNextImage();
+    if (e.key === 'ArrowLeft') showPrevLightbox();
+    if (e.key === 'ArrowRight') showNextLightbox();
   });
 
   // Touch Swipe for Lightbox
@@ -329,125 +399,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     lightboxModal.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
+      if (touchEndX < touchStartX - 50) showNextLightbox();
+      if (touchEndX > touchStartX + 50) showPrevLightbox();
     }, { passive: true });
   }
 
-  const handleSwipe = () => {
-    const swipeThreshold = 50;
-    if (touchEndX < touchStartX - swipeThreshold) {
-      showNextImage(); // Swiped left
-    }
-    if (touchEndX > touchStartX + swipeThreshold) {
-      showPrevImage(); // Swiped right
-    }
-  };
-
   // ══════════════════════════════════════════════════════
-  // 6. VIDEO AUTOPLAY / OBSERVER
-  // ══════════════════════════════════════════════════════
-  const autoVideos = document.querySelectorAll('.chat-bg-video, .figure-video');
-  if (autoVideos.length > 0 && 'IntersectionObserver' in window) {
-    const videoObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const vid = entry.target;
-        if (entry.isIntersecting) {
-          vid.play().catch(() => {});
-        } else {
-          vid.pause();
-        }
-      });
-    }, { threshold: 0.2 });
-    autoVideos.forEach(v => videoObserver.observe(v));
-  }
-
-  // ══════════════════════════════════════════════════════
-  // 7. FEATURES STAGE INTERACTIVE TABBED SLIDER
-  // ══════════════════════════════════════════════════════
-  const stageTabs = document.querySelectorAll('#featureTabs .feat-tab-btn');
-  if (stageTabs.length > 0) {
-    const stagePanels = document.querySelectorAll('#stageContentPanels .stage-panel');
-    const stageDots = document.querySelectorAll('#stageDots .s-dot');
-    const stageImg = document.getElementById('stageImg');
-    const stageWrapper = document.querySelector('.features-stage-wrapper');
-
-    const stageScreenshots = [
-      'assets/screenshots/music/01-player.jpg',
-      'assets/screenshots/custom/01-chat-bg.jpg',
-      'assets/screenshots/privacy/01-ghost-mode.jpg',
-      'assets/screenshots/features/04-video-notes-quality.jpg'
-    ];
-
-    let currentStageSlide = 0;
-
-    const setStageSlide = (index) => {
-      currentStageSlide = (index + stageScreenshots.length) % stageScreenshots.length;
-
-      // Tabs
-      stageTabs.forEach((tab, i) => {
-        const isActive = i === currentStageSlide;
-        tab.classList.toggle('active', isActive);
-        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      });
-
-      // Panels
-      stagePanels.forEach((panel, i) => {
-        panel.classList.toggle('active', i === currentStageSlide);
-      });
-
-      // Dots
-      stageDots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentStageSlide);
-      });
-
-      // Image crossfade
-      if (stageImg) {
-        stageImg.style.opacity = '0';
-        stageImg.style.transform = 'scale(0.97)';
-        setTimeout(() => {
-          stageImg.src = stageScreenshots[currentStageSlide];
-          stageImg.style.opacity = '1';
-          stageImg.style.transform = 'scale(1)';
-        }, 160);
-      }
-    };
-
-    stageTabs.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const idx = parseInt(btn.getAttribute('data-slide'), 10);
-        setStageSlide(idx);
-      });
-    });
-
-    stageDots.forEach((dot) => {
-      dot.addEventListener('click', () => {
-        const idx = parseInt(dot.getAttribute('data-slide'), 10);
-        setStageSlide(idx);
-      });
-    });
-
-    // Touch Swipe on Stage Screen
-    let stageTouchStartX = 0;
-    let stageTouchEndX = 0;
-    if (stageWrapper) {
-      stageWrapper.addEventListener('touchstart', (e) => {
-        stageTouchStartX = e.changedTouches[0].screenX;
-      }, { passive: true });
-
-      stageWrapper.addEventListener('touchend', (e) => {
-        stageTouchEndX = e.changedTouches[0].screenX;
-        const swipeDist = 50;
-        if (stageTouchEndX < stageTouchStartX - swipeDist) {
-          setStageSlide(currentStageSlide + 1);
-        } else if (stageTouchEndX > stageTouchStartX + swipeDist) {
-          setStageSlide(currentStageSlide - 1);
-        }
-      }, { passive: true });
-    }
-  }
-
-  // ══════════════════════════════════════════════════════
-  // 8. BACK TO TOP
+  // 7. BACK TO TOP
   // ══════════════════════════════════════════════════════
   const backToTop = document.getElementById('backToTop');
   if (backToTop) {
