@@ -1,0 +1,41 @@
+name: Auto Update APK Info
+
+on:
+  push:
+    paths:
+      - '**/*.apk'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-apk-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run APK update script
+        run: |
+          chmod +x scripts/update-apk.py
+          ./scripts/update-apk.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add latest-apk.json
+          if git diff --staged --quiet; then
+            echo "No changes in latest-apk.json"
+          else
+            git commit -m "Auto-update latest-apk.json to newest APK version [skip ci]"
+            git push
+          fi

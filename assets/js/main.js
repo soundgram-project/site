@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   handleScroll();
 
   // ══════════════════════════════════════════════════════
-  // 2. DYNAMIC APK AUTO-DISCOVERY (ARM64, ARMv7 ONLY)
+  // 2. DYNAMIC APK AUTO-DISCOVERY & AUTOMATIC VERSION UPDATE
   // ══════════════════════════════════════════════════════
   let activeApkData = {
     name: 'Soundgra_unibuild_12.10.5.apk',
@@ -33,75 +33,186 @@ document.addEventListener('DOMContentLoaded', () => {
     version: '12.10.5'
   };
 
+  /**
+   * Extracts version from filename, e.g.:
+   * Soundgra_unibuild_12.10.5.apk -> 12.10.5
+   * SoundGram-v12.5.1(1240)-arm64-v8a.apk -> 12.5.1
+   * soundgram_12.11.0.apk -> 12.11.0
+   * SoundGram_13.0.apk -> 13.0
+   */
+  const extractVersionFromFilename = (filename) => {
+    if (!filename) return null;
+    const match = filename.match(/(?:v|version|_|-|\b)(\d+\.\d+(?:\.\d+)?)/i);
+    return match ? match[1] : null;
+  };
+
+  /**
+   * Semantic version comparison helper
+   */
+  const compareVersions = (v1, v2) => {
+    if (!v1 && !v2) return 0;
+    if (!v1) return -1;
+    if (!v2) return 1;
+    const p1 = String(v1).split('.').map(n => parseInt(n, 10) || 0);
+    const p2 = String(v2).split('.').map(n => parseInt(n, 10) || 0);
+    const len = Math.max(p1.length, p2.length);
+    for (let i = 0; i < len; i++) {
+      const n1 = p1[i] || 0;
+      const n2 = p2[i] || 0;
+      if (n1 > n2) return 1;
+      if (n1 < n2) return -1;
+    }
+    return 0;
+  };
+
   const applyApkToUI = (data) => {
     activeApkData = { ...activeApkData, ...data };
     
-    // Update all download elements
+    // Auto-extract version from filename if not explicitly provided
+    if (!activeApkData.version && activeApkData.name) {
+      activeApkData.version = extractVersionFromFilename(activeApkData.name) || '12.10.5';
+    }
+
+    // 1. Update all download buttons and links
     const apkLinks = document.querySelectorAll('[data-apk-download], a.btn-hero-dl, a.btn-big-dl');
     apkLinks.forEach(link => {
       link.href = activeApkData.url;
       link.setAttribute('download', activeApkData.name);
     });
 
-    const dlFileName = document.getElementById('dlFileName');
-    if (dlFileName) dlFileName.textContent = activeApkData.name;
+    // 2. Update Header Brand Badge
+    const headerBadge = document.getElementById('headerVersionBadge');
+    if (headerBadge) {
+      headerBadge.textContent = `v${activeApkData.version}`;
+    }
 
-    const dlFileSize = document.getElementById('dlFileSize');
-    if (dlFileSize) dlFileSize.textContent = activeApkData.size;
+    // 3. Update Drawer Brand Badge
+    const drawerBadge = document.getElementById('drawerVersionBadge');
+    if (drawerBadge) {
+      drawerBadge.textContent = `v${activeApkData.version}`;
+    }
 
+    // 4. Update Hero Badge
+    const heroBadgeText = document.getElementById('heroBadgeText');
+    if (heroBadgeText) {
+      heroBadgeText.textContent = `SoundGram v${activeApkData.version} · Релиз`;
+    }
+
+    // 5. Update Hero Sub-label
     const heroSubLabel = document.getElementById('heroSubLabel');
     if (heroSubLabel) {
       heroSubLabel.textContent = `${activeApkData.size} · ARM64, ARMv7 · Android 5.0+`;
     }
 
-    if (activeApkData.version) {
-      const heroBadgeText = document.getElementById('heroBadgeText');
-      if (heroBadgeText) {
-        heroBadgeText.textContent = `SoundGram v${activeApkData.version} · Релиз`;
-      }
-      const dlCardTitle = document.getElementById('dlCardTitle');
-      if (dlCardTitle) {
-        dlCardTitle.textContent = `SoundGram v${activeApkData.version} (Release)`;
-      }
+    // 6. Update Download Card Title
+    const dlCardTitle = document.getElementById('dlCardTitle');
+    if (dlCardTitle) {
+      dlCardTitle.textContent = `SoundGram v${activeApkData.version} (Release)`;
     }
+
+    // 7. Update Download Meta File Name
+    const dlFileName = document.getElementById('dlFileName');
+    if (dlFileName) dlFileName.textContent = activeApkData.name;
+
+    // 8. Update Download Meta File Size
+    const dlFileSize = document.getElementById('dlFileSize');
+    if (dlFileSize) dlFileSize.textContent = activeApkData.size;
   };
 
   const autoDiscoverApk = async () => {
-    // 1. Try local latest-apk.json first
+    // 1. Try local latest-apk.json first (fastest, no rate limits)
     try {
       const localRes = await fetch('latest-apk.json?t=' + Date.now());
       if (localRes.ok) {
         const json = await localRes.json();
-        if (json && json.name) {
+        if (json && (json.name || json.version)) {
           applyApkToUI(json);
         }
       }
     } catch (e) {}
 
-    // 2. Query GitHub Repo contents to detect ANY .apk
+    // 2. Query GitHub Repo contents & releases to detect ANY new .apk posted in the repo
     try {
-      const ghRes = await fetch('https://api.github.com/repos/soundgram-project/site/contents/?t=' + Date.now());
-      if (ghRes.ok) {
-        const items = await ghRes.json();
+      const candidates = [];
+
+      // Check root directory contents
+      const rootRes = await fetch('https://api.github.com/repos/soundgram-project/site/contents/?t=' + Date.now());
+      if (rootRes.ok) {
+        const items = await rootRes.json();
         if (Array.isArray(items)) {
-          const apkFiles = items.filter(f => f.name && f.name.toLowerCase().endsWith('.apk'));
-          if (apkFiles.length > 0) {
-            apkFiles.sort((a, b) => b.name.localeCompare(a.name));
-            const latest = apkFiles[0];
-            const sizeMb = latest.size ? `~${Math.round(latest.size / (1024 * 1024))} МБ` : '~93 МБ';
-            const verMatch = latest.name.match(/\d+\.\d+(\.\d+)?/);
-            const ver = verMatch ? verMatch[0] : '';
-            applyApkToUI({
-              name: latest.name,
-              url: latest.name,
-              size: sizeMb,
-              version: ver || activeApkData.version
-            });
-            return;
-          }
+          items.forEach(item => {
+            if (item.name && item.name.toLowerCase().endsWith('.apk')) {
+              const ver = extractVersionFromFilename(item.name);
+              const sizeMb = item.size ? `~${Math.round(item.size / (1024 * 1024))} МБ` : '~93 МБ';
+              candidates.push({
+                name: item.name,
+                url: item.download_url || item.name,
+                size: sizeMb,
+                version: ver || '0.0.0'
+              });
+            }
+          });
         }
       }
-    } catch (e) {}
+
+      // Check assets/downloads directory contents
+      const dlRes = await fetch('https://api.github.com/repos/soundgram-project/site/contents/assets/downloads/?t=' + Date.now());
+      if (dlRes.ok) {
+        const items = await dlRes.json();
+        if (Array.isArray(items)) {
+          items.forEach(item => {
+            if (item.name && item.name.toLowerCase().endsWith('.apk')) {
+              const ver = extractVersionFromFilename(item.name);
+              const sizeMb = item.size ? `~${Math.round(item.size / (1024 * 1024))} МБ` : '~93 МБ';
+              candidates.push({
+                name: item.name,
+                url: item.download_url || `assets/downloads/${item.name}`,
+                size: sizeMb,
+                version: ver || '0.0.0'
+              });
+            }
+          });
+        }
+      }
+
+      // Check GitHub Releases
+      const relRes = await fetch('https://api.github.com/repos/soundgram-project/site/releases?t=' + Date.now());
+      if (relRes.ok) {
+        const releases = await relRes.json();
+        if (Array.isArray(releases)) {
+          releases.forEach(release => {
+            const relVer = extractVersionFromFilename(release.tag_name || release.name);
+            if (Array.isArray(release.assets)) {
+              release.assets.forEach(asset => {
+                if (asset.name && asset.name.toLowerCase().endsWith('.apk')) {
+                  const ver = extractVersionFromFilename(asset.name) || relVer;
+                  const sizeMb = asset.size ? `~${Math.round(asset.size / (1024 * 1024))} МБ` : '~93 МБ';
+                  candidates.push({
+                    name: asset.name,
+                    url: asset.browser_download_url,
+                    size: sizeMb,
+                    version: ver || '0.0.0'
+                  });
+                }
+              });
+            }
+          });
+        }
+      }
+
+      // If candidates found, sort by semver version descending
+      if (candidates.length > 0) {
+        candidates.sort((a, b) => compareVersions(b.version, a.version));
+        const best = candidates[0];
+
+        // Apply if it's greater or equal to current active APK
+        if (compareVersions(best.version, activeApkData.version) >= 0) {
+          applyApkToUI(best);
+        }
+      }
+    } catch (e) {
+      // Graceful fallback to latest-apk.json or static fallback
+    }
   };
 
   autoDiscoverApk();
